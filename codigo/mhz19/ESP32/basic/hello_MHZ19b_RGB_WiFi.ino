@@ -37,8 +37,8 @@ const int tx2_pin = 17;	//Serial tx1 pin no
   ----------------------------------------------------------*/
 #include <WiFi.h>
 
-const char* ssid     = "Fibertel WiFi668 2.4GHz";
-const char* password = "01424988126";
+const char* ssid     = "xxxxxxx";
+const char* password = "xxxxxxx";
 
 WiFiServer server(80);
 
