@@ -14,6 +14,12 @@ Entendemos que esta situación sanitaria está evidenciando la necesidad de este
 
 - Importancia de la ventilación para la prevención de la COVID-19.  Canal del Ministerio de Ciencia, Tecnología e Innovación, 26 marzo de 2021. https://youtu.be/fpMb1TzraGw  
 
+- Natalia Rubinstein, Ciclo Ciencia para ventilar: Yo ventilo, ella ventila, vos ventilás. ¿Pero lo hacemos bien? https://youtu.be/4q3odycwvYs
+
+- Sandra Cordo, Ciclo Ciencia para ventilar: Transmisión de Covid-19 por aire. Principales medidas de prevención. https://youtu.be/4AUWS4Dpn0A
+
+- Alejandro Nadra, Juan Fernández Zaragoza, Ciclo Ciencia para ventilar: ¿Qué son las tecnologías libres y qué aportan en el contexto de pandemia? https://youtu.be/301sSYFhCg8
+
 - Página de Jorge Aliaga (Medición de CO2) http://www.jorgealiaga.com.ar/?page_id=2864 
       Sw: https://github.com/jlaliaga/Medidor-de-CO2/releases/tag/V2 
 
