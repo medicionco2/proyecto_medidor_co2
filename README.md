@@ -26,6 +26,18 @@ En esta aplicación, el significado de los colores es el siguiente:
 
 El LED en azul significa que el sensor se está calentando o que el aparato está en modo de calibración.
 
+## Conexión de componentes
+
+![Diagrama de conexiones](https://github.com/medicionco2/proyecto_medidor_co2/blob/main/diagramas_conexion/diagrama_esp32.png)
+
+La alimentación del dispositivo se hace mediante un cargador USB estándar.
+
+El sensor puede venir con un cable armado con una ficha que no es compatible con los conectores del ESP32. Por eso, una alternativa es cortar el cable y  empalmar cables dupont.
+
+Para más ayuda, ese video muestra en detalle cómo se conecta el sensor MH-Z19b al ESP32 https://www.youtube.com/watch?v=vmDCqNXVZKQ
+
+En resumen, conectar el sensor requiere de 4 cables: Alimentación (5V), tierra (GND), y los dos cables de la conexión serie (Tx y Rx). 
+
 ## Programación
 
 1. Instalar IDE Arduino en una PC 
