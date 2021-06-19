@@ -10,6 +10,22 @@ El diseño cuenta con una computadora de placa reducida, también llamado de pla
 
 Entendemos que esta situación sanitaria está evidenciando la necesidad de este tipo de dispositivos, no solo en esta coyuntura, sino post-pandemia, como elemento que apunta a asegurar un nivel de calidad de aire desde el punto de vista sanitario. En otras palabras, sería un elemento más de seguridad e higiene en espacios donde se realicen diferentes tipos de actividades humanas, incluida la educación en todos los niveles.
 
+## Lista de materiales
+
+Son cuatro componentes más los cables de conexión y el gabinete.
+1. ESP32: Hay diversos modelos y versiones del SoC ESP32.
+2. Sensor MH-Z19b
+3. Pulsador
+4. Led RGB más 3 resistencias 220 ohm (por simplicidad, se recoienda que sea en un solo módulo).
+
+En esta aplicación, el significado de los colores va a ser el siguiente:
+- Verde significa baja concentración de CO2, bajo riesgo de contagio por aerosoles.
+- Amarillo es acercándose a riesgo alto
+- Rojo es riesgo alto, debe ventilarse el ambiente
+- Violeta es riesgo alto, debería evacuarse el ambiente
+
+El LED en azul significa que el sensor se está calentando o que el aparato está en modo de calibración.
+
 ## Programación
 
 1. Instalar IDE Arduino en una PC 
