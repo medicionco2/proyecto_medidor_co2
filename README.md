@@ -18,11 +18,11 @@ Son cuatro componentes más los cables de conexión y el gabinete.
 3. Pulsador
 4. Led RGB más 3 resistencias 220 ohm (por simplicidad, se recoienda que sea en un solo módulo).
 
-En esta aplicación, el significado de los colores va a ser el siguiente:
+En esta aplicación, el significado de los colores es el siguiente:
 - Verde significa baja concentración de CO2, bajo riesgo de contagio por aerosoles.
 - Amarillo es acercándose a riesgo alto
 - Rojo es riesgo alto, debe ventilarse el ambiente
-- Violeta es riesgo alto, debería evacuarse el ambiente
+- Violeta es riesgo alto, debería evacuarse momentáneamente el ambiente
 
 El LED en azul significa que el sensor se está calentando o que el aparato está en modo de calibración.
 
