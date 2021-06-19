@@ -10,6 +10,18 @@ El diseño cuenta con una computadora de placa reducida, también llamado de pla
 
 Entendemos que esta situación sanitaria está evidenciando la necesidad de este tipo de dispositivos, no solo en esta coyuntura, sino post-pandemia, como elemento que apunta a asegurar un nivel de calidad de aire desde el punto de vista sanitario. En otras palabras, sería un elemento más de seguridad e higiene en espacios donde se realicen diferentes tipos de actividades humanas, incluida la educación en todos los niveles.
 
+## Programación
+
+1. Instalar IDE Arduino en una PC 
+2. Instalar soporte para ESP32
+Las instrucciones para estos dos primeros pasos se pueden ver en https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/ 
+	
+3. Instalar librería para el sensor MH-Z19b
+	https://github.com/piot-jp-Team/mhz19_uart 
+4. Copiar y compilar el código fuente seleccionado usando Arduino IDE 
+5. Descargar el código ejecutable en el ESP32 de manera que quede programado con la aplicación seleccionada.
+
+
 ## Más Información
 
 - Importancia de la ventilación para la prevención de la COVID-19.  Canal del Ministerio de Ciencia, Tecnología e Innovación, 26 marzo de 2021. https://youtu.be/fpMb1TzraGw  
