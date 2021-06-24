@@ -7,14 +7,21 @@
                                 (2) if the duration is longer than one second, 
                                 the device goes to calibration mode.
                               Basic WiFi Server support
-  version 0.1
 
   Copyright (c) 2021 Elías Todorovich
 
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU Affero General Public License as
-  published by the Free Software Foundation, either version 3 of the
-  License, or (at your option) any later version. 
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 #ifndef ARDUINO_ARCH_ESP32
@@ -37,8 +44,8 @@ const int tx2_pin = 17;	//Serial tx1 pin no
   ----------------------------------------------------------*/
 #include <WiFi.h>
 
-const char* ssid     = "xxxxxxx";
-const char* password = "xxxxxxx";
+const char* ssid     = "xxxxxxxxxxx";
+const char* password = "xxxxxxxxxxx";
 
 WiFiServer server(80);
 
@@ -137,7 +144,7 @@ void setup() {
     
   server.begin();
 
-  delay (90000); // Wait 90 seconds for warming purposes
+  delay (180000); // Wait 3 minutes for warming purposes
  
   Serial.println("co2[ppm],temp[°C]");
 }
