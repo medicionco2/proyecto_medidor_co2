@@ -165,7 +165,8 @@ void setRGB_LEDColor(int red, int green, int blue)
   ----------------------------------------------------------*/
 void calibrate_mhz19()
 {
-  const int waitingMinutes = 3;  //waiting 30 minutes
+  // the device must remain stable, outdoors for waitingMinutes minutes
+  const int waitingMinutes = 21;  
   const long waitingSeconds = waitingMinutes * 60L; 
   long cnt_cal = 0; 
 
@@ -174,16 +175,16 @@ void calibrate_mhz19()
   setRGB_LEDColor (0, 0, color_intensity);  // Blue means warming or Configuring:
                                             //   baseline setting or calibrating
 
-  while (cnt_cal <= waitingSeconds) { // espera media hora
+  while (cnt_cal <= waitingSeconds) { // wait for waitingMinutes minutes
     ++cnt_cal;
     color_intensity = color_intensity-50; 
     
     setRGB_LEDColor (0, 0, color_intensity);
-    Serial.println(color_intensity);
+
     delay (1000);   // One second
   }
-  // paso media hora  
-  mhz19.calibrateZero (); // 1st zero calibration
+  // waitingMinutes minutes elapsed  
+  mhz19.calibrateZero ();  // 1st zero calibration
   delay(60000); 
   mhz19.calibrateZero ();  // 2nd zero calibration
 }
