@@ -45,6 +45,9 @@ En resumen, conectar el sensor requiere de 4 cables: Alimentación (5V), tierra 
 Las instrucciones para estos dos primeros pasos se pueden ver en https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/ 
 	
 3. Instalar librería para el sensor MH-Z19b.
+	https://downloads.arduino.cc/libraries/github.com/WifWaf/MH_Z19-1.5.3.zip
+	
+   En los ejemplos de hasta 27 Junio 2020 usábamos:
 	https://github.com/piot-jp-Team/mhz19_uart 
 4. Copiar y compilar el código fuente seleccionado usando Arduino IDE.
 5. Descargar el código ejecutable en el ESP32 de manera que quede programado con la aplicación seleccionada.
