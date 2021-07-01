@@ -23,7 +23,7 @@ Se necesitan cuatro componentes más los cables de conexión y el gabinete.
 3. Pulsador
 4. LED RGB más 3 resistencias 220 ohm. Por simplicidad, se recomienda que sea en un solo módulo, como en la siguiente figura:
 
-![Modulo LED RGB](https://user-images.githubusercontent.com/30849839/124174887-45b51b80-da83-11eb-9d41-7c1573fa00e8.png)
+<img src="https://user-images.githubusercontent.com/30849839/124174887-45b51b80-da83-11eb-9d41-7c1573fa00e8.png" alt="Modulo LED RGB" width="200"/>
 
 En esta aplicación, el significado de los colores es el siguiente:
 - Verde significa baja concentración de CO2, bajo riesgo de contagio por aerosoles.
@@ -72,7 +72,7 @@ Una vez conectado el cable USB, el dispositivo se pone en funcionamiento. No hay
 
 Si se seleccionó la versión Bluetooth, se pueden ver las medidas en un teléfono inteligente. Una posibilidad es usar la app "Serial Bluetooth Terminal" que se pude descargar en el teléfono desde https://play.google.com. En ese caso vas a ver los datos que vienen del medidor de esta manera:
 
-![Captura Serial Bluetooth Terminal](https://user-images.githubusercontent.com/30849839/124181533-fe7f5880-da8b-11eb-9bb3-cf72c6b72cdd.png)
+<img src="https://user-images.githubusercontent.com/30849839/124181533-fe7f5880-da8b-11eb-9bb3-cf72c6b72cdd.png" alt="Captura Serial Bluetooth Terminal" width="300"/>
 
 ### Calibración
 
@@ -82,9 +82,9 @@ Para la calibración, hay que poner el dispositivo al aire libre, oprimir el pul
 
 ## Propuesta
 
-Te invitamos a sumarte a este proyecto, a construír tu propio medidor, compartir resultados, y a extender el hardware pero sobre todo el software. Para consultas, por favor, escribir a etodorov@exa.unicen.edu.ar.
+Te invitamos a sumarte a este proyecto, a construír tu propio medidor, compartir resultados, y a extender el hardware pero sobre todo, el software. Para consultas, por favor, escribir a etodorov@exa.unicen.edu.ar.
 
-Con motivaciones parecidas, en Internet se encuentran varios proyectos como éste. En este caso, el concepto que nos guía es el de IoT, Internet de las Cosas, donde el hardware es mínimo, con conexión a Internet, y donde el valor está en el software, hasta llegar a usar una plataforma IoT. Esas plataformas (existen más de 600 diferentes) proveen servicios como seguridad, actualización remota del software, visualización de los datos, gestión de eventos, gestión de los propios dispositivos en el caso que se usen varios, o muchos, por qué no miles.
+Con motivaciones parecidas, en Internet existen varios proyectos como éste. En este caso, el concepto que nos guía es el de IoT, Internet de las Cosas, donde el hardware es mínimo, con conexión a Internet, y donde el valor está en el software, hasta llegar a usar una plataforma IoT. Esas plataformas (existen más de 600 diferentes) proveen servicios como seguridad, actualización remota del software, visualización de los datos, gestión de eventos, gestión de los propios dispositivos en el caso que se usen varios, o muchos, por qué no miles.
 
 ## Más Información
 
