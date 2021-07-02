@@ -88,6 +88,9 @@ Con motivaciones parecidas, en Internet existen varios proyectos como éste. En 
 
 Otra diferencia es que este proyecto se centra en un solo tipo de sensor y un solo tipo de "computadora de placa simple". Existen varias alternativas para ambos, pero para quien comienza, creemos que es más sencillo tener una sola plataforma. Como decíamos, el concepto que nos guía es que el valor va a estar en el software. En cuanto al software, sí proponemos diferentes versiones para Wifi, Bluetooth, con funcionalidad básica, y esperemos que pronto, funcionalidad más avanzada.
 
+> Y lo más importante de todo: Generar conciencia sobre la seguridad e higiene del aire que respiramos en ambientes interiores. <img src="https://user-images.githubusercontent.com/30849839/124317329-6053c700-db4d-11eb-964f-cf9fad7fc8e3.png" alt="Higiene" width="200"/>
+
+
 Te invitamos a sumarte a este proyecto, a construír tu propio medidor, compartir resultados, y a extender el hardware pero sobre todo, el software. Para consultas, por favor, escribir a etodorov@exa.unicen.edu.ar.
 
 ## Más Información
@@ -108,6 +111,8 @@ Te invitamos a sumarte a este proyecto, a construír tu propio medidor, comparti
       Sw: https://github.com/jlaliaga/Medidor-de-CO2/releases/tag/V2 
       
 	- Un medidor de CO2. https://emariete.com/medidor-casero-co2/
+
+	- Ciudado con los sensores *fake*: https://youtu.be/dWYMuFZt8kk
 
 	- Proyecto CODOS. https://github.com/miguelangelcasanova/codos
 
