@@ -109,5 +109,7 @@ Te invitamos a sumarte a este proyecto, a construír tu propio medidor, comparti
       
 	- Un medidor de CO2. https://emariete.com/medidor-casero-co2/
 
+	- Proyecto CODOS. https://github.com/miguelangelcasanova/codos
+
 	- Comparativa de sensores, https://soloelectronicos.com/2020/11/01/monitor-de-co2-con-sensor-mh-z19/
       Recomiendan el MH-Z19, lo mismo que Jorge Aliaga. La ventaja adicional, que no mencionan, es que al tener medida de temperatura junto con CO2, se puede controlar la habitabilidad de un espacio con un criterio CO2 y temperatura combinado.
