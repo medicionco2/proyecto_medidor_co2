@@ -1,5 +1,7 @@
 # Medidor CO2 para prevención de la transmisión del Covid19 en ambientes interiores
 
+> Este proyecto está en plena evolución. Este texto, los programas, y demás materiales se están actualizando frecuentemente.
+
 Al respirar, absorbemos oxígeno del aire y al exhalar expulsamos dióxido de carbono (CO2). En ambientes interiores, con el correr de los minutos, si no se ventila, la respiración de las personas allí presentes hace que suba la concentración de CO2. Se ha demostrado que hay correlación entre esa concentración y el riesgo de contagio de enfermedades respiratorias en general. En realidad, hay una antigua prescripción médica sobre ventilar para prevenir el contagio de enfermedades respiratorias. En este tiempo de pandemia de COVID-19, esa recomendación se transformó en la principal para minimizar el riesgo de contagio. En resumen, es importante medir la concentración de CO2 para saber si un ambiente interior está suficientemente ventilado dada una cierta cantidad de gente que realiza actividad en ese espacio. 
 
 Se propone el diseño de un dispositivo medidor de CO2, de uso orientativo, para espacios interiores, como medida de prevención de enfermedades infecciosas que se contagian mediante aerosoles (particularmente, COVID-19). 
@@ -82,9 +84,11 @@ Para la calibración, hay que poner el dispositivo al aire libre, oprimir el pul
 
 ## Propuesta
 
-Te invitamos a sumarte a este proyecto, a construír tu propio medidor, compartir resultados, y a extender el hardware pero sobre todo, el software. Para consultas, por favor, escribir a etodorov@exa.unicen.edu.ar.
+Con motivaciones parecidas, en Internet existen varios proyectos como éste. En este caso, el concepto que nos guía es el de IoT, Internet de las Cosas, donde el hardware es mínimo, con conexión a Internet, y donde el valor está en el software, hasta llegar a usar una plataforma IoT. Esas plataformas (existen más de 600 diferentes) proveen servicios como seguridad, actualización remota del software, visualización de los datos, gestión de eventos, gestión de los propios dispositivos en el caso que se usen varios, o muchos, y por qué no miles.
 
-Con motivaciones parecidas, en Internet existen varios proyectos como éste. En este caso, el concepto que nos guía es el de IoT, Internet de las Cosas, donde el hardware es mínimo, con conexión a Internet, y donde el valor está en el software, hasta llegar a usar una plataforma IoT. Esas plataformas (existen más de 600 diferentes) proveen servicios como seguridad, actualización remota del software, visualización de los datos, gestión de eventos, gestión de los propios dispositivos en el caso que se usen varios, o muchos, por qué no miles.
+Otra diferencia es que este proyecto se centra en un solo tipo de sensor y un solo tipo de "computadora de placa simple". Existen varias alternativas para ambos, pero para quien comienza, creemos que es más sencillo tener una sola plataforma. Como decíamos, el concepto que nos guía es que el valor va a estar en el software. En cuanto al software, sí proponemos diferentes versiones para Wifi, Bluetooth, con funcionalidad básica, y esperemos que pronto, funcionalidad más avanzada.
+
+Te invitamos a sumarte a este proyecto, a construír tu propio medidor, compartir resultados, y a extender el hardware pero sobre todo, el software. Para consultas, por favor, escribir a etodorov@exa.unicen.edu.ar.
 
 ## Más Información
 
@@ -98,10 +102,12 @@ Con motivaciones parecidas, en Internet existen varios proyectos como éste. En 
 
 - Guía del Consejo Superior de Investigaciones Científicas (España) sobre cómo se deben ventilar para reducir el riesgo de contagio por Covid-19. https://www.csic.es/en/node/1259002
 
-- Página de Jorge Aliaga (Medición de CO2) http://www.jorgealiaga.com.ar/?page_id=2864 
+- Proyectos similares y material técnico
+
+	- Página del Dr. Jorge Aliaga (Medición de CO2) http://www.jorgealiaga.com.ar/?page_id=2864 
       Sw: https://github.com/jlaliaga/Medidor-de-CO2/releases/tag/V2 
       
-- Un medidor de CO2. https://emariete.com/medidor-casero-co2/
+	- Un medidor de CO2. https://emariete.com/medidor-casero-co2/
 
-- Comparativa de sensores, https://soloelectronicos.com/2020/11/01/monitor-de-co2-con-sensor-mh-z19/
+	- Comparativa de sensores, https://soloelectronicos.com/2020/11/01/monitor-de-co2-con-sensor-mh-z19/
       Recomiendan el MH-Z19, lo mismo que Jorge Aliaga. La ventaja adicional, que no mencionan, es que al tener medida de temperatura junto con CO2, se puede controlar la habitabilidad de un espacio con un criterio CO2 y temperatura combinado.
