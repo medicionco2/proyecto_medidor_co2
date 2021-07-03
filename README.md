@@ -6,7 +6,7 @@ Al respirar, absorbemos oxígeno del aire y al exhalar expulsamos dióxido de ca
 
 ![Contagio por aerosoles](https://user-images.githubusercontent.com/30849839/124362371-c81c1780-dc0a-11eb-9723-1243cc2c4425.png)
 
-> Tiene que quedar claro que si en un ambiente se mide más de 2000 ppm de CO2, hay que tomar medidas urgentemente porque permanecer allí es peligroso.
+> Tiene que quedar claro que si en un ambiente se mide más de 2000 ppm de CO2, hay que tomar medidas urgentemente porque realizar actividades allí es peligroso.
 
 Se propone el diseño de un dispositivo medidor de CO2, de uso orientativo, para espacios interiores, como medida de prevención de enfermedades infecciosas que se contagian mediante aerosoles (particularmente, COVID-19). 
 
@@ -79,6 +79,16 @@ Una vez conectado el cable USB, el dispositivo se pone en funcionamiento. No hay
 Si se seleccionó la versión Bluetooth, se pueden ver las medidas en un teléfono inteligente. Una posibilidad es usar la app "Serial Bluetooth Terminal" que se pude descargar en el teléfono desde https://play.google.com. En ese caso vas a ver los datos que vienen del medidor de esta manera:
 
 <img src="https://user-images.githubusercontent.com/30849839/124181533-fe7f5880-da8b-11eb-9bb3-cf72c6b72cdd.png" alt="Captura Serial Bluetooth Terminal" width="300"/>
+
+### Cómo debería usarse el medidor
+
+En un espacio interior con cierta ventilación fija, por ejemplo con las ventanas parcialmente abiertas, se debería llegar a una situación en la cual el CO2 que exhalan las personas sea igual a la cantidad de CO2 que sale por las ventanas, de modo que el nivel de CO2 en la habitación se mantenga aproximadamente constante. El objetivo debe ser que ese valor estable de CO2 no supere los 700 a 800 ppm.
+
+Si se observan valores estables de CO2 demasiado altos, superiores a 800 ppm, se deben abrir las ventanas un poco más. Si eso no es posible porque la temperatura del exterior es demasiado baja se debe reducir el número de personas que realiza la actividad. Si la temperatura exterior fuera confortable, se recomienda abrir las ventanas completamente.
+
+El viento hace que mejore la ventilación. En días ventosos, es probable que se logren los valores deseados de CO2 con menor apertura de las ventanas.
+
+> Ventilar los pasillos en las escuelas (y otros edificios con varios espacios) es muy importante, ya que de lo contrario transfieren el aire exhalado entre las aulas.
 
 ### Calibración
 
