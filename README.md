@@ -84,11 +84,19 @@ Si se seleccionó la versión Bluetooth, se pueden ver las medidas en un teléfo
 
 En un espacio interior con cierta ventilación fija, por ejemplo con las ventanas parcialmente abiertas, se debería llegar a una situación en la cual el CO2 que exhalan las personas sea igual a la cantidad de CO2 que sale por las ventanas, de modo que el nivel de CO2 en la habitación se mantenga aproximadamente constante. El objetivo debe ser que ese valor estable de CO2 no supere los 700 a 800 ppm.
 
-Si se observan valores estables de CO2 demasiado altos, superiores a 800 ppm, se deben abrir las ventanas un poco más. Si eso no es posible porque la temperatura del exterior es demasiado baja se debe reducir el número de personas que realiza la actividad. Si la temperatura exterior fuera confortable, se recomienda abrir las ventanas completamente.
+Si se observan valores estables de CO2 demasiado altos, superiores a 800 ppm, se deben abrir las ventanas un poco más. Si eso no es posible porque la temperatura del exterior es demasiado baja, se debe reducir el número de personas que realiza la actividad. Si la temperatura exterior fuera confortable, se recomienda abrir las ventanas completamente.
 
 El viento hace que mejore la ventilación. En días ventosos, es probable que se logren los valores deseados de CO2 con menor apertura de las ventanas.
 
-> Ventilar los pasillos en las escuelas (y otros edificios con varios espacios) es muy importante, ya que de lo contrario transfieren el aire exhalado entre las aulas.
+> Ventilar los pasillos en las escuelas (y otros edificios con varios espacios comunicados) es muy importante, ya que de lo contrario transfieren el aire exhalado entre las aulas.
+
+### En qué lugar del espacio interior colocar el medidor
+
+Lo ideal es colocarlo a la altura de la respiración de las personas (1,5 m) del lado opuesto a las ventanas. No colocarlo muy cerca de las personas.
+
+Se puede experimentar moviendo el medidor de CO2 a diferentes lugares de la habitación. Si se detecta una zona menos ventilada, allí debe colocarse el medidor para que indique el caso más desfaborable.
+
+Traducción realizada con la versión gratuita del traductor www.DeepL.com/Translator
 
 ### Calibración
 
