@@ -2,7 +2,11 @@
 
 > Este proyecto está en plena evolución. Este texto, los programas, y demás materiales se están actualizando frecuentemente.
 
-Al respirar, absorbemos oxígeno del aire y al exhalar expulsamos dióxido de carbono (CO2). En ambientes interiores, con el correr de los minutos, si no se ventila, la respiración de las personas allí presentes hace que suba la concentración de CO2. Se ha demostrado que hay correlación entre esa concentración y el riesgo de contagio de enfermedades respiratorias en general. En realidad, hay una antigua prescripción médica sobre ventilar para prevenir el contagio de enfermedades respiratorias. En este tiempo de pandemia de COVID-19, esa recomendación se transformó en la principal para minimizar el riesgo de contagio. En resumen, es importante medir la concentración de CO2 para saber si un ambiente interior está suficientemente ventilado dada una cierta cantidad de gente que realiza actividad en ese espacio. 
+Al respirar, absorbemos oxígeno del aire y al exhalar expulsamos dióxido de carbono (CO2). En ambientes interiores, con el correr de los minutos, si no se ventila, la respiración de las personas allí presentes hace que suba la concentración de CO2. Dicho en números, al aire libre la concentración de CO2 es de 400 ppm (partes por millón), mientras que en la exhalación de las personas, hay 40 mil ppm. Se ha demostrado que hay correlación entre esa concentración y el riesgo de contagio de enfermedades respiratorias. Por supuesto, ese riesgo varía según la proporción de personas infectadas en la región. Se estima que si la concentración de CO2 alcanza las 800 ppm, eso quiere decir que el 1% del aire que respiramos ya fue respirado por otra persona. Cuando se supera ese valor, la permanencia en ese espacio comienza a ser riesgosa. Recordemos que hay una antigua prescripción médica sobre ventilar para prevenir el contagio de enfermedades respiratorias. En este tiempo de pandemia de COVID-19, esa recomendación se transformó en la principal para minimizar el riesgo de contagio. En resumen, es importante medir la concentración de CO2 para saber si un ambiente interior está suficientemente ventilado dada una cierta cantidad de gente y el tiempo que llevan transcurrido realizando una actividad. 
+
+![Contagio por aerosoles](https://user-images.githubusercontent.com/30849839/124362371-c81c1780-dc0a-11eb-9723-1243cc2c4425.png)
+
+> Tiene que quedar claro que si en un ambiente se mide más de 2000 ppm de CO2, hay que tomar medidas urgentemente porque permanecer allí es peligroso.
 
 Se propone el diseño de un dispositivo medidor de CO2, de uso orientativo, para espacios interiores, como medida de prevención de enfermedades infecciosas que se contagian mediante aerosoles (particularmente, COVID-19). 
 
@@ -107,6 +111,8 @@ Te invitamos a sumarte a este proyecto, a construír tu propio medidor, comparti
 
 - Guía del Consejo Superior de Investigaciones Científicas (España) sobre cómo se deben ventilar para reducir el riesgo de contagio por Covid-19. https://www.csic.es/en/node/1259002
 
+- Estimación de riesgo de contagio simplificada de National Geographic. https://www.nationalgeographic.com/science/article/how-to-measure-risk-airborne-coronavirus-your-office-classroom-bus-ride-cvd
+
 - Proyectos similares y material técnico
 
 	- Página del Dr. Jorge Aliaga (Medición de CO2) http://www.jorgealiaga.com.ar/?page_id=2864 
@@ -120,3 +126,9 @@ Te invitamos a sumarte a este proyecto, a construír tu propio medidor, comparti
 
 	- Comparativa de sensores, https://soloelectronicos.com/2020/11/01/monitor-de-co2-con-sensor-mh-z19/
       Recomiendan el MH-Z19, lo mismo que Jorge Aliaga. La ventaja adicional, que no mencionan, es que al tener medida de temperatura junto con CO2, se puede controlar la habitabilidad de un espacio con un criterio CO2 y temperatura combinado.
+      
+ - Artículos científicos
+
+	- Zhe Peng and Jose L. Jimenez, "Exhaled CO2 as a COVID-19 Infection Risk Proxy for Different Indoor Environments and Activities", Environmental Science & Technology Letters, 2021, 8 (5), 392-397. https://pubs.acs.org/doi/10.1021/acs.estlett.1c00183
+
+	- Liu, Y, Misztal, PK, Xiong, J, et al., "Detailed investigation of ventilation rates and airflow patterns in a northern California residence", Indoor Air, 2018; 28: 572–584. (https://onlinelibrary.wiley.com/doi/10.1111/ina.12462)
