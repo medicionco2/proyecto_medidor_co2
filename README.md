@@ -16,6 +16,13 @@ El diseño cuenta con una computadora de placa reducida, también llamado de pla
 
 La situación sanitaria evidencia la necesidad de usar este tipo de dispositivos, no solo en esta coyuntura, sino post-pandemia, como elemento que apunta a asegurar un nivel de calidad de aire desde el punto de vista sanitario. En otras palabras, sería un elemento más de seguridad e higiene en espacios donde se realicen diferentes tipos de actividades humanas, incluida la educación en todos sus niveles.
 
+### ¿Qué son los aerosoles?
+
+Cuando hablamos, gritamos, cantamos, tosemos, estornudamos o simplemente respiramos, exhalamos partículas grandes y también partículas pequeñas ("aerosoles") que están formadas por saliva o líquido proveniente de la tráquea, los pulmones, etc. Lo mismo que las partículas grandes, estos aerosoles pueden "portar" virus, que pueden infectar cuando se inhalan.
+
+![Aerosoles](https://user-images.githubusercontent.com/30849839/124509071-a310db80-dda7-11eb-9a73-ab920b335489.png)
+
+
 ## Lista de materiales
 
 Cualquier persona o grupo con entusiasmo, con un poco de conocimiento de electrónica e informática, y muy pocas herramientas puede construír este medidor. 
