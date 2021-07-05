@@ -2,7 +2,7 @@
 
 > Este proyecto está en plena evolución. Este texto, los programas, y demás materiales se están actualizando frecuentemente.
 
-Al respirar, absorbemos oxígeno del aire y al exhalar expulsamos dióxido de carbono (CO2). En ambientes interiores, con el correr de los minutos, si no se ventila, la respiración de las personas allí presentes hace que suba la concentración de CO2. Dicho en números, al aire libre la concentración de CO2 es de 400 ppm (partes por millón), mientras que en la exhalación de las personas, hay 40 mil ppm. Se ha demostrado que hay correlación entre esa concentración y el riesgo de contagio de enfermedades respiratorias. Por supuesto, ese riesgo varía según la proporción de personas infectadas en la región. Se estima que si la concentración de CO2 alcanza las 800 ppm, eso quiere decir que el 1% del aire que respiramos ya fue respirado por otra persona. Cuando se supera ese valor, la permanencia en ese espacio comienza a ser riesgosa. Recordemos que hay una antigua prescripción médica sobre ventilar para prevenir el contagio de enfermedades respiratorias. En este tiempo de pandemia de COVID-19, esa recomendación se transformó en la principal para minimizar el riesgo de contagio. En resumen, es importante medir la concentración de CO2 para saber si un ambiente interior está suficientemente ventilado dada una cierta cantidad de gente y el tiempo que llevan transcurrido realizando una actividad. 
+Al respirar, absorbemos oxígeno del aire y al exhalar expulsamos dióxido de carbono (CO2). En ambientes interiores, con el correr de los minutos, si no se ventila, la respiración de las personas allí presentes hace que suba la concentración de CO2. Dicho en números, al aire libre la concentración de CO2 es de 400 ppm (partes por millón), mientras que en la exhalación de las personas, hay 40 mil ppm. Se ha demostrado que hay correlación entre esa concentración y el riesgo de contagio de enfermedades respiratorias. Por supuesto, ese riesgo varía según la proporción de personas infectadas en la región. Se estima que si la concentración de CO2 alcanza las 800 ppm, eso quiere decir que el 1% del aire que respiramos ya fue respirado por otra persona. Cuando se supera ese valor, la permanencia en ese espacio comienza a ser riesgosa. Recordemos que hay una antigua prescripción médica sobre ventilar para prevenir el contagio de enfermedades respiratorias. En este tiempo de pandemia de COVID-19, esa recomendación se transformó en la principal para minimizar el riesgo de contagio. En resumen, es importante medir la concentración de CO2 para saber si un ambiente interior está suficientemente ventilado dada una cierta cantidad de gente y el tiempo transcurrido realizando una actividad. 
 
 ![Contagio por aerosoles](https://user-images.githubusercontent.com/30849839/124362371-c81c1780-dc0a-11eb-9723-1243cc2c4425.png)
 
@@ -71,7 +71,6 @@ Las instrucciones para estos dos primeros pasos se pueden ver en https://randomn
 
 5. Descargar el código ejecutable en el ESP32 de manera que quede programado con la aplicación seleccionada.
 
-
 ## Funcionamiento
 
 Una vez conectado el cable USB, el dispositivo se pone en funcionamiento. No hay botón de encendido. El sensor tarda tres minutos para iniciar sus medidas, eso se indica con el LED encendido en color azul. Pasado ese tiempo, el LED indica la concentración de CO2 mediante colores: verde (poca concentracón de CO2, más seguro), amarillo, rojo y violeta (muy alta concentración de CO2, menos seguro). A su vez, se envían las medidas de CO2 y temperatura por WiFi o Bluetooth, según cuál programa se haya cargado en el dispositivo. 
@@ -95,8 +94,6 @@ El viento hace que mejore la ventilación. En días ventosos, es probable que se
 Lo ideal es colocarlo a la altura de la respiración de las personas (1,5 m) del lado opuesto a las ventanas. No colocarlo muy cerca de las personas.
 
 Se puede experimentar moviendo el medidor de CO2 a diferentes lugares de la habitación. Si se detecta una zona menos ventilada, allí debe colocarse el medidor para que indique el caso más desfaborable.
-
-Traducción realizada con la versión gratuita del traductor www.DeepL.com/Translator
 
 ### Calibración
 
@@ -151,4 +148,4 @@ Te invitamos a sumarte a este proyecto, a construír tu propio medidor, comparti
 
 	- Zhe Peng and Jose L. Jimenez, "Exhaled CO2 as a COVID-19 Infection Risk Proxy for Different Indoor Environments and Activities", Environmental Science & Technology Letters, 2021, 8 (5), 392-397. https://pubs.acs.org/doi/10.1021/acs.estlett.1c00183
 
-	- Liu, Y, Misztal, PK, Xiong, J, et al., "Detailed investigation of ventilation rates and airflow patterns in a northern California residence", Indoor Air, 2018; 28: 572–584. (https://onlinelibrary.wiley.com/doi/10.1111/ina.12462)
+	- Liu, Y, Misztal, PK, Xiong, J, et al., "Detailed investigation of ventilation rates and airflow patterns in a northern California residence", Indoor Air, 2018; 28: 572–584. https://onlinelibrary.wiley.com/doi/10.1111/ina.12462
