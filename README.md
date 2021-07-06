@@ -48,6 +48,14 @@ El LED en azul significa que el sensor se está calentando o que el aparato est�
 
 La caja puede ser una caja de paso de las que se usan en electricidad, de las más pequeñas. Es importante que hagas dos ranuras por donde el sensor vea el exterior de la caja. Las ranuras son para las dos "ventanitas" blancas que se ven en la figura del sensor.
 
+### Sobre el sensor
+
+El sensor seleccionado, MH-Z19b, se basa en tecnología de detección de gas por absorción de luz infrarroja. Más precisamente, la tecnología que usa se conoce como NDIR (del inglés nondispersive infrared).
+
+No todos los sensores MH-Z19b que se pueden adquirir son iguales, su diseño y su firmware han ido evolucionando. La librería que usamos permite acceder al "Firmware Version", por ejemplo los que tenemos son versión 5.02. Hay que notar que el fabricante (Winsen, China) no ha documentado todos los cambios y algunas veces hay que recurrir a ingeniería inversa para descubrir algunas de sus características. Aún así, se considera que es un sensor económico con una relación precio/prestaciones muy buena.
+
+Advertencia: El sensor es sensible a la electricidad estática. Tratar al sensor con ciudado, es un componente delicado.
+
 ## Conexión de componentes
 
 ![Diagrama de conexiones](https://github.com/medicionco2/proyecto_medidor_co2/blob/main/diagramas_conexion/diagrama_esp32.png)
