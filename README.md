@@ -156,3 +156,13 @@ Te invitamos a sumarte a este proyecto, a construír tu propio medidor, comparti
 	- Zhe Peng and Jose L. Jimenez, "Exhaled CO2 as a COVID-19 Infection Risk Proxy for Different Indoor Environments and Activities", Environmental Science & Technology Letters, 2021, 8 (5), 392-397. https://pubs.acs.org/doi/10.1021/acs.estlett.1c00183
 
 	- Liu, Y, Misztal, PK, Xiong, J, et al., "Detailed investigation of ventilation rates and airflow patterns in a northern California residence", Indoor Air, 2018; 28: 572–584. https://onlinelibrary.wiley.com/doi/10.1111/ina.12462
+
+- El proyecto en los medios
+
+	- Boletín de la Facultad de Ciencias Exactas - Número 273 - Crean un medidor de Dióxido de Carbono que busca concientizar la importancia de la ventilación de los ambientes para evitar la propagación del COVID-19, 22 JUN 2021. (En redes sociales de la Facultad de Ciencias Exactas, UNICEN)
+
+	- Diario "ABC Hoy" de Tandil, 23 JUN 2021. http://www.abchoy.com.ar/leernota.php?id=175998&titulo=medidor_dioxido_carbono_para_concientizar_sobre_ventilacion_para_prevencion_del_covid_19
+
+	- Diario "El Eco" de Tandil, 23 JUN 2021. https://www.eleco.com.ar/la-ciudad/crean-un-medidor-de-dioxido-de-carbono-que-busca-concientizar-la-importancia-de-la-ventilacion-de-los-ambientes
+
+	- Diario "El Eco" de Tandil, 3 JUL 2021. https://www.eleco.com.ar/la-ciudad/investigadores-de-exactas-inventaron-un-medidor-de-dioxido-de-carbono-con-un-diseno-economico-y-simple
