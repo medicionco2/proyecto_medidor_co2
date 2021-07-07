@@ -147,17 +147,16 @@ Te invitamos a sumarte a este proyecto, a construír tu propio medidor, comparti
 
 - Proyectos similares y material técnico
 
-	- Página del Dr. Jorge Aliaga (Medición de CO2) http://www.jorgealiaga.com.ar/?page_id=2864 
+	- Página del Dr. Jorge Aliaga ([Medición de CO2](http://www.jorgealiaga.com.ar/?page_id=2864)) 
       Sw: https://github.com/jlaliaga/Medidor-de-CO2/releases/tag/V2 
       
-	- Un medidor de CO2. https://emariete.com/medidor-casero-co2/
+	- [Un medidor de CO2](https://emariete.com/medidor-casero-co2/).
 
-	- Ciudado con los sensores *fake*: https://youtu.be/dWYMuFZt8kk
+	- [Ciudado con los sensores *fake*](https://youtu.be/dWYMuFZt8kk).
 
-	- Proyecto CODOS. https://github.com/miguelangelcasanova/codos
+	- [Proyecto CODOS](https://github.com/miguelangelcasanova/codos).
 
-	- Comparativa de sensores, https://soloelectronicos.com/2020/11/01/monitor-de-co2-con-sensor-mh-z19/
-      Recomiendan el MH-Z19, lo mismo que Jorge Aliaga. La ventaja adicional, que no mencionan, es que al tener medida de temperatura junto con CO2, se puede controlar la habitabilidad de un espacio con un criterio CO2 y temperatura combinado.
+	- [Comparativa de sensores](https://soloelectronicos.com/2020/11/01/monitor-de-co2-con-sensor-mh-z19/): Recomiendan el MH-Z19, lo mismo que Jorge Aliaga. La ventaja adicional, que no mencionan, es que al tener medida de temperatura junto con CO2, se puede controlar la habitabilidad de un espacio con un criterio CO2 y temperatura combinado.
       
  - Artículos científicos
 
@@ -172,5 +171,7 @@ Te invitamos a sumarte a este proyecto, a construír tu propio medidor, comparti
 	- Diario "ABC Hoy" de Tandil, 23 JUN 2021. http://www.abchoy.com.ar/leernota.php?id=175998&titulo=medidor_dioxido_carbono_para_concientizar_sobre_ventilacion_para_prevencion_del_covid_19
 
 	- Diario "El Eco" de Tandil, 23 JUN 2021. https://www.eleco.com.ar/la-ciudad/crean-un-medidor-de-dioxido-de-carbono-que-busca-concientizar-la-importancia-de-la-ventilacion-de-los-ambientes
+
+	- Boletín de la Facultad de Ciencias Exactas - Número 273 - Reunión con la Dirección Nacional de Desarrollo Tecnológico e Innovación del MinCYT, 28 JUN 2021. (En redes sociales de la Facultad de Ciencias Exactas, UNICEN)
 
 	- Diario "El Eco" de Tandil, 3 JUL 2021. https://www.eleco.com.ar/la-ciudad/investigadores-de-exactas-inventaron-un-medidor-de-dioxido-de-carbono-con-un-diseno-economico-y-simple
