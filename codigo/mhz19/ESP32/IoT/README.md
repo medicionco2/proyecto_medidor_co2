@@ -31,3 +31,31 @@ Licencia seleccionada: FREE (For small non-commercial projects)
   - Technical Support:            	Community Support 
 
 Para tener más nivel de servicio (conectar más sensores, compartir con más gente, mejores tasas de datos, etc.), hay que adquirir alguna licencia de pago: Standard, Academic, Student, o Home.
+
+## Google Cloud IoT Core
+
+Implementar una aplicación en la plataforma IoT de Google puede ser una tarea compleja. Los programas básicos para el medidor de CO2 van quedar a una distancia de esta aplicación avanzada pero los beneficios, si son necesarios, compensan el esfuerzo:
+
+- Seguridad de los dispositivos mediante autenticación con clave pública (o asimétrica).
+
+- Administración de dispositivos.
+
+- Over The Air Updates (OTA). Aunque Google no lo provee de manera directa, es un requisito importante para el despliegue de dispositivos.
+
+Esta parte del proyecto está pensada para informáticos con cierta experiencia. Lo primero es leer y realizar los pasos indicados en esta [guía de inicio](https://cloud.google.com/iot/docs/how-tos/getting-started). En esa guía se comienza creando una cuenta que permite disponer de un período de evaluación de 90 días. Luego: 
+
+- Se crea un registro de dispositivos
+
+- Se crean las credenciales de cada dispositivo (par clave pública y clave privada)
+
+- Se agregan dispositivos al registro
+
+Con eso ya se puede implementar la aplicación en los medidores, para que envíen la telemetría que se podrá visualizar.
+
+#### Más información
+
+- [Ejemplo](https://github.com/espressif/esp-google-iot/blob/master/examples/smart_outlet/README.md) para comenzar a usar ESP32 en Google Cloud IoT Core.
+
+- Un video en youtube sobre [lo básico de Google Cloud](https://youtu.be/GKEk1FzAN1A).
+
+- Getting started with the [IoT Core Embedded C SDK](https://cloud.google.com/community/tutorials/embedded-c-getting-started).
