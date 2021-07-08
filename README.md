@@ -131,19 +131,19 @@ Te invitamos a sumarte a este proyecto, a construír tu propio medidor, comparti
 
 - Este artículo del diario "El País", de octubre de 2020, es insuperable desde el punto de vista comunicacional. https://elpais.com/ciencia/2020-10-24/un-salon-un-bar-y-una-clase-asi-contagia-el-coronavirus-en-el-aire.html
 
-- Importancia de la ventilación para la prevención de la COVID-19.  Canal del Ministerio de Ciencia, Tecnología e Innovación, 26 marzo de 2021. https://youtu.be/fpMb1TzraGw  
+- [Importancia de la ventilación para la prevención de la COVID-19](https://youtu.be/fpMb1TzraGw).  Canal del Ministerio de Ciencia, Tecnología e Innovación, 26 marzo de 2021.   
 
-- Guía de evaluación de la frecuencia de ventilación. Programa "Healthy Buildings" de la Escuela de Salud Pública T.H. Chan, Universidad de Harvard. https://schools.forhealth.org/ventilation-guide/
+- [Guía de evaluación de la frecuencia de ventilación](https://schools.forhealth.org/ventilation-guide/). Programa "Healthy Buildings" de la Escuela de Salud Pública T.H. Chan, Universidad de Harvard. 
 
-- Guía del Consejo Superior de Investigaciones Científicas (España) sobre cómo se deben ventilar para reducir el riesgo de contagio por Covid-19. https://www.csic.es/en/node/1259002
+- [Guía del Consejo Superior de Investigaciones Científicas](https://www.csic.es/en/node/1259002) (España) sobre cómo se deben ventilar para reducir el riesgo de contagio por Covid-19. 
 
-- Estimación de riesgo de contagio simplificada de National Geographic. https://www.nationalgeographic.com/science/article/how-to-measure-risk-airborne-coronavirus-your-office-classroom-bus-ride-cvd
+- [Estimación de riesgo de contagio simplificada](https://www.nationalgeographic.com/science/article/how-to-measure-risk-airborne-coronavirus-your-office-classroom-bus-ride-cvd) de National Geographic.
 
-- Natalia Rubinstein, Ciclo Ciencia para ventilar: Yo ventilo, ella ventila, vos ventilás. ¿Pero lo hacemos bien? https://youtu.be/4q3odycwvYs
+- Natalia Rubinstein, Ciclo Ciencia para ventilar: [Yo ventilo, ella ventila, vos ventilás. ¿Pero lo hacemos bien?](https://youtu.be/4q3odycwvYs).
 
-- Sandra Cordo, Ciclo Ciencia para ventilar: Transmisión de Covid-19 por aire. Principales medidas de prevención. https://youtu.be/4AUWS4Dpn0A
+- Sandra Cordo, Ciclo Ciencia para ventilar: [Transmisión de Covid-19 por aire. Principales medidas de prevención](https://youtu.be/4AUWS4Dpn0A).
 
-- Alejandro Nadra, Juan Fernández Zaragoza, Ciclo Ciencia para ventilar: ¿Qué son las tecnologías libres y qué aportan en el contexto de pandemia? https://youtu.be/301sSYFhCg8
+- Alejandro Nadra, Juan Fernández Zaragoza, Ciclo Ciencia para ventilar: [¿Qué son las tecnologías libres y qué aportan en el contexto de pandemia?](https://youtu.be/301sSYFhCg8).
 
 - Proyectos similares y material técnico
 
