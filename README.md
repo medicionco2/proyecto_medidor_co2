@@ -64,7 +64,7 @@ La alimentación del dispositivo se hace mediante un cargador USB estándar.
 
 El sensor puede venir con un cable armado con una ficha que no es compatible con los conectores del ESP32. Por eso, una alternativa es cortar el cable y empalmar cables dupont.
 
-Para más ayuda, ese video muestra en detalle cómo se conecta el sensor MH-Z19b al ESP32 https://www.youtube.com/watch?v=vmDCqNXVZKQ
+Para más ayuda, [este video](https://www.youtube.com/watch?v=vmDCqNXVZKQ) muestra en detalle cómo se conecta el sensor MH-Z19b al ESP32. 
 
 En resumen, conectar el sensor requiere de 4 cables: 
 - Alimentación (5V): cable rojo del sensor 
@@ -75,7 +75,7 @@ En resumen, conectar el sensor requiere de 4 cables:
 
 1. Instalar IDE Arduino en una PC. 
 2. Instalar soporte para ESP32.
-Las instrucciones para estos dos primeros pasos se pueden ver en https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/ 
+Las instrucciones para estos dos primeros pasos se pueden ver en [este enlace](https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/) 
 	
 3. Instalar librería para el sensor MH-Z19b.
 	https://downloads.arduino.cc/libraries/github.com/WifWaf/MH_Z19-1.5.3.zip
@@ -172,6 +172,6 @@ Te invitamos a sumarte a este proyecto, a construír tu propio medidor, comparti
 
 	- Diario "El Eco" de Tandil, 23 JUN 2021. https://www.eleco.com.ar/la-ciudad/crean-un-medidor-de-dioxido-de-carbono-que-busca-concientizar-la-importancia-de-la-ventilacion-de-los-ambientes
 
-	- Boletín de la Facultad de Ciencias Exactas - Número 273 - Reunión con la Dirección Nacional de Desarrollo Tecnológico e Innovación del MinCYT, 28 JUN 2021. (En redes sociales de la Facultad de Ciencias Exactas, UNICEN)
+	- Boletín de la Facultad de Ciencias Exactas - Número 274 - Reunión con la Dirección Nacional de Desarrollo Tecnológico e Innovación del MinCYT, 28 JUN 2021. (En redes sociales de la Facultad de Ciencias Exactas, UNICEN)
 
 	- Diario "El Eco" de Tandil, 3 JUL 2021. https://www.eleco.com.ar/la-ciudad/investigadores-de-exactas-inventaron-un-medidor-de-dioxido-de-carbono-con-un-diseno-economico-y-simple
