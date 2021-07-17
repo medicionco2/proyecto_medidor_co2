@@ -162,7 +162,11 @@ Te invitamos a sumarte a este proyecto, a construír tu propio medidor, comparti
 
 	- Zhe Peng and Jose L. Jimenez, "Exhaled CO2 as a COVID-19 Infection Risk Proxy for Different Indoor Environments and Activities", Environmental Science & Technology Letters, 2021, 8 (5), 392-397. https://pubs.acs.org/doi/10.1021/acs.estlett.1c00183
 
+	- Greenhalgh T, Jimenez JL, Prather KA, Tufekci Z, Fisman D, Schooley R. "Ten scientific reasons in support of airborne transmission of SARS-CoV-2". Lancet. 2021; 397: 1603-1605. https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(21)00869-2/fulltext
+
 	- Liu, Y, Misztal, PK, Xiong, J, et al., "Detailed investigation of ventilation rates and airflow patterns in a northern California residence", Indoor Air, 2018; 28: 572–584. https://onlinelibrary.wiley.com/doi/10.1111/ina.12462
+
+	- Johansson MA, Quandelacy TM, Kada S, et al. SARS-CoV-2 transmission from people without COVID-19 symptoms. JAMA Netw Open 2021; 4: e2035057.
 
 - El proyecto en los medios
 
