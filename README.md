@@ -179,3 +179,10 @@ Te invitamos a sumarte a este proyecto, a construír tu propio medidor, comparti
 	- Boletín de la Facultad de Ciencias Exactas - Número 274 - Reunión con la Dirección Nacional de Desarrollo Tecnológico e Innovación del MinCYT, 28 JUN 2021. (En redes sociales de la Facultad de Ciencias Exactas, UNICEN)
 
 	- Diario "El Eco" de Tandil, 3 JUL 2021. https://www.eleco.com.ar/la-ciudad/investigadores-de-exactas-inventaron-un-medidor-de-dioxido-de-carbono-con-un-diseno-economico-y-simple
+
+
+¿Se puede usar esta información en otras publicaciones?
+
+Si, se puede utilizar. De hecho, nosotros consultamos numerosas fuentes que tratamos de documentar en esta sección. No es necesario que te pongas en contacto con nosotros para pedirnos permiso. Sólo te pedimos que indiques el enlace a esta página como fuente de la información. Si es posible, incluir la fecha en la que viste la información. Si necesitas una lista de autores, sólo tienes que enumerar a las personas que contribuyen en este proyecto en la fecha que accediste.
+
+Con respecto al código fuente, recuerda que tiene licencia GPL.
