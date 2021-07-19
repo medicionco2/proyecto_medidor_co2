@@ -180,6 +180,7 @@ Te invitamos a sumarte a este proyecto, a construír tu propio medidor, comparti
 
 	- Diario "El Eco" de Tandil, 3 JUL 2021. https://www.eleco.com.ar/la-ciudad/investigadores-de-exactas-inventaron-un-medidor-de-dioxido-de-carbono-con-un-diseno-economico-y-simple
 
+	- [Presentación del proyecto](https://youtu.be/HmPg_Kn5Qhk) en el Encuentro IoT MdP/Tandil 2021 en el marco del proyecto [NEON](https://www.project-neon.eu/) de la Unión Europea, 13 JUL 2021. 
 
 ¿Se puede usar esta información en otras publicaciones?
 
