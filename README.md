@@ -147,12 +147,13 @@ Te invitamos a sumarte a este proyecto, a construír tu propio medidor, comparti
 
 - Proyectos similares y material técnico
 
-	- Página del Dr. Jorge Aliaga ([Medición de CO2](http://www.jorgealiaga.com.ar/?page_id=2864)) 
-      Sw: https://github.com/jlaliaga/Medidor-de-CO2/releases/tag/V2 
+	- Proyecto del [Dr. Jorge Aliaga]((http://www.jorgealiaga.com.ar/?page_id=2864)) de [Medición de CO2](https://github.com/jlaliaga/Medidor-de-CO2)  
       
-	- [Un medidor de CO2](https://emariete.com/medidor-casero-co2/).
+	- [Proyecto LibreCO2](https://github.com/danielbernalb/LibreCO2) de [Daniel Bernal](https://aireciudadano.com/guia-de-construccion-medidor-libreco2/) donde se propone el uso de tarjetas Arduino.
+      
+	- Un [medidor de CO2](https://emariete.com/medidor-casero-co2/) de eMariete.
 
-	- [Ciudado con los sensores *fake*](https://youtu.be/dWYMuFZt8kk).
+		- [Ciudado con los sensores *fake*](https://youtu.be/dWYMuFZt8kk).
 
 	- [Proyecto CODOS](https://github.com/miguelangelcasanova/codos).
 
