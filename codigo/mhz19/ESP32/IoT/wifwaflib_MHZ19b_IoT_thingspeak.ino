@@ -65,14 +65,14 @@ const int tx2_pin = 17;	//Serial tx1 pin no
   ----------------------------------------------------------*/
 #include <WiFi.h>
 
-const char* ssid     = "***********"; // Your WiFi
-const char* password = "***********";             // Your password
+const char* ssid     = "Fibertel WiFi668 2.4GHz"; // Your WiFi
+const char* password = "01424988126";             // Your password
 
 /*----------------------------------------------------------
   ThingSpeak settings
   ----------------------------------------------------------*/
 char server[] = "api.thingspeak.com";
-String writeAPIKey = "****************"; // Your Write API key at thingspeak 
+String writeAPIKey = "BHPI6DW6A1A8U2RN"; // Your Write API key at thingspeak 
 
 /*----------------------------------------------------------
   RGB LED in a NodeMCU ESP32s SoC 
@@ -102,24 +102,32 @@ const int debounceThresh = 70; // milliseconds
 
 Button button1 = {btn_PIN, 0, false, false};
 
+// For synchronization between the main code and the interrupt
+portMUX_TYPE mux = portMUX_INITIALIZER_UNLOCKED;
+
 // The Interrupt Service Routine is placed in the RAM of the ESP32
 void IRAM_ATTR isr_button() {
   static uint32_t lastMillis = 0;
+  uint32_t nowMillis;
 
-  if (millis() - lastMillis > debounceThresh){ // debounce
+  nowMillis = millis();
+
+  if (nowMillis - lastMillis > debounceThresh){ // debounce
+    // button state updated inside a critical section to prevent 
+    //   concurrent access problems
+    portENTER_CRITICAL(&mux);
     if (!button1.down){
       button1.down = true;
-      setRGB_LEDColor (0, 0, 255);  // Blue means warming or Configuring:
-                                //   baseline setting or calibrating
-    //Serial.println("Down...");
+      //setRGB_LEDColor (0, 0, 255);  // Blue means warming or Configuring:
+                                    //   baseline setting or calibrating
     } else { 
       button1.down = false;
-    //Serial.println("... and Up");
-      button1.timePressed = millis() - lastMillis;
+      button1.timePressed = nowMillis - lastMillis;
       button1.event = true;
     }
+    portEXIT_CRITICAL(&mux);
   }
-  lastMillis = millis();
+  lastMillis = nowMillis;
 }
 
 /*----------------------------------------------------------
@@ -149,6 +157,9 @@ void retrieveInfo_mhz19 () {
    Serial.print("ABC Status: "); mhz19.getABC() ? Serial.println("ON") :  Serial.println("OFF");
 } 
 
+/*----------------------------------------------------------
+    Connect your device to the wireless network
+  ----------------------------------------------------------*/
 void connectWiFi(){
 
     while (WiFi.status() != WL_CONNECTED){
@@ -238,35 +249,10 @@ void calibrate_mhz19()
   retrieveInfo_mhz19 ();
 }
 
-String prepareHtmlPage(int co2, int temp)
-{
-  String htmlPage;
-  htmlPage.reserve(1024);               // prevent ram fragmentation
-  htmlPage = F("HTTP/1.1 200 OK\r\n"
-               "Content-Type: text/html\r\n"
-               "Connection: close\r\n"  // the connection will be closed after completion of the response
-               "Refresh: 6\r\n"         // refresh the page automatically every 6 sec
-               "\r\n"
-               "<!DOCTYPE HTML>"
-               "<html> <body>"
-               "<h1>Hello CO2</h1>"
-               "<h2>CO2 baseline: ");
-  htmlPage += CO2_base; // prints CO2 baseline
-  htmlPage += F(" ppm </h2>");
-               
-  if (co2 > CO2_base+400) {
-    // Red means high risk             
-    htmlPage += F("<p style=\"color:red;\"> co2:  ");}
-  else { htmlPage += F("<p> co2:  ");}
-  htmlPage += co2; // prints CO2 measurement
-  htmlPage += F(" ppm <br>"
-                "temp:  ");
-  htmlPage += temp; // temperature value
-  htmlPage += F(" oC </p></body></html>"
-                "\r\n");
-  return htmlPage;
-}
-
+/*----------------------------------------------------------
+   Connect to the ThingSpeak server and build the data strings 
+   for the HTTP POST command.
+  ----------------------------------------------------------*/
 void httpRequest(int c, int t) {
 
     WiFiClient client;
@@ -316,7 +302,10 @@ void loop() {
       if (button1.timePressed < 1000)
         CO2_base = co2ppm;
       else calibrate_mhz19 ();
+      // button state updated inside a critical section
+      portENTER_CRITICAL(&mux);
       button1.event = false;
+      portEXIT_CRITICAL(&mux);
   }
 
   // Measurements to computer for debugging purposes
@@ -334,20 +323,21 @@ void loop() {
   httpRequest(co2ppm, temp);
 
   if (!button1.down) 
-  // CO2 measurement to RGB LED
-  if (co2ppm < CO2_base+300) {
-    // Green means low risk
-    setRGB_LEDColor (0, 255, 0);}
-  else if (co2ppm < CO2_base+400) {
-    // Yellow means medium risk
-    setRGB_LEDColor (255, 50, 0);}
-  else if (co2ppm < CO2_base+600) {
-    // Red means high risk
-    setRGB_LEDColor (255, 0, 0);}
-  else {
-    // Purple means more than high risk
-    setRGB_LEDColor (80, 0, 80);
-  }
+    // CO2 measurement to RGB LED
+    if (co2ppm < CO2_base+300) {
+      // Green means low risk
+      setRGB_LEDColor (0, 255, 0);}
+    else if (co2ppm < CO2_base+400) {
+      // Yellow means medium risk
+      setRGB_LEDColor (255, 50, 0);}
+    else if (co2ppm < CO2_base+600) {
+      // Red means high risk
+      setRGB_LEDColor (255, 0, 0);}
+    else {
+      // Purple means more than high risk
+      setRGB_LEDColor (80, 0, 80);
+  } else 
+    setRGB_LEDColor (0, 0, 255); // Blue because the button is down
   
   delay(samplingPeriod);
 }
