@@ -112,18 +112,17 @@ Se puede experimentar moviendo el medidor de CO2 a diferentes lugares de la habi
 
 ### Calibración
 
-Al aire libre, la concentración de CO2 es cercana a las 400 ppm. Por eso, el dispositivo se calibra al aire libre y de esa manera se establece una referencia.
+Al aire libre, la concentración de CO2 es cercana a las 400 ppm. Si ves que en un ambiente muy bien ventilado, el medidor está dando una medida alejada de esas 400 ppm, seguramente haga falta calibrarlo.
 
-Para la calibración, hay que poner el dispositivo al aire libre, oprimir el pulsador por al menos un segundo y esperar al menos 20 minutos. En ese estado, el LED está encendido en color azul con intensidades variables que se repiten cíclicamente. 
+Para la calibración, hay que poner el dispositivo al aire libre, aunque al parecer, el proceso se ve afectado por el viento y las temperaturas extremas. Alternativamente, el medidor se puede calibrar en un espacio MUY bien ventilado. Para comenzar el proceso de calibración, oprimir el pulsador por al menos un segundo y esperar al menos 20 minutos. En ese estado, el LED está encendido en color azul con intensidades variables que se repiten cíclicamente. 
 
 ## Propuesta
 
-Con motivaciones parecidas, en Internet existen varios proyectos como éste. En este caso, el concepto que nos guía es el de IoT, Internet de las Cosas, donde el hardware es mínimo, con conexión a Internet, y donde el valor está en el software, hasta llegar a usar una plataforma IoT. Esas plataformas (existen más de 600 diferentes) proveen servicios como seguridad, actualización remota del software, visualización de los datos, gestión de eventos, gestión de los propios dispositivos en el caso que se usen varios, o muchos, y por qué no miles.
+Con motivaciones parecidas, en Internet existen varios proyectos como éste. En este caso, el concepto que nos guía es el de *IoT, Internet de las Cosas*, donde el hardware es mínimo, con conexión a Internet, y donde el valor está en el software, hasta llegar a usar una plataforma IoT. Esas plataformas (existen más de 600 diferentes) proveen servicios como seguridad, actualización remota del software, visualización de los datos, gestión de eventos, gestión de los propios dispositivos en el caso que se usen varios, o muchos, y por qué no miles.
 
-Otra diferencia es que este proyecto se centra en un solo tipo de sensor y un solo tipo de "computadora de placa simple". Existen varias alternativas para ambos, pero para quien comienza, creemos que es más sencillo tener una sola plataforma. Como decíamos, el concepto que nos guía es que el valor va a estar en el software. En cuanto al software, sí proponemos diferentes versiones para Wifi, Bluetooth, con funcionalidad básica, y esperemos que pronto, funcionalidad más avanzada.
+Otra diferencia es que este proyecto se centra en *un solo tipo de sensor y un solo tipo de "computadora de placa simple"*. Existen varias alternativas para ambos, pero para quien comienza, creemos que es más sencillo tener una sola plataforma. Como decíamos, el concepto que nos guía es que el valor va a estar en el software. En cuanto al software, sí proponemos diferentes versiones para Wifi, Bluetooth, con funcionalidad básica, y esperemos que pronto, funcionalidad más avanzada.
 
 > Y lo más importante de todo: Generar conciencia sobre la seguridad e higiene del aire que respiramos en ambientes interiores. <img src="https://user-images.githubusercontent.com/30849839/124317329-6053c700-db4d-11eb-964f-cf9fad7fc8e3.png" alt="Higiene" width="200"/>
-
 
 Te invitamos a sumarte a este proyecto, a construír tu propio medidor, compartir resultados, y a extender el hardware pero sobre todo, el software. Para consultas, por favor, escribir a etodorov@exa.unicen.edu.ar.
 
@@ -145,7 +144,7 @@ Te invitamos a sumarte a este proyecto, a construír tu propio medidor, comparti
 
 - Alejandro Nadra, Juan Fernández Zaragoza, Ciclo Ciencia para ventilar: [¿Qué son las tecnologías libres y qué aportan en el contexto de pandemia?](https://youtu.be/301sSYFhCg8).
 
-- Proyectos similares y material técnico
+- Proyectos afines y material técnico
 
 	- Proyecto del [Dr. Jorge Aliaga]((http://www.jorgealiaga.com.ar/?page_id=2864)) de [Medición de CO2](https://github.com/jlaliaga/Medidor-de-CO2)  
       
@@ -157,7 +156,9 @@ Te invitamos a sumarte a este proyecto, a construír tu propio medidor, comparti
 
 	- [Proyecto CODOS](https://github.com/miguelangelcasanova/codos).
 
-	- [Comparativa de sensores](https://soloelectronicos.com/2020/11/01/monitor-de-co2-con-sensor-mh-z19/): Recomiendan el MH-Z19, lo mismo que Jorge Aliaga. La ventaja adicional, que no mencionan, es que al tener medida de temperatura junto con CO2, se puede controlar la habitabilidad de un espacio con un criterio CO2 y temperatura combinado.
+	- [Comparativa de sensores](https://soloelectronicos.com/2020/11/01/monitor-de-co2-con-sensor-mh-z19/): Recomiendan el MH-Z19, lo mismo que Jorge Aliaga. Aunque la medida de temperatura que provee el propio sensor no es precisa, al tener esa medida junto con CO2, se puede controlar la habitabilidad de un espacio con un criterio CO2 y temperatura combinado.
+
+	- ¿Cómo funcionan los sensores de tecnología NDIR? Explicación sencilla en [co2meter.com](https://www.co2meter.com/blogs/news/6010192-how-does-an-ndir-co2-sensor-work)
       
  - Artículos científicos
 
