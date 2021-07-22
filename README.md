@@ -168,7 +168,10 @@ Te invitamos a sumarte a este proyecto, a construír tu propio medidor, comparti
 
 	- Liu, Y, Misztal, PK, Xiong, J, et al., "Detailed investigation of ventilation rates and airflow patterns in a northern California residence", Indoor Air, 2018; 28: 572–584. https://onlinelibrary.wiley.com/doi/10.1111/ina.12462
 
-	- Johansson MA, Quandelacy TM, Kada S, et al. SARS-CoV-2 transmission from people without COVID-19 symptoms. JAMA Netw Open 2021; 4: e2035057.
+	- Johansson MA, Quandelacy TM, Kada S, et al. "SARS-CoV-2 transmission from people without COVID-19 symptoms". JAMA Netw Open 2021; 4: e2035057.
+
+	- Lidia Morawska, Donald K Milton, "It Is Time to Address Airborne Transmission of Coronavirus Disease 2019 (COVID-19)", Clinical Infectious Diseases, Volume 71, Issue 9, 1 November 2020, Pages 2311–2313. https://academic.oup.com/cid/article/71/9/2311/5867798
+		- Este paper fue suscrito por más de 200 científicos.
 
 - El proyecto en los medios
 
