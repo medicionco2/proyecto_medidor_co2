@@ -104,6 +104,9 @@ El viento hace que mejore la ventilación. En días ventosos, es probable que se
 
 > Ventilar los pasillos en las escuelas (y otros edificios con varios espacios comunicados) es muy importante, ya que de lo contrario transfieren el aire exhalado entre las aulas.
 
+![imagen](https://user-images.githubusercontent.com/30849839/126645507-74f327bf-ace0-428e-a21a-a52ff74a0b01.png)
+
+
 ### En qué lugar del espacio interior colocar el medidor
 
 Lo ideal es colocarlo a la altura de la respiración de las personas (1,5 m) del lado opuesto a las ventanas. No colocarlo muy cerca de las personas.
