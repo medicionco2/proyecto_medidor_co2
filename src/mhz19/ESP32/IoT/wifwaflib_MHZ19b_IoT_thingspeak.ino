@@ -65,14 +65,14 @@ const int tx2_pin = 17;	//Serial tx1 pin no
   ----------------------------------------------------------*/
 #include <WiFi.h>
 
-const char* ssid     = "Fibertel WiFi668 2.4GHz"; // Your WiFi
-const char* password = "01424988126";             // Your password
+const char* ssid     = "***********"; // Your WiFi
+const char* password = "***********";             // Your password
 
 /*----------------------------------------------------------
   ThingSpeak settings
   ----------------------------------------------------------*/
 char server[] = "api.thingspeak.com";
-String writeAPIKey = "BHPI6DW6A1A8U2RN"; // Your Write API key at thingspeak 
+String writeAPIKey = "****************"; // Your Write API key at thingspeak 
 
 /*----------------------------------------------------------
   RGB LED in a NodeMCU ESP32s SoC 
