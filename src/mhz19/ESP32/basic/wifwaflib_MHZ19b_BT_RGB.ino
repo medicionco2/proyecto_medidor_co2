@@ -46,8 +46,10 @@ not to use this functionality because it is experimental.
   ----------------------------------------------------------*/
 int CO2_base = 400;
 
+const int samplingPeriod = 15000; // 15 seconds
+
 /*----------------------------------------------------------
-    MH-Z19 CO2 sensor: UART2 in a NodeMCU ESP32s SoC
+    MH-Z19 CO2 sensor: UART2 in a ESP32s SoC
   ----------------------------------------------------------*/
 #include <MHZ19.h>
 MHZ19 mhz19;             // Constructor for library
@@ -62,7 +64,7 @@ const int tx2_pin = 17;  //Serial tx1 pin no
 #endif
 
 /*----------------------------------------------------------
-  Bluetooth in a NodeMCU ESP32s SoC 
+  Bluetooth in a ESP32s SoC 
   ----------------------------------------------------------*/
 #include "BluetoothSerial.h"
 
@@ -72,7 +74,7 @@ const int tx2_pin = 17;  //Serial tx1 pin no
 BluetoothSerial SerialBT;
 
 /*----------------------------------------------------------
-  RGB LED in a NodeMCU ESP32s SoC 
+  RGB LED in a ESP32s SoC 
   ----------------------------------------------------------*/
 const int led_R   = 12; 
 const int PWMR_Ch = 0;
@@ -99,24 +101,32 @@ const int debounceThresh = 70; // milliseconds
 
 Button button1 = {btn_PIN, 0, false, false};
 
+// For synchronization between the main code and the interrupt
+portMUX_TYPE mux = portMUX_INITIALIZER_UNLOCKED;
+
 // The Interrupt Service Routine is placed in the RAM of the ESP32
 void IRAM_ATTR isr_button() {
   static uint32_t lastMillis = 0;
+  uint32_t nowMillis;
 
-  if (millis() - lastMillis > debounceThresh){ // debounce
+  nowMillis = millis();
+
+  if (nowMillis - lastMillis > debounceThresh){ // debounce
+    // button state updated inside a critical section to prevent 
+    //   concurrent access problems
+    portENTER_CRITICAL(&mux);
     if (!button1.down){
       button1.down = true;
-      setRGB_LEDColor (0, 0, 255);  // Blue means warming or Configuring:
-                                //   baseline setting or calibrating
-    //Serial.println("Down...");
+      //setRGB_LEDColor (0, 0, 255);  // Blue means warming or Configuring:
+                                    //   baseline setting or calibrating
     } else { 
       button1.down = false;
-    //Serial.println("... and Up");
-      button1.timePressed = millis() - lastMillis;
+      button1.timePressed = nowMillis - lastMillis;
       button1.event = true;
     }
+    portEXIT_CRITICAL(&mux);
   }
-  lastMillis = millis();
+  lastMillis = nowMillis;
 }
 
 /*----------------------------------------------------------
@@ -162,6 +172,7 @@ void setup() {
 #endif
   
   mhz19.autoCalibration(false);     // make sure auto calibration is off
+  //mhz19.autoCalibration(true);     // make sure auto calibration is on
 
   ledcAttachPin(led_R, PWMR_Ch);
   ledcSetup(PWMR_Ch, PWM_Freq, PWM_Res);
@@ -237,7 +248,10 @@ void loop() {
       if (button1.timePressed < 1000)
         CO2_base = co2ppm;
       else calibrate_mhz19 ();
+      // button state updated inside a critical section
+      portENTER_CRITICAL(&mux);
       button1.event = false;
+      portEXIT_CRITICAL(&mux);
   }
 
   // Measurements to computer for debugging purposes
@@ -256,20 +270,21 @@ void loop() {
   SerialBT.println(temp);
 
   if (!button1.down) 
-  // CO2 measurement to RGB LED
-  if (co2ppm < CO2_base+300) {
-    // Green means low risk
-    setRGB_LEDColor (0, 255, 0);}
-  else if (co2ppm < CO2_base+400) {
-    // Yellow means medium risk
-    setRGB_LEDColor (255, 50, 0);}
-  else if (co2ppm < CO2_base+600) {
-    // Red means high risk
-    setRGB_LEDColor (255, 0, 0);}
-  else {
-    // Purple means more than high risk
-    setRGB_LEDColor (80, 0, 80);
-  }
+    // CO2 measurement to RGB LED
+    if (co2ppm < CO2_base+300) {
+      // Green means low risk
+      setRGB_LEDColor (0, 255, 0);}
+    else if (co2ppm < CO2_base+400) {
+      // Yellow means medium risk
+      setRGB_LEDColor (255, 50, 0);}
+    else if (co2ppm < CO2_base+600) {
+      // Red means high risk
+      setRGB_LEDColor (255, 0, 0);}
+    else {
+      // Purple means more than high risk
+      setRGB_LEDColor (80, 0, 80);
+  } else 
+    setRGB_LEDColor (0, 0, 255); // Blue because the button is down
   
-  delay(6000);
+  delay(samplingPeriod);
 }
