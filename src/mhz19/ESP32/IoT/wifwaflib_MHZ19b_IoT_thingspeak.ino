@@ -197,7 +197,8 @@ void setup() {
   setRGB_LEDColor (0, 0, 255);  // Blue means warming or Configuring:
                                 //   baseline setting or calibrating
 
-  pinMode(button1.PIN, INPUT_PULLUP);
+  //pinMode(button1.PIN, INPUT_PULLUP); Noisy Pushes
+  pinMode(button1.PIN, INPUT);// Modified due to Noisy Pushes
   attachInterrupt(button1.PIN, isr_button, CHANGE);
 
   connectWiFi();
