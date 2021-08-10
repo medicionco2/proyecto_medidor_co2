@@ -139,6 +139,8 @@ En este proyecto, de ninguna manera competimos con los medidores comerciales. De
 
 - [Importancia de la ventilación para la prevención de la COVID-19](https://youtu.be/fpMb1TzraGw).  Canal del Ministerio de Ciencia, Tecnología e Innovación, 26 marzo de 2021.   
 
+- [Recomendaciones para la prevención de transmisión de COVID-19 por aerosoles](https://www.argentina.gob.ar/sites/default/files/covid-19-prevencion-de-transmision-por-aerosoles-2021.pdf) del Ministerio de Ciencia, Tecnología e Innovación y Ministerio de Salud.
+
 - [Guía de evaluación de la frecuencia de ventilación](https://schools.forhealth.org/ventilation-guide/). Programa "Healthy Buildings" de la Escuela de Salud Pública T.H. Chan, Universidad de Harvard. 
 
 - [Guía del Consejo Superior de Investigaciones Científicas](https://www.csic.es/en/node/1259002) (España) sobre cómo se deben ventilar para reducir el riesgo de contagio por Covid-19. 
@@ -160,6 +162,10 @@ En este proyecto, de ninguna manera competimos con los medidores comerciales. De
 - Proyectos afines y material técnico
 
 	- Proyecto del [Dr. Jorge Aliaga]((http://www.jorgealiaga.com.ar/?page_id=2864)) de [Medición de CO2](https://github.com/jlaliaga/Medidor-de-CO2)  
+
+	- Proyecto [Aireamos](https://www.aireamos.org), como coalición de grupos liderados por científicos en el área.
+
+		- [Comparativas y guías](https://www.aireamos.org/medidores/) sobre medidores comerciales de CO2.
       
 	- [Proyecto LibreCO2](https://github.com/danielbernalb/LibreCO2) de [Daniel Bernal](https://aireciudadano.com/guia-de-construccion-medidor-libreco2/) donde se propone el uso de tarjetas Arduino.
       
