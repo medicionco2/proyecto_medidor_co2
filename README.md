@@ -129,6 +129,10 @@ Otra diferencia es que este proyecto se centra en *un solo tipo de sensor y un s
 
 Te invitamos a sumarte a este proyecto, a construír tu propio medidor, compartir resultados, y a extender el hardware pero sobre todo, el software. Para consultas, por favor, escribir a etodorov@exa.unicen.edu.ar.
 
+## ¿Estos medidores compiten con los medidores comerciales?
+
+En este proyecto, de ninguna manera competimos con los medidores comerciales. De hecho, te invitamos a visitar [páginas de fabricantes de medidores en Argentina](https://www.argentina.gob.ar/ciencia/unidad-coronavirus/ventilar/produccion-local-medidores) para más información. Los medidores de este proyecto pueden complementar, llegando a los sectores de menos recursos donde las soluciones comenciales son inaccesibles, ayudando al objetivo fundamental de la prevención y la toma de consciencia sobre la vía de contagio por aerosoles. 
+
 ## Más Información
 
 - Este artículo del diario "El País", de octubre de 2020, es insuperable desde el punto de vista comunicacional. https://elpais.com/ciencia/2020-10-24/un-salon-un-bar-y-una-clase-asi-contagia-el-coronavirus-en-el-aire.html
@@ -146,6 +150,12 @@ Te invitamos a sumarte a este proyecto, a construír tu propio medidor, comparti
 - Sandra Cordo, Ciclo Ciencia para ventilar: [Transmisión de Covid-19 por aire. Principales medidas de prevención](https://youtu.be/4AUWS4Dpn0A).
 
 - Alejandro Nadra, Juan Fernández Zaragoza, Ciclo Ciencia para ventilar: [¿Qué son las tecnologías libres y qué aportan en el contexto de pandemia?](https://youtu.be/301sSYFhCg8).
+
+---
+
+- [Jornada sobre Ventilación para bares y restaurantes](https://youtu.be/Q7DBwQ0G1Hc) en contexto de COVID 19, donde se presentaron [líneas de financiamiento](https://www.argentina.gob.ar/servicio/obtener-un-credito-para-mi-restaurante-o-bar) de la Secretaría de la Pequeña y Mediana Empresa y los Emprendedores de Argentina, hasta 31 de octubre de 2021.
+
+---
 
 - Proyectos afines y material técnico
 
@@ -175,6 +185,10 @@ Te invitamos a sumarte a este proyecto, a construír tu propio medidor, comparti
 
 	- Lidia Morawska, Donald K Milton, "It Is Time to Address Airborne Transmission of Coronavirus Disease 2019 (COVID-19)", Clinical Infectious Diseases, Volume 71, Issue 9, 1 November 2020, Pages 2311–2313. https://academic.oup.com/cid/article/71/9/2311/5867798
 		- Este paper fue suscrito por más de 200 científicos.
+
+	- Hou YJ, et al. SARS-CoV-2 Reverse Genetics Reveals a Variable Infection Gradient in the Respiratory Tract. Cell. 2020 Jul 23;182(2):429-446. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7250779/pdf/main.pdf
+
+	- Miller, SL, Nazaroff, WW, Jimenez, JL, et al. Transmission of SARS-CoV-2 by inhalation of respiratory aerosol in the Skagit Valley Chorale superspreading event. Indoor Air. 2021; 31: 314– 323. https://onlinelibrary.wiley.com/doi/epdf/10.1111/ina.12751
 
 - El proyecto en los medios
 
