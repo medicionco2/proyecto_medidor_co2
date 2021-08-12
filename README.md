@@ -141,6 +141,8 @@ En este proyecto, de ninguna manera competimos con los medidores comerciales. De
 
 - [Recomendaciones para la prevención de transmisión de COVID-19 por aerosoles](https://www.argentina.gob.ar/sites/default/files/covid-19-prevencion-de-transmision-por-aerosoles-2021.pdf) del Ministerio de Ciencia, Tecnología e Innovación y Ministerio de Salud.
 
+- Campaña [Ventilar](https://www.argentina.gob.ar/ciencia/unidad-coronavirus/ventilar) para la prevención de la transmisión del COVID-19 por aerosoles, del Ministerio de Ciencia, Tecnología e Innovación, Argentina.
+
 - [Guía de evaluación de la frecuencia de ventilación](https://schools.forhealth.org/ventilation-guide/). Programa "Healthy Buildings" de la Escuela de Salud Pública T.H. Chan, Universidad de Harvard. 
 
 - [Guía del Consejo Superior de Investigaciones Científicas](https://www.csic.es/en/node/1259002) (España) sobre cómo se deben ventilar para reducir el riesgo de contagio por Covid-19. 
