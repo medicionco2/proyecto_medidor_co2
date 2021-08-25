@@ -7,11 +7,13 @@ Para usar esta alternativa hay que:
 
 1. Comenzar siguiendo los pasos que se explican en https://la.mathworks.com/help/thingspeak/collect-data-in-a-new-channel.html.
 
-2. Crear un channel y configurarlo para recibir dos "Fields"
+2. Crear un channel y configurarlo para recibir dos "Fields", uno va a contener la lectura de CO2 y otro la temperatura del sensor.
 
 ![Channel Settings](https://user-images.githubusercontent.com/30849839/124671698-40454000-de8c-11eb-8f03-300eba48fb20.png)
 
-3. Editar el código indicando tu "Write API Key" en thingspeak.
+3. Editar el código del programa correspondiente, indicando tu "Write API Key" en thingspeak. Son 16 números y letras, tachados por seguridad en la figura.
+
+![API Key](https://user-images.githubusercontent.com/30849839/130817555-cb0402fa-05bd-47fa-afb3-eac121789ab5.png)
 
 4. Configurar el ESP32 con ese programa. 
 
