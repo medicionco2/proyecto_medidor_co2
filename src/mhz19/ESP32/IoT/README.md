@@ -34,6 +34,12 @@ Licencia seleccionada: FREE (For small non-commercial projects)
 
 Para tener más nivel de servicio (conectar más sensores, compartir con más gente, mejores tasas de datos, etc.), hay que adquirir alguna licencia de pago: Standard, Academic, Student, o Home.
 
+### ¿Cómo crear un dashboard sencillo para ver la telemetría de todos los sensores en una página web?
+
+En breve te explicamos cómo hacerlo.
+
+---
+
 ## Google Cloud IoT Core
 
 Implementar una aplicación en la plataforma IoT de Google puede ser una tarea compleja. Los programas básicos para el medidor de CO2 van quedar a una distancia de esta aplicación avanzada pero los beneficios, si son necesarios, compensan el esfuerzo:
