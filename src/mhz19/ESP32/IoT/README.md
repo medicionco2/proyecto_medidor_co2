@@ -51,6 +51,12 @@ Una vez iniciada nuestra cuenta de gmail, se puede acceder a https://sites.googl
 
 ![Inicio Google Sites](imagenes/screenshot_google_sites_inicio.png)
 
+Una vez que se ingresa al inicio de la construcción de nuestro sitio en Google, se puede agregar titulo a nuestra página, bloques de estructra, etc. Aquí lo importante es que para mostrar nuestras mediciones debemos agregar un bloque que permita pegar nuestro código. Y ese bloque es posible agregarlo como indica la figura, cliqueando en "Incorporar <>" y luego dentro del cuador de diálogo seleccionando "Incorporar código", allí ya nos permite en el casillero de texto pegar nuestro código generado desde thingspeak de nuestro dashboard.
+
+![Embebieindo Dashboard en Google Sites](imagenes/screenshot_googlesites_codigo_embebido.png)
+
+
+Luego para finalizar debemos hacer nuestro ajustes de la pagina y publicarla. Si en esa misma pagina queremos mostrar otro dashboard, procedemos del mismo modo.
 
 ---
 
