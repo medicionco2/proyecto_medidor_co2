@@ -39,9 +39,18 @@ Para tener más nivel de servicio (conectar más sensores, compartir con más ge
 En breve te explicamos cómo hacerlo.
 
 ## Embebiendo Dashboards de Thingspeak
-Si queremos agregar un dashboard o cuadro de visualización de una medición, dentro de una pagina web debemos embeber una porción de código. Para realizarlo dentro de thingspeak.com con nuestra cuenta y nuestro canal que queremos mostrar, debemos seleccionar el dashboard que queremos mostrar y debemos seleccionar el icono que se muestra a continuación: 
+Si queremos agregar un dashboard o cuadro de visualización de una medición, dentro de una página web, debemos embeber una porción de código. Para realizar esto dentro de thingspeak.com con nuestra cuenta y nuestro canal que queremos mostrar, debemos seleccionar el dashboard que queremos mostrar y debemos seleccionar el icono que se muestra a continuación: 
 
 ![thingspeak Código Dashboard embebido](imagenes/snapshoot_thingspeak_iframe.png)
+
+Una vez seleccionado el icono tendremos acceso a copiar el código a embeber, se trata de una etiqueta iframe que puede agregarse en cualquier sitio web. Si aun no tenemos un sitio web, podemos pegar ese código en un archivo y pasar al paso de crear un sitio web.
+
+## Creando un sitio web en Google Sites
+Si disponemos de una cuenta de gmail, podemos desarrollar un sitio web que estará alojado bajo dominio de google pero puede ser accesible por cualquier persona.
+Una vez iniciada nuestra cuenta de gmail, se puede acceder a https://sites.google.com/ para comenzar a costruir un sitio web.
+
+![Inicio Google Sites](imagenes/screenshot_google_sites_inicio.png)
+
 
 ---
 
