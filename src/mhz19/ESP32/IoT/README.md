@@ -38,6 +38,11 @@ Para tener más nivel de servicio (conectar más sensores, compartir con más ge
 
 En breve te explicamos cómo hacerlo.
 
+## Embebiendo Dashboards de Thingspeak
+Si queremos agregar un dashboard o cuadro de visualización de una medición, dentro de una pagina web debemos embeber una porción de código. Para realizarlo dentro de thingspeak.com con nuestra cuenta y nuestro canal que queremos mostrar, debemos seleccionar el dashboard que queremos mostrar y debemos seleccionar el icono que se muestra a continuación: 
+
+![thingspeak Código Dashboard embebido](imagenes/snapshoot_thingspeak_iframe.png)
+
 ---
 
 ## Google Cloud IoT Core
