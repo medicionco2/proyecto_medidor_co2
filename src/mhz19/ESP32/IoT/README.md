@@ -41,7 +41,7 @@ En breve te explicamos cómo hacerlo.
 ## Embebiendo Dashboards de Thingspeak
 Si queremos agregar un dashboard o cuadro de visualización de una medición, dentro de una página web, debemos embeber una porción de código. Para realizar esto dentro de thingspeak.com con nuestra cuenta y nuestro canal que queremos mostrar, debemos seleccionar el dashboard que queremos mostrar y debemos seleccionar el icono que se muestra a continuación: 
 
-![thingspeak Código Dashboard embebido](imagenes/snapshoot_thingspeak_iframe.png)
+![thingspeak Código Dashboard embebido](imagenes/screenshot_thingspeak_iframe.png)
 
 Una vez seleccionado el icono tendremos acceso a copiar el código a embeber, se trata de una etiqueta iframe que puede agregarse en cualquier sitio web. Si aun no tenemos un sitio web, podemos pegar ese código en un archivo y pasar al paso de crear un sitio web.
 
