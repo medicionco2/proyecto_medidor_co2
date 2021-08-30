@@ -56,7 +56,7 @@ Una vez que se ingresa al inicio de la construcción de nuestro sitio en Google,
 ![Embebieindo Dashboard en Google Sites](imagenes/screenshot_googlesites_codigo_embebido.png)
 
 
-Luego para finalizar podemos hacer más ajustes de alineacion y estilo de nuestra página y publicarla. Si en esa misma página queremos mostrar otro dashboard, procedemos del mismo modo.
+Luego para finalizar podemos hacer más ajustes de alineación y estilo de nuestra página y publicarla. Si en esa misma página queremos mostrar otro dashboard, procedemos del mismo modo.
 
 ---
 
