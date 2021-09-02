@@ -38,25 +38,27 @@ Para tener más nivel de servicio (conectar más sensores, compartir con más ge
 
 A continuación te explicamos cómo hacerlo.
 
-## Embebiendo Código de Cuadros de Medición y Visualización de Thingspeak
-Si queremos agregar un cuadro de visualización de una medición dentro de una página web, debemos embeber una porción de código. Para realizarlo, dentro de thingspeak.com con nuestra cuenta y nuestro canal que queremos mostrar, debemos seleccionar el cuadro del campo ("Field") que queremos mostrar y debemos seleccionar el icono que se muestra a continuación: 
+#### Embebiendo Código de Cuadros de Medición y Visualización de Thingspeak
+
+Si queremos agregar un cuadro de visualización de una medición dentro de una página web, debemos embeber una porción de código html. Para realizarlo, dentro de thingspeak.com con nuestra cuenta y nuestro canal que queremos mostrar, debemos seleccionar el cuadro del campo ("Field") que queremos mostrar y debemos seleccionar el icono que se muestra a continuación: 
 
 ![thingspeak Código Cuadros de Medición y Visualización  embebido](imagenes/screenshot_thingspeak_iframe.png)
 
-Una vez seleccionado el icono tendremos acceso a copiar el código a embeber, se trata de una etiqueta iframe que puede agregarse en cualquier sitio web. Si aún no tenemos un sitio web, podemos pegar ese código en un archivo y pasar al paso de crear un sitio web para luego hacerlo.
+Una vez seleccionado el icono tendremos acceso a copiar el código a embeber, se trata de una etiqueta iframe que puede agregarse en cualquier sitio web. Si aún no tenemos un sitio web, podemos pegar ese código en un archivo y pasar al paso de crear un sitio web.
 
-## Creando un sitio web en Google Sites
-Si disponemos de una cuenta de gmail, podemos desarrollar un sitio web que estará alojado bajo dominio de google pero puede ser accesible por cualquier persona.
+#### Creando un sitio web en Google Sites
+
+Si disponemos de una cuenta de gmail, podemos desarrollar un sitio web que estará alojado en Google, accesible por cualquier persona.
 Una vez iniciada nuestra cuenta de gmail, se puede acceder a https://sites.google.com/ para comenzar a costruir un sitio web.
 
 ![Inicio Google Sites](imagenes/screenshot_google_sites_inicio.png)
 
-Una vez que se ingresa al inicio de la construcción de nuestro sitio en Google, se puede agregar título a nuestra página, bloques de estructra, estilos, etc. Aquí lo importante es que para mostrar nuestras mediciones debemos agregar un bloque que permita pegar nuestro código de thingspeak. Ese bloque que permite introducir códgo es posible agregarlo como indica la figura, cliqueando en "Incorporar <>" y luego dentro del cuador de diálogo seleccionando "Incorporar código" nos permite en el casillero de texto pegar nuestro código generado desde thingspeak de nuestro cuadro de medición y visualización.
+Una vez que se ingresa al inicio de la construcción de nuestro sitio en Google, se puede agregar un título a nuestra página, bloques de estructra, estilos, etc. Aquí lo importante es que para mostrar nuestras mediciones debemos agregar un bloque que permita pegar nuestro código de thingspeak. Ese bloque que permite introducir códgo html, se puede agregar como indica la figura, cliqueando en "Incorporar <>" y luego dentro del cuador de diálogo seleccionando "Incorporar código" nos permite en el casillero de texto pegar nuestro código generado desde thingspeak para nuestro cuadro de medición y visualización.
 
 ![Embebiendo Cuadros de Medición y Visualización de Thingspeak en Google Sites](imagenes/screenshot_googlesites_codigo_embebido.png)
 
 
-Luego para finalizar podemos hacer más ajustes de alineación y estilo de nuestra página y publicarla. Si en esa misma página queremos mostrar otro dashboard, procedemos del mismo modo.
+Luego para finalizar podemos hacer más ajustes de alineación y estilo de nuestra página y publicarla. Si en esa misma página queremos mostrar otro gráfico,y esa es la idea de un dashboard, o cuadro de control, repetimos los pasos anteriores.
 
 ---
 
