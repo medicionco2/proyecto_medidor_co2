@@ -69,7 +69,7 @@ Para más ayuda, [este video](https://www.youtube.com/watch?v=vmDCqNXVZKQ) muest
 En resumen, conectar el sensor requiere de 4 cables: 
 - Alimentación (5V): cable rojo del sensor 
 - tierra (GND): cable negro
-- y los dos cables de la conexión serie: cable azul a Tx y cable verde a Rx. 
+- y los dos cables de la conexión serie: cable azul a pin Tx2 (o puede aparecer impreso con número 17) y cable verde a Rx2 (o 16). 
 
 ## Programación
 
