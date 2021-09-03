@@ -32,17 +32,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include "ThingSpeak.h" /*Agregado Matias*/
 #include "WiFi.h" /*Agregado Matias*/
 
-/*Agregado Matias*/
-const char* ssid     = "MATIAS"; // Your WiFi
-const char* password = "pantusa100";             // Your password
+/*Agregado Matias Start*/
+const char* ssid     = ""; // Your WiFi
+const char* password = "";             // Your password
 
 unsigned long channelID = 1496131;           //Thingspeak channel ID.
 const char* WriteAPIKey = "V8I1PQRHE7I8X3N9";     //Thingspeak Write API Key.
 
 WiFiClient cliente;
-
-
-/*Agregado Matias*/
+/*Agregado Matias End*/
 
 #ifndef ESP32
 #define ESP32
@@ -81,7 +79,7 @@ const int tx2_pin = 17;  //Serial tx1 pin no
 /*----------------------------------------------------------
   Bluetooth in a ESP32s SoC 
   ----------------------------------------------------------*/
-/*
+/* commented due to memory use
 #include "BluetoothSerial.h"
 
 #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
@@ -180,7 +178,7 @@ void setup() {
   /*SerialBT.begin("NodeMCU ESP32s"); //Bluetooth device name*/
   Serial.begin(9600);
 
-/*Agregado Matias*/
+/*Agregado Matias start */
   Serial.println("Test de sensor:");
 
   WiFi.begin(ssid,password);
@@ -194,7 +192,7 @@ void setup() {
   
 
   ThingSpeak.begin(cliente);
-/*Agregado Matias*/
+/*Agregado Matias end*/
 
 #ifdef HWSERIAL
   Serial2.begin(BAUDRATE, SERIAL_8N1, rx2_pin, tx2_pin);
