@@ -310,8 +310,8 @@ void loop() {
   Serial.println("Datos enviados a ThingSpeak!");
 
   
-
-  if (!button1.down) 
+if (button1.down) //modificado matias
+ // if (!button1.down) 
     // CO2 measurement to RGB LED
     if (co2ppm < CO2_base+300) {
       // Green means low risk
