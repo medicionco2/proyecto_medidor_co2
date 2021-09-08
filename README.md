@@ -117,7 +117,7 @@ Se puede experimentar moviendo el medidor de CO2 a diferentes lugares de la habi
 
 Al aire libre, la concentración de CO2 es cercana a las 400 ppm. Si ves que en un ambiente muy bien ventilado, el medidor está dando una medida alejada de esas 400 ppm, seguramente haga falta calibrarlo.
 
-Para la calibración, hay que poner el dispositivo al aire libre, aunque al parecer, el proceso se ve afectado por el viento y las temperaturas extremas. Alternativamente, el medidor se puede calibrar en un espacio MUY bien ventilado. Para comenzar el proceso de calibración, oprimir el pulsador por al menos un segundo y esperar al menos 20 minutos. En ese estado, el LED está encendido en color azul con intensidades variables que se repiten cíclicamente. 
+Si bien existen diferentes [técnicas de calibración](https://www.co2meter.com/blogs/news/7512282-co2-sensor-calibration-what-you-need-to-know), en este caso vamos a poner el dispositivo al aire libre. Hay que notar que el proceso se ve afectado por el viento y las temperaturas extremas. Alternativamente, el medidor se puede calibrar en un espacio MUY bien ventilado. Para comenzar el proceso de calibración, oprimir el pulsador por al menos un segundo y esperar al menos 20 minutos. En ese estado, el LED está encendido en color azul con intensidades variables que se repiten cíclicamente. 
 
 ## Propuesta
 
