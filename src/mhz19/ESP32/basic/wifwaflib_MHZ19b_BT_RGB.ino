@@ -84,7 +84,7 @@ const int led_B   = 27;
 const int PWMB_Ch = 2;
 
 const int PWM_Freq = 1000;
-const int PWM_Res = 8;
+const int PWM_Res  = 8;
 
 /*----------------------------------------------------------
   Push Button for configuation control 
@@ -96,37 +96,59 @@ struct Button {
   bool event;
 };
 
-const int btn_PIN   = 21;
-const int debounceThresh = 70; // milliseconds
+const int btn_PIN        = 21;
+const int debounceThresh = 70  ; // milliseconds
+const int maxPressT      = 6000; // milliseconds
 
 Button button1 = {btn_PIN, 0, false, false};
 
 // For synchronization between the main code and the interrupt
+
 portMUX_TYPE mux = portMUX_INITIALIZER_UNLOCKED;
 
-// The Interrupt Service Routine is placed in the RAM of the ESP32
+/*----------------------------------------------------------
+ The number of captured interrupts is sometimes odd. Falling
+ edges should be followed by rising edges, but the software 
+ does not capture everything that happens physically. To 
+ solve by software both the debouncing problem, and eventual 
+ electrical noise, the resulting code can look kind of weird.
+
+ Capturing user interaction is priority and debounce is the 
+ firt goal. Therefore, the first edge cannot be discarded, 
+ even if it is followed by a possible short pulse.
+ 
+ For efficiency,the Interrupt Service Routine is placed in 
+ the RAM of the ESP32.
+  ----------------------------------------------------------*/
 void IRAM_ATTR isr_button() {
   static uint32_t lastMillis = 0;
-  uint32_t nowMillis;
+  uint32_t nowMillis, elapsedT;
 
   nowMillis = millis();
+  elapsedT = nowMillis - lastMillis;
+  //Serial.printf("Elapsed %u millis\n", elapsedT);
 
-  if (nowMillis - lastMillis > debounceThresh){ // debounce
+  if (elapsedT > debounceThresh){ // debounce
     // button state updated inside a critical section to prevent 
     //   concurrent access problems
     portENTER_CRITICAL(&mux);
     if (!button1.down){
       button1.down = true;
-      //setRGB_LEDColor (0, 0, 255);  // Blue means warming or Configuring:
-                                    //   baseline setting or calibrating
+      button1.timePressed = nowMillis; // to control time overruns due to noise
     } else { 
       button1.down = false;
-      button1.timePressed = nowMillis - lastMillis;
-      button1.event = true;
+      // Ignore too long keystrokes
+      if (elapsedT < maxPressT) {
+        button1.timePressed = elapsedT;
+        button1.event = true;
+      }
     }
-    portEXIT_CRITICAL(&mux);
-  }
+    portEXIT_CRITICAL(&mux);  
+  } 
+
   lastMillis = nowMillis;
+
+  //Serial.printf("Exit %u last millis\n", lastMillis);
 }
 
 /*----------------------------------------------------------
@@ -184,8 +206,7 @@ void setup() {
   setRGB_LEDColor (0, 0, 255);  // Blue means warming or Configuring:
                                 //   baseline setting or calibrating
 
-  //pinMode(button1.PIN, INPUT_PULLUP); Noisy Pushes
-  pinMode(button1.PIN, INPUT); // Modified due to Noist pushes
+  pinMode(button1.PIN, INPUT_PULLUP);
   attachInterrupt(button1.PIN, isr_button, CHANGE);
   
   delay (180000); // Wait 3 minutes for warming purposes
@@ -253,7 +274,13 @@ void loop() {
       portENTER_CRITICAL(&mux);
       button1.event = false;
       portEXIT_CRITICAL(&mux);
-  }
+  } else if (button1.down)
+    if (millis() - button1.timePressed > maxPressT) { // dismiss for time overruns (due to noise in the button pin)
+      Serial.printf("Button was down for %u millis\n", millis() - button1.timePressed);
+      portENTER_CRITICAL(&mux);
+      button1.down = false;
+      portEXIT_CRITICAL(&mux);
+    }
 
   // Measurements to computer for debugging purposes
   //
@@ -270,7 +297,7 @@ void loop() {
   SerialBT.print("; temp: ");
   SerialBT.println(temp);
 
-  if (!button1.down) 
+ // if (!button1.down) 
     // CO2 measurement to RGB LED
     if (co2ppm < CO2_base+300) {
       // Green means low risk
@@ -284,8 +311,8 @@ void loop() {
     else {
       // Purple means more than high risk
       setRGB_LEDColor (80, 0, 80);
-  } else 
-    setRGB_LEDColor (0, 0, 255); // Blue because the button is down
+  } //else 
+    //setRGB_LEDColor (0, 0, 255); // Blue because the button is down
   
   delay(samplingPeriod);
 }
