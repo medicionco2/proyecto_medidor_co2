@@ -29,42 +29,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#ifndef ESP32
-#define ESP32
-#endif
-
-// Comment the following line if you use SoftwareSerial
-#define HWSERIAL
-
-/*----------------------------------------------------------
-!!Experimental!! The baseline from which CO2 increments are 
-considered is 400ppm by default.
-
-In environments with CO2 sources other than people, a new 
-baseline can be set using the push button. It is recommended 
-not to use this functionality because it is experimental. 
-  ----------------------------------------------------------*/
-int CO2_base = 400;
-
-const int samplingPeriod = 15000; // 15 seconds
+#include "eco2.h"
 
 int d=0; 
 const int S=3; // Samples per telemetry recording
-
-/*----------------------------------------------------------
-    MH-Z19 CO2 sensor: UART2 in a ESP32s SoC
-  ----------------------------------------------------------*/
-#include <MHZ19.h>
-MHZ19 mhz19;             // Constructor for library
-
-const int rx2_pin = 16;	//Serial rx1 pin no
-const int tx2_pin = 17;	//Serial tx1 pin no
-#define BAUDRATE 9600    // Device to MH-Z19 Serial baudrate (should not be changed)
-
-#ifndef HWSERIAL
-  #include <SoftwareSerial.h> 
-  SoftwareSerial mySerial(rx2_pin, tx2_pin);
-#endif
 
 /*----------------------------------------------------------
   WiFi connection in a ESP32s 
@@ -85,97 +53,15 @@ WiFiClient myClient;
 char server[] = "api.thingspeak.com";
 unsigned long myChannelNumber = SECRET_CH_ID;
 const char* myWriteAPIKey = SECRET_WRITE_APIKEY;
-//String myWriteAPIKey = SECRET_WRITE_APIKEY;
-
-/*----------------------------------------------------------
-  RGB LED in a ESP32
-  ----------------------------------------------------------*/
-const int led_R   = 12; 
-const int PWMR_Ch = 0;
-const int led_G   = 14;
-const int PWMG_Ch = 1; 
-const int led_B   = 27; 
-const int PWMB_Ch = 2;
-
-const int PWM_Freq = 1000;
-const int PWM_Res = 8;
-
-/*----------------------------------------------------------
-  Push Button for configuation control 
-  ----------------------------------------------------------*/
-struct Button {
-  const uint8_t PIN;
-  uint32_t timePressed;
-  bool down;
-  bool event;
-};
-
-const int btn_PIN   = 21;
-const int debounceThresh = 70; // milliseconds
-
-Button button1 = {btn_PIN, 0, false, false};
-
-// For synchronization between the main code and the interrupt
-portMUX_TYPE mux = portMUX_INITIALIZER_UNLOCKED;
-
-// The Interrupt Service Routine is placed in the RAM of the ESP32
-void IRAM_ATTR isr_button() {
-  static uint32_t lastMillis = 0;
-  uint32_t nowMillis;
-
-  nowMillis = millis();
-
-  if (nowMillis - lastMillis > debounceThresh){ // debounce
-    // button state updated inside a critical section to prevent 
-    //   concurrent access problems
-    portENTER_CRITICAL(&mux);
-    if (!button1.down){
-      button1.down = true;
-    } else { 
-      button1.down = false;
-      button1.timePressed = nowMillis - lastMillis;
-      button1.event = true;
-    }
-    portEXIT_CRITICAL(&mux);
-  }
-  lastMillis = nowMillis;
-}
-
-/*----------------------------------------------------------
-    getVersion(char array[]) returns version number to the 
-    argument. The first 2 char are the major version, and 
-    second 2 bytes the minor version. e.g 02.11
-  ----------------------------------------------------------*/
-void retrieveInfo_mhz19 () {
-  char myVersion[4];          
-  mhz19.getVersion(myVersion);
-
-  Serial.print("\nFirmware Version: ");
-  for(byte i = 0; i < 4; i++)
-  {
-    Serial.print(myVersion[i]);
-    if(i == 1)
-      Serial.print(".");    
-  }
-  Serial.println("");
-
-  Serial.print("Range: ");
-  Serial.println(mhz19.getRange());   
-  Serial.print("Background CO2: ");
-  Serial.println(mhz19.getBackgroundCO2());
-  Serial.print("Temperature Cal: ");
-  Serial.println(mhz19.getTempAdjustment());
-  Serial.print("ABC Status: "); mhz19.getABC() ? Serial.println("ON") :  Serial.println("OFF");
-} 
 
 /*----------------------------------------------------------
     Connect your device to the wireless network
   ----------------------------------------------------------*/
 void connectWiFi(){
-
     while (WiFi.status() != WL_CONNECTED){
         WiFi.begin(ssid, password);
         Serial.print(".");
+        updateRGB_LED (true);         // Blink while connecting
         delay(3000);
     }
 
@@ -199,68 +85,25 @@ void setup() {
   
   mhz19.autoCalibration(false);     // make sure auto calibration is off
 
-  ledcAttachPin(led_R, PWMR_Ch);
-  ledcSetup(PWMR_Ch, PWM_Freq, PWM_Res);
-  ledcAttachPin(led_G, PWMG_Ch);
-  ledcSetup(PWMG_Ch, PWM_Freq, PWM_Res);
-  ledcAttachPin(led_B, PWMB_Ch);
-  ledcSetup(PWMB_Ch, PWM_Freq, PWM_Res);
+  RGB_LEDSetup();
 
   setRGB_LEDColor (0, 0, 255);  // Blue means warming or Configuring:
                                 //   baseline setting or calibrating
-
-  pinMode(button1.PIN, INPUT);
-  attachInterrupt(button1.PIN, isr_button, CHANGE);
-
+  
+  updateRGB_LED (true);         // Blink while connecting
   connectWiFi();
+  updateRGB_LED (false); 
 
   ThingSpeak.begin(myClient);
 
   delay (180000); // Wait 3 minutes for warming purposes
 
   retrieveInfo_mhz19 ();
+
+  pinMode(button1.PIN, INPUT_PULLUP);
+  attachInterrupt(button1.PIN, isr_button, CHANGE);
  
   Serial.println("co2[ppm],temp[°C]");
-}
-
-/*----------------------------------------------------------
-    Set the RGB LED color
-  ----------------------------------------------------------*/
-void setRGB_LEDColor(int red, int green, int blue)
-{
-    ledcWrite(PWMR_Ch, red  ); 
-    ledcWrite(PWMG_Ch, green);
-    ledcWrite(PWMB_Ch, blue );
-}
-
-/*----------------------------------------------------------
-    For calibration, the instrument must be placed in the 
-    open air.
-  ----------------------------------------------------------*/
-void calibrate_mhz19()
-{
-  // the device must remain stable, outdoors for waitingMinutes minutes
-  const int waitingMinutes = 21;  
-  const long waitingSeconds = waitingMinutes * 60L; 
-  long cnt_cal = 0; 
-
-  byte color_intensity = 255;
-  
-  setRGB_LEDColor (0, 0, color_intensity);  // Blue means warming or Configuring:
-                                            //   baseline setting or calibrating
-
-  while (cnt_cal <= waitingSeconds) { // wait for waitingMinutes minutes
-    ++cnt_cal;
-    color_intensity = color_intensity-50; 
-    
-    setRGB_LEDColor (0, 0, color_intensity);
-
-    delay (1000);   // One second
-  }
-  // waitingMinutes minutes elapsed  
-  mhz19.calibrate ();  // Take a reading which be used as the zero point for 400 ppm
-
-  retrieveInfo_mhz19 ();
 }
 
 /*----------------------------------------------------------
@@ -270,17 +113,8 @@ void loop() {
   int co2ppm = mhz19.getCO2();          // Request CO2 (as ppm)
   int temp = mhz19.getTemperature();    // Request Temperature (as Celsius)                          
 
-  if (button1.event) {
-      //Serial.printf("Button has been pressed for %u millis\n", button1.timePressed);
-      if (button1.timePressed < 1000)
-        CO2_base = co2ppm;
-      else calibrate_mhz19 ();
-      // button state updated inside a critical section
-      portENTER_CRITICAL(&mux);
-      button1.event = false;
-      portEXIT_CRITICAL(&mux);
-  }
-
+  btnManager (co2ppm);
+  
   // Measurements to computer for debugging purposes
   //
   //Serial.print("co2: "); 
@@ -302,24 +136,7 @@ void loop() {
   }
   d++;
 
-  // Feedback to RGB LED
-  //
-  if (!button1.down) 
-    // CO2 measurement to RGB LED
-    if (co2ppm < CO2_base+300) {
-      // Green means low risk
-      setRGB_LEDColor (0, 255, 0);}
-    else if (co2ppm < CO2_base+400) {
-      // Yellow means medium risk
-      setRGB_LEDColor (255, 50, 0);}
-    else if (co2ppm < CO2_base+600) {
-      // Red means high risk
-      setRGB_LEDColor (255, 0, 0);}
-    else {
-      // Purple means more than high risk
-      setRGB_LEDColor (80, 0, 80);
-  } else 
-    setRGB_LEDColor (0, 0, 255); // Blue because the button is down
+  CO2RGB_LED(co2ppm);
   
   delay(samplingPeriod);
 }
