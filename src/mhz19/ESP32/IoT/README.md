@@ -11,11 +11,15 @@ Para usar esta alternativa hay que:
 
 ![Channel Settings](https://user-images.githubusercontent.com/30849839/124671698-40454000-de8c-11eb-8f03-300eba48fb20.png)
 
-3. Editar el código del programa correspondiente, indicando tu "Write API Key" en thingspeak. Son 16 números y letras, tachados por seguridad en la figura.
+3. Si ya seguiste los [pasos](https://github.com/medicionco2/proyecto_medidor_co2#programaci%C3%B3n) de las versiones básicas, ya tenías cargada la librería del sensor. Ahora, tenés que cargar la librería thinkspeak que está disponible en el repositorio de Arduino.
+
+![Lib thikgspeak](https://user-images.githubusercontent.com/30849839/133838680-e5b87f02-71f3-4467-bbf5-5f0862c367ba.png)
+
+4. Editar el archivo secrets.h, que debe incluirse en el IDE de Arduino, indicando tu "Channel Id" y tu "Write API Key" en thingspeak. Los API Key son 16 números y letras, tachados por seguridad en la figura.
 
 ![API Key](https://user-images.githubusercontent.com/30849839/130817555-cb0402fa-05bd-47fa-afb3-eac121789ab5.png)
 
-4. Configurar el ESP32 con ese programa. 
+5. Configurar el ESP32 con ese programa. 
 
 El medidor en funcionamiento va a comenzar a enviar datos a la plataforma thingspeak. Vas a poder configurar visualizaciones de manera más o menos intuitiva de manera que veas algo así:
 
