@@ -84,7 +84,12 @@ const int btn_PIN        = 21;
 const int debounceThresh = 70  ; // milliseconds
 const int maxPressT      = 6000; // milliseconds
 
-Button button1 = {btn_PIN, 0, false, false};
+/*----------------------------------------------------------
+  The volatile modifier directs the compiler to load the variable
+  from RAM, and not from a register. Specificaly, button1 can
+  be changed by the ISR, beyond the control of the main code.
+  ----------------------------------------------------------*/
+volatile Button button1 = {btn_PIN, 0, false, false};
 
 // For synchronization between the main code and the interrupt
 portMUX_TYPE mux = portMUX_INITIALIZER_UNLOCKED;
@@ -107,7 +112,8 @@ void IRAM_ATTR isr_button() {
   static uint32_t lastMillis = 0;
   uint32_t nowMillis, elapsedT;
 
-  nowMillis = millis();
+  //nowMillis = millis();
+  nowMillis = xTaskGetTickCountFromISR(); // safe to be called from an ISR
   elapsedT = nowMillis - lastMillis;
   //Serial.printf("Elapsed %u millis\n", elapsedT);
 
