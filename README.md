@@ -200,6 +200,8 @@ En este proyecto, de ninguna manera competimos con los medidores comerciales. De
 
 - El proyecto en los medios
 
+	- Diario "ABC Hoy" de Tandil, 30 SEP 2021. [Alumnos de 5° Año del Colegio Nuestra Tierra diseñaron un detector de Dióxido de Carbono.](http://www.abchoy.com.ar/leernota.php?id=178465&titulo=alumnos-5-ano-del-colegio-nuestra-tierra-disenaron-un-detector-dioxido-carbono)
+
 	- Portal "Enfoque de Negocios", 16 JUL 2021. [Se fabricarán medidores de Dióxido de Carbono en Tandil.](https://www.enfoquedenegocios.com.ar/medidores-de-dioxido-de-carbono/)
 
 	- [Presentación del proyecto](https://youtu.be/HmPg_Kn5Qhk) en el Encuentro IoT MdP/Tandil 2021 en el marco del proyecto [NEON](https://www.project-neon.eu/) de la Unión Europea, 13 JUL 2021. 
@@ -208,7 +210,7 @@ En este proyecto, de ninguna manera competimos con los medidores comerciales. De
 
 	- Boletín de la Facultad de Ciencias Exactas - Número 274 - Reunión con la Dirección Nacional de Desarrollo Tecnológico e Innovación del MinCYT, 28 JUN 2021. (En redes sociales de la Facultad de Ciencias Exactas, UNICEN)
 
-	- Diario "ABC Hoy" de Tandil, 23 JUN 2021. http://www.abchoy.com.ar/leernota.php?id=175998&titulo=medidor_dioxido_carbono_para_concientizar_sobre_ventilacion_para_prevencion_del_covid_19
+	- Diario "ABC Hoy" de Tandil, 23 JUN 2021. [Medidor de dióxido de carbono para concientizar sobre ventilación para prevención del COVID-19.](http://www.abchoy.com.ar/leernota.php?id=175998&titulo=medidor_dioxido_carbono_para_concientizar_sobre_ventilacion_para_prevencion_del_covid_19)
 
 	- Diario "El Eco" de Tandil, 23 JUN 2021. https://www.eleco.com.ar/la-ciudad/crean-un-medidor-de-dioxido-de-carbono-que-busca-concientizar-la-importancia-de-la-ventilacion-de-los-ambientes
 
