@@ -202,11 +202,13 @@ En este proyecto, de ninguna manera competimos con los medidores comerciales. De
 
 	- Diario "ABC Hoy" de Tandil, 30 SEP 2021. [Alumnos de 5° Año del Colegio Nuestra Tierra diseñaron un detector de Dióxido de Carbono.](http://www.abchoy.com.ar/leernota.php?id=178465&titulo=alumnos-5-ano-del-colegio-nuestra-tierra-disenaron-un-detector-dioxido-carbono)
 
+	- Diario "La Voz de Tandil", 29 SEP 2021. [Estudiantes del Colegio Nuestra Tierra construyeron un medidor de dióxido de carbono.](https://www.lavozdetandil.com.ar/2021/09/29/estudiantes-del-colegio-nuestra-tierra-construyeron-un-medidor-de-dioxido-de-carbono)
+
 	- Portal "Enfoque de Negocios", 16 JUL 2021. [Se fabricarán medidores de Dióxido de Carbono en Tandil.](https://www.enfoquedenegocios.com.ar/medidores-de-dioxido-de-carbono/)
 
 	- [Presentación del proyecto](https://youtu.be/HmPg_Kn5Qhk) en el Encuentro IoT MdP/Tandil 2021 en el marco del proyecto [NEON](https://www.project-neon.eu/) de la Unión Europea, 13 JUL 2021. 
 
-	- Diario "El Eco" de Tandil, 3 JUL 2021. https://www.eleco.com.ar/la-ciudad/investigadores-de-exactas-inventaron-un-medidor-de-dioxido-de-carbono-con-un-diseno-economico-y-simple
+	- Diario "El Eco" de Tandil, 3 JUL 2021. [Investigadores de Exactas inventaron un medidor de dióxido de carbono con un diseño económico y simple.](https://www.eleco.com.ar/la-ciudad/investigadores-de-exactas-inventaron-un-medidor-de-dioxido-de-carbono-con-un-diseno-economico-y-simple)
 
 	- Boletín de la Facultad de Ciencias Exactas - Número 274 - Reunión con la Dirección Nacional de Desarrollo Tecnológico e Innovación del MinCYT, 28 JUN 2021. (En redes sociales de la Facultad de Ciencias Exactas, UNICEN)
 
