@@ -200,6 +200,8 @@ En este proyecto, de ninguna manera competimos con los medidores comerciales. De
 
 - El proyecto en los medios
 
+	- Exactas Dialoga, 5 OCT 2021. [Medidor sencillo de dióxido de carbono.](https://www.mixcloud.com/Exactasdialoga/exactas-dialoga-e5-medidor-sencillo-de-di%C3%B3xido-de-carbono/)
+
 	- Diario "ABC Hoy" de Tandil, 30 SEP 2021. [Alumnos de 5° Año del Colegio Nuestra Tierra diseñaron un detector de Dióxido de Carbono.](http://www.abchoy.com.ar/leernota.php?id=178465&titulo=alumnos-5-ano-del-colegio-nuestra-tierra-disenaron-un-detector-dioxido-carbono)
 
 	- Diario "La Voz de Tandil", 29 SEP 2021. [Estudiantes del Colegio Nuestra Tierra construyeron un medidor de dióxido de carbono.](https://www.lavozdetandil.com.ar/2021/09/29/estudiantes-del-colegio-nuestra-tierra-construyeron-un-medidor-de-dioxido-de-carbono)
