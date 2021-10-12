@@ -200,6 +200,9 @@ En este proyecto, de ninguna manera competimos con los medidores comerciales. De
 
 - El proyecto en los medios
 
+	- En el canal de YouTube de El Taller De TD ![imagen](https://user-images.githubusercontent.com/30849839/136961650-8044a72a-d548-4286-9769-e5bc1738fc94.png) [explicaron el proyecto](https://youtu.be/7OHqT15nE9w![imagen](https://user-images.githubusercontent.com/30849839/136962101-3a85b2da-e438-4487-a09c-d2df5bf979d4.png)
+), 11 OCT 2021. ¡Gracias!
+
 	- Exactas Dialoga, 5 OCT 2021. [Medidor sencillo de dióxido de carbono.](https://www.mixcloud.com/Exactasdialoga/exactas-dialoga-e5-medidor-sencillo-de-di%C3%B3xido-de-carbono/)
 
 	- Diario "ABC Hoy" de Tandil, 30 SEP 2021. [Alumnos de 5° Año del Colegio Nuestra Tierra diseñaron un detector de Dióxido de Carbono.](http://www.abchoy.com.ar/leernota.php?id=178465&titulo=alumnos-5-ano-del-colegio-nuestra-tierra-disenaron-un-detector-dioxido-carbono)
