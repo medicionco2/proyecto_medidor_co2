@@ -231,6 +231,8 @@ void createWebServer()
   {
     server.on("/", []() {
 
+      int n = WiFi.scanNetworks();
+
       IPAddress ip = WiFi.softAPIP();
       String ipStr = String(ip[0]) + '.' + String(ip[1]) + '.' + String(ip[2]) + '.' + String(ip[3]);
 
@@ -242,7 +244,7 @@ void createWebServer()
       content += "<head>";
       content +="<meta charset=\"UTF-8\">";
       content +="<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">";
-      content +="<title>Wi Fi Porvisioning UNCPBA - CO2 </title>";
+      content +="<title>Aprovisionamiento Wi Fi UNCPBA - CO2 </title>";
 
       // STYLES
       content +="<style>";
@@ -262,7 +264,10 @@ void createWebServer()
 
       //Ordered List of scanned list
       content += ipStr;
-      content +=" <h2>Redes Disponibles</h2>";
+      content +="<h2>Redes Disponibles</h2>";
+      content += "<p>Total Redes:";
+      content += n;
+      content += "</p>";
       content += "<p>";
       content += st;
       content += "</p>";
@@ -271,9 +276,11 @@ void createWebServer()
       content +="<h3>Datos de red para el dispositivo</h3>";
       content +="<hr>";
       content +="<br>";
-      content +="<label>SSID - Nombre de Red: </label>";
+      content +="<label>SSID - Número de Red: </label>";
       content +="<br>";
-      content +="<input class=\"input_text\" name='ssid' length=32>";
+      content +="<input class=\"input_text\" name='ssid_number' type='number' min='1' max='"; 
+      content += n; // Number of available networks
+      content += "'length=32>";
       content +="<br>";
       content +="<label>Pass: </label>";
       content +="<br>";
@@ -297,7 +304,13 @@ void createWebServer()
     });
 
     server.on("/setting", []() {
-      String qsid = server.arg("ssid");
+
+      String qsid_number = server.arg("ssid_number");
+      int qsid_num = qsid_number.toInt();
+
+      Serial.println("Selected Network: " + qsid_number + " " + WiFi.SSID(qsid_num-1));
+
+      String qsid = WiFi.SSID(qsid_num-1);
       String qpass = server.arg("pass");
       if (qsid.length() > 0 && qpass.length() > 0) {
         Serial.println("clearing eeprom");
