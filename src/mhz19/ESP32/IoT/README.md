@@ -64,32 +64,30 @@ Una vez que se ingresa al inicio de la construcción de nuestro sitio en Google,
 
 Luego para finalizar podemos hacer más ajustes de alineación y estilo de nuestra página y publicarla. Si en esa misma página queremos mostrar otro gráfico,y esa es la idea de un dashboard, o cuadro de control, repetimos los pasos anteriores.
 
----
+## Autodescubrimiento de la red WiFi
 
-## Google Cloud IoT Core
+En versiones de firmware simples, el nombre de la red WiFi (conocido como SSID) y la contraseña, se proporcionan en el programa, en nuestro caso, en el archivo secrets.h. Si se cambia el router, o se lleva el medidor a otra red, hay que volver a editar secrets.h y reprogramar el medidor. Eso, por un lado es incómodo para los usuarios, y por otro lado complica el despliegue en instituciones que necesiten de un número relativamente grande de medidores. Una solución es agregar una funcionalidad que se llama autodescubrimiento de la red WiFi (o WiFi provisioning).
 
-Implementar una aplicación en la plataforma IoT de Google puede ser una tarea compleja. Los programas básicos para el medidor de CO2 van quedar a una distancia de esta aplicación avanzada pero los beneficios, si son necesarios, compensan el esfuerzo:
+Esta técnica va a permitir distribuír medidores ya programados, de manera que sean más sencillos de usar para los usuarios finales. Sin embargo, para quienes quieran estudiar el programa, van a encontrarse con un código más complejo que en el caso simple de arriba.
 
-- Seguridad de los dispositivos mediante autenticación con clave pública (o asimétrica).
+WiFi provisioning es un proceso que va a servir para cargar en el medidor- sin tener que programar- el SSID, password, e información para enviar los datos a la plataforma IoT, en este caso Thingspeak. Esta funcionalidad es muy útil en dispositivos IoT como nuestro medidor. El medidor va a poder estar en uno de dos modos: con la configuración cargada o sin la configuración cargada. Si la configuración no está cargada, el medidor se va a comportar como un Access Point y lo vamos a ver entre las redes WiFi disponibles, caso contrario el medidor se conecta a la red que tiene configurada y opera normalmente midiendo y enviando datos a la plataforma IoT.
 
-- Administración de dispositivos.
+Para usar el medidor con esta funcionalidad hay que hacer los tres primeros pasos (1-3) de las instrucciones de aquí arriba, luego:
 
-- Over The Air Updates (OTA). Aunque Google no lo provee de manera directa, es un requisito importante para el despliegue de dispositivos.
+4. Configurar el ESP32 con el programa correspondiente (Thingspeak_WiFi_provisioning.ino). En este punto, se le puede entregar el medidor a un usuario final que solamente va a tener que realizar el quinto paso sin tener que programar lidiar con tecnología. 
 
-Esta parte del proyecto está pensada para informáticos con cierta experiencia. Lo primero es leer y realizar los pasos indicados en esta [guía de inicio](https://cloud.google.com/iot/docs/how-tos/getting-started). En esa guía se comienza creando una cuenta que permite disponer de un período de evaluación de 90 días. Luego: 
+5. El medidor en funcionamiento va a enviar datos a la plataforma thingspeak como antes. Pero para que ello ocurra, primero lo vas a tener que configurar del siguiente modo:
 
-- Se crea un registro de dispositivos
+  - Durante el primer arranque del dispositivo, el medidor se configura como un punto de acceso (AP - Access Point) y crea una red abierta Wifi sin contraseña con el nombre "redmedidor". Entonces, para establecer la conexion con el punto de acceso, en el dispostivo desde el que se desee conectar al medidor (teléfono, PC, etc.) se debe seleccionar esa red con el nombre "redmedidor". 
 
-- Se crean las credenciales de cada dispositivo (par clave pública y clave privada)
+(Agregar figura)
 
-- Se agregan dispositivos al registro
+  - Esta red abierta WiFI permite al usuario conectarse al medidor a través de un navegador. Para ello, debe ingresarse la dirección http://192.168.4.1 en el navegador para acceder a la página web de configuración.
 
-Con eso ya se puede implementar la aplicación en los medidores, para que envíen la telemetría que se podrá visualizar.
+(Agregar figura)
 
-#### Más información
+  - Una vez seleccionado el nombre de red, contraseña, y demás información, el medidor se reinicia e intenta conectarse a la red asignada.
 
-- [Ejemplo](https://github.com/espressif/esp-google-iot/blob/master/examples/smart_outlet/README.md) para comenzar a usar ESP32 en Google Cloud IoT Core.
+  - Si se establece la conexion el proceso de provisioning se ejecutó exitosamente.
 
-- Un video en youtube sobre [lo básico de Google Cloud](https://youtu.be/GKEk1FzAN1A).
-
-- Getting started with the [IoT Core Embedded C SDK](https://cloud.google.com/community/tutorials/embedded-c-getting-started).
+  - En caso de falla o si se quiere modificar la red a la cual se conecta el medidor, se debe pulsar el botón por más de tres segundos para que el dispositivo pase nuevamente al modo de punto de acceso. 
