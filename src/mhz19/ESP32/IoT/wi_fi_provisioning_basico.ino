@@ -27,6 +27,10 @@ String content;
 String esid;
 String epass = "";
 
+String echannel_id;
+String ewrite_api_key;
+String eread_api_key;
+
 // Const
 const int btn_PIN = 21;
 
@@ -72,21 +76,50 @@ void setup()
     esid += char(EEPROM.read(i));
   }
 
- 
   Serial.println();
   Serial.print("SSID: ");
   Serial.println(esid);
+  
   Serial.println("Reading EEPROM pass");
   
-
   for (int i = 32; i < 96; ++i)
   {
     epass += char(EEPROM.read(i));
   }
 
- 
   Serial.print("PASS: ");
   Serial.println(epass);
+
+  Serial.println("Reading EEPROM Channel ID");
+  
+  for (int i = 96; i < 104; ++i)
+  {
+    echannel_id += char(EEPROM.read(i));
+  }
+
+  Serial.print("Channel ID: ");
+  Serial.println(echannel_id);
+
+
+  Serial.println("Reading EEPROM Write API Key");
+  
+  for (int i = 104; i < 136; ++i)
+  {
+    ewrite_api_key += char(EEPROM.read(i));
+  }
+
+  Serial.print("Write APi Key: ");
+  Serial.println(ewrite_api_key);
+
+  Serial.println("Reading EEPROM Read API Key");
+  
+  for (int i = 136; i < 168; ++i)
+  {
+    eread_api_key += char(EEPROM.read(i));
+  }
+
+  Serial.print("Read APi Key: ");
+  Serial.println(eread_api_key);
 
 
   WiFi.begin(esid.c_str(), epass.c_str());
@@ -277,14 +310,26 @@ void createWebServer()
       content +="<hr>";
       content +="<br>";
       content +="<label>SSID - Número de Red: </label>";
-      content +="<br>";
       content +="<input class=\"input_text\" name='ssid_number' type='number' min='1' max='"; 
       content += n; // Number of available networks
       content += "'length=32>";
       content +="<br>";
-      content +="<label>Pass: </label>";
       content +="<br>";
+      content +="<label>Pass: </label>";
       content +="<input class=\"input_text\" name='pass' length=64  type=\"password\">";
+      content +="<br>";
+      content +="<br>";
+      content +="<label>Thingspeak Channel ID: </label>";
+      content +="<input class=\"input_text\" name='channel_id' length=8  type=\"text\">";
+      content +="<br>";
+      content +="<br>";
+      content +="<label>Thingspeak Write Api Key: </label>";
+      content +="<input class=\"input_text\" name='write_api_key' length=32  type=\"text\">";
+      content +="<br>";
+      content +="<br>";
+      content +="<label>Thingspeak Read Api Key: </label>";
+      content +="<input class=\"input_text\" name='read_api_key' length=32  type=\"text\">";
+      content +="<br>";
       content +="<br>";
       content +="<input class=\"button\" type='submit' value=\"Enviar\">";
       content +="</form>";
@@ -305,21 +350,37 @@ void createWebServer()
 
     server.on("/setting", []() {
 
-      String qsid_number = server.arg("ssid_number");
-      int qsid_num = qsid_number.toInt();
-
-      Serial.println("Selected Network: " + qsid_number + " " + WiFi.SSID(qsid_num-1));
-
-      String qsid = WiFi.SSID(qsid_num-1);
+      String sid_number = server.arg("ssid_number");
+      int qsid_number = sid_number.toInt();
+      String qsid = WiFi.SSID(qsid_number-1);
       String qpass = server.arg("pass");
+      String qchannel_id = server.arg("channel_id");
+      String qwrite_api_key = server.arg("write_api_key");
+      String qread_api_key = server.arg("read_api_key");
+
+      Serial.println("Selected Network: " + sid_number + " " + qsid);
+      Serial.println("TS Channel ID: " + qchannel_id);
+      Serial.println("TS Write Api Key: " +  qwrite_api_key);
+      Serial.println("TS Raed Api Key: " +  qread_api_key);
+      
       if (qsid.length() > 0 && qpass.length() > 0) {
         Serial.println("clearing eeprom");
-        for (int i = 0; i < 96; ++i) {
+
+        //qsid = 32, qpass = 64, channel_id=8, write_api_key=32, read_api_key = 32
+        //for (int i = 0; i < 96; ++i) {
+
+        for (int i = 0; i < 168; ++i) {
           EEPROM.write(i, 0);
         }
         Serial.println(qsid);
         Serial.println("");
         Serial.println(qpass);
+        Serial.println("");
+        Serial.println(qchannel_id);
+        Serial.println("");
+        Serial.println(qwrite_api_key);
+        Serial.println("");
+        Serial.println(qread_api_key);
         Serial.println("");
 
         Serial.println("writing eeprom ssid:");
@@ -329,6 +390,7 @@ void createWebServer()
           Serial.print("Wrote: ");
           Serial.println(qsid[i]);
         }
+        
         Serial.println("writing eeprom pass:");
         for (int i = 0; i < qpass.length(); ++i)
         {
@@ -336,6 +398,31 @@ void createWebServer()
           Serial.print("Wrote: ");
           Serial.println(qpass[i]);
         }
+        
+        Serial.println("writing eeprom hannel ID:");
+        for (int i = 0; i < qchannel_id.length(); ++i)
+        {
+          EEPROM.write(96 + i, qchannel_id[i]);
+          Serial.print("Wrote: ");
+          Serial.println(qchannel_id[i]);
+        }
+
+        Serial.println("writing eeprom Write API Key:");
+        for (int i = 0; i < qwrite_api_key.length(); ++i)
+        {
+          EEPROM.write(104 + i, qwrite_api_key[i]);
+          Serial.print("Wrote: ");
+          Serial.println(qwrite_api_key[i]);
+        }
+
+        Serial.println("writing eeprom Read API Key:");
+        for (int i = 0; i < qread_api_key.length(); ++i)
+        {
+          EEPROM.write(136 + i, qread_api_key[i]);
+          Serial.print("Wrote: ");
+          Serial.println(qread_api_key[i]);
+        }
+        
         EEPROM.commit();
 
         content = "{\"Success\":\"saved to eeprom... reset to boot into new wifi\"}";
