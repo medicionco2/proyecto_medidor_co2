@@ -30,6 +30,7 @@ String epass = "";
 String echannel_id;
 String ewrite_api_key;
 String eread_api_key;
+int totalNets;
 
 // Const
 const int btn_PIN = 21;
@@ -251,6 +252,9 @@ void setupAP(void)
     st += "</li>";
   }
   st += "</ol>";
+
+  totalNets = n;
+  
   delay(100);
   
   WiFi.softAP("redmedidor", "");
@@ -263,8 +267,6 @@ void createWebServer()
 {
   {
     server.on("/", []() {
-
-      int n = WiFi.scanNetworks();
 
       IPAddress ip = WiFi.softAPIP();
       String ipStr = String(ip[0]) + '.' + String(ip[1]) + '.' + String(ip[2]) + '.' + String(ip[3]);
@@ -299,7 +301,7 @@ void createWebServer()
       content += ipStr;
       content +="<h2>Redes Disponibles</h2>";
       content += "<p>Total Redes:";
-      content += n;
+      content += totalNets;
       content += "</p>";
       content += "<p>";
       content += st;
@@ -311,7 +313,7 @@ void createWebServer()
       content +="<br>";
       content +="<label>SSID - Número de Red: </label>";
       content +="<input class=\"input_text\" name='ssid_number' type='number' min='1' max='"; 
-      content += n; // Number of available networks
+      content += totalNets; // Number of available networks
       content += "'length=32>";
       content +="<br>";
       content +="<br>";
