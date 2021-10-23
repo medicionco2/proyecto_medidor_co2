@@ -357,10 +357,10 @@ void createWebServer()
       String qwrite_api_key = server.arg("write_api_key");
       String qread_api_key = server.arg("read_api_key");
 
-      Serial.println("Selected Network: " + sid_number + " " + qsid);
+      Serial.println("Selected Network: " + qsid + ", " + qpass);
       Serial.println("TS Channel ID: " + qchannel_id);
       Serial.println("TS Write Api Key: " +  qwrite_api_key);
-      Serial.println("TS Raed Api Key: " +  qread_api_key);
+      Serial.println("TS Read Api Key: " +  qread_api_key);
       
       if (qsid.length() > 0 && qpass.length() > 0) {
         Serial.println("clearing eeprom");
