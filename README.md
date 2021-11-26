@@ -198,6 +198,9 @@ En este proyecto, de ninguna manera competimos con los medidores comerciales. De
 
 	- Miller, SL, Nazaroff, WW, Jimenez, JL, et al. Transmission of SARS-CoV-2 by inhalation of respiratory aerosol in the Skagit Valley Chorale superspreading event. Indoor Air. 2021; 31: 314– 323. https://onlinelibrary.wiley.com/doi/epdf/10.1111/ina.12751
 
+	- Shrey Trivedi, Savvas Gkantonas, Léo C. C. Mesquita, Salvatore Iavarone, Pedro M. de Oliveira, and Epaminondas Mastorakos, "Estimates of the stochasticity of droplet dispersion by a cough", Physics of Fluids 33, 115130 (2021) https://doi.org/10.1063/5.0070528 
+		- Este paper fue citado en un [artículo periodístico](https://www.pagina12.com.ar/385125-coronavirus-advierten-que-con-el-distanciamiento-social-no-a) donde los investigadores concluyeron que el distanciamiento de dos metros no debe considerarse una medida de seguridad por sí sola, sino que para ser efectiva tiene que estar acompañada por la utilización de barbijos, la ventilación de espacios y la vacunación. “Todos estamos desesperados por ver la parte posterior de esta pandemia, pero recomendamos encarecidamente que las personas sigan usando máscaras", al menos en "espacios interiores", dijo Epaminondas Mastorakos, experto en mecánica de fluidos de la Universidad de Cambridge. "No hay ninguna buena razón para exponerse a este riesgo mientras el virus esté con nosotros”, añadió.
+
 - El proyecto en los medios
 
 	- En el canal de YouTube de El Taller De TD ![imagen](https://user-images.githubusercontent.com/30849839/136961650-8044a72a-d548-4286-9769-e5bc1738fc94.png) [explicaron el proyecto](https://youtu.be/7OHqT15nE9w![imagen](https://user-images.githubusercontent.com/30849839/136962101-3a85b2da-e438-4487-a09c-d2df5bf979d4.png)
