@@ -66,25 +66,29 @@ Luego para finalizar podemos hacer más ajustes de alineación y estilo de nuest
 
 ## Autodescubrimiento de la red WiFi
 
-En versiones de firmware simples, el nombre de la red WiFi (conocido como SSID) y la contraseña, se proporcionan en el programa, en nuestro caso, en el archivo secrets.h. Si se cambia el router, o se lleva el medidor a otra red, hay que volver a editar secrets.h y reprogramar el medidor. Eso, por un lado es incómodo para los usuarios, y por otro lado complica el despliegue en instituciones que necesiten de un número relativamente grande de medidores. Una solución es agregar una funcionalidad que se llama autodescubrimiento de la red WiFi (o WiFi provisioning).
+En versiones simples del firmware, por ejemplo para hacer un solo medidor, el nombre de la red WiFi (conocido como SSID) y la contraseña, se proporcionan en el programa, en nuestro caso, en el archivo secrets.h. Si se cambia el router, o se lleva el medidor a otra red, hay que volver a editar el archivo secrets.h y reprogramar el medidor. Si bien esa forma de conectarse a la red WiFi es sencilla, por un lado es incómodo para los usuarios tener que reprogramar los medidores, y por otro lado complica el despliegue en instituciones que necesiten de un número relativamente grande de medidores. Una solución es agregar una funcionalidad que se llama autodescubrimiento de la red WiFi (o WiFi provisioning).
 
-Esta técnica va a permitir distribuír medidores ya programados, de manera que sean más sencillos de usar para los usuarios finales. Sin embargo, para quienes quieran estudiar el programa, van a encontrarse con un código más complejo que en el caso simple de arriba.
+Esta técnica va a permitir distribuír medidores ya programados, que no deberán reprogramarse, de manera que sean más sencillos de usar para los usuarios finales. Sin embargo, para quienes quieran estudiar el programa, se van a encontrar con un código más complejo que en el caso simple de arriba.
 
-WiFi provisioning es un proceso que va a servir para cargar en el medidor- sin tener que programar- el SSID, password, e información para enviar los datos a la plataforma IoT, en este caso Thingspeak. Esta funcionalidad es muy útil en dispositivos IoT como nuestro medidor. El medidor va a poder estar en uno de dos modos: con la configuración cargada o sin la configuración cargada. Si la configuración no está cargada, el medidor se va a comportar como un Access Point y lo vamos a ver entre las redes WiFi disponibles, caso contrario el medidor se conecta a la red que tiene configurada y opera normalmente midiendo y enviando datos a la plataforma IoT.
+WiFi provisioning es un proceso que va a servir para cargar en el medidor- sin tener que programar- el SSID, password, e información para enviar los datos a la plataforma IoT, en este caso Thingspeak. Esta funcionalidad puede ser muy útil en dispositivos IoT como nuestro medidor. El medidor va a poder estar en uno de dos modos: con la configuración cargada o sin la configuración cargada. Si la configuración no está cargada, el medidor se va a comportar como un Access Point y lo vamos a ver entre las redes WiFi disponibles, caso contrario el medidor se conecta a la red que tiene configurada y opera normalmente midiendo y enviando datos a la plataforma IoT.
 
 Para usar el medidor con esta funcionalidad hay que hacer los tres primeros pasos (1-3) de las instrucciones de aquí arriba, luego:
 
-4. Configurar el ESP32 con el programa correspondiente (Thingspeak_WiFi_provisioning.ino). En este punto, se le puede entregar el medidor a un usuario final que solamente va a tener que realizar el quinto paso sin tener que programar lidiar con tecnología. 
+4. Configurar el ESP32 con el programa correspondiente (Thingspeak_WiFi_provisioning.ino). Se le puede entregar el medidor a un usuario final con estos 4 pasos hechos, así él o ella, solamente va a tener que realizar el quinto paso sin tener que lidiar con tecnología. 
 
 5. El medidor en funcionamiento va a enviar datos a la plataforma thingspeak como antes. Pero para que ello ocurra, primero lo vas a tener que configurar del siguiente modo:
 
   - Durante el primer arranque del dispositivo, el medidor se configura como un punto de acceso (AP - Access Point) y crea una red abierta Wifi sin contraseña con el nombre "redmedidor". Entonces, para establecer la conexion con el punto de acceso, en el dispostivo desde el que se desee conectar al medidor (teléfono, PC, etc.) se debe seleccionar esa red con el nombre "redmedidor". 
 
-(Agregar figura)
+![Conexión al medidor como Access Point](https://user-images.githubusercontent.com/30849839/150221369-2d91e55a-00ce-498d-9b36-5711e918deab.png)
 
   - Esta red abierta WiFI permite al usuario conectarse al medidor a través de un navegador. Para ello, debe ingresarse la dirección http://192.168.4.1 en el navegador para acceder a la página web de configuración.
 
-(Agregar figura)
+![Configurando el medidor](https://user-images.githubusercontent.com/30849839/150221727-3b1b6a90-3547-4977-999b-4beb0d1caa21.png)
+
+  - Para dar una cierta seguridad, hay que ingresar usuario y contraseña para poder acceder al medidor. Si no los cambias en el programa, son: "esp32", "4321".
+
+![Ingreso a la configuración del medidor](https://user-images.githubusercontent.com/30849839/150222350-b5973b29-eb5f-402c-90b1-35601ac3e232.png)
 
   - Una vez seleccionado el nombre de red, contraseña, y demás información, el medidor se reinicia e intenta conectarse a la red asignada.
 
