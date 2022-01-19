@@ -33,7 +33,7 @@
            the meter is connected, press the button for more than three seconds 
            to switch the device back to the access point mode.
 
-  Copyright (c) 2021 Elías Todorovich, Matías Presso
+  Copyright (c) 2021-2022 Elías Todorovich, Matías Presso
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -76,10 +76,21 @@ WebServer server(80);  //Local server at port 80
 int statusCode;
 const char* AP_ssid = "redmedidor";
 const char* AP_pass = "";
-String st;
+
+//Local Device Credencials
+const char* local_user_esp32 ="esp32";
+const char* local_pass_esp32 ="4321";
+
+//HTML CONTENT
 String content;
-int nets;
-bool AP_MODE = false;
+String content_fixed_up;
+String content_dynamic;
+String content_fixed_down;
+String netListHtml;
+
+int totalNets;
+
+bool AP_MODE = false; //Access Point State
 
 /*----------------------------------------------------------
   ThingSpeak settings
@@ -91,18 +102,77 @@ String myWriteAPIKey, myReadAPIKey;
 
 
 /*----------------------------------------------------------
-    Connect your device to the wireless network
+  Getting Date and Time from NTP Server
   ----------------------------------------------------------*/
-void connectWiFi() {
-  while (WiFi.status() != WL_CONNECTED) {
+#include "time.h"
+const char* ntpServer = "pool.ntp.org";
+const long  gmtOffset_sec = 3600*(-3); // (GMT-3)
+const int   daylightOffset_sec = 0; // offset in seconds for daylight saving time. It is generally one hour=3600
+
+struct Mment {
+  int s_co2ppm, s_temp;
+  struct tm  s_timeinfo;
+};
+
+// When WiFi is not available, measurements are saved every 5 minutes. Here we can store up tu 3 hours of measurements.
+const int MAX_MM = 12*3;
+struct Mment mm2send[MAX_MM];
+int saved2send = 0; 
+
+void printLocalTime(){
+  struct tm timeinfo;
+  char buffer [25];
+  
+  if(!getLocalTime(&timeinfo)){
+    Serial.println("Failed to obtain time");
+    return;
+  }
+  Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
+
+  Serial.print("For thingspeak, the timestamp string must be in the ISO 8601 format: ");
+  // strftime doc: https://www.cplusplus.com/reference/ctime/strftime/
+  strftime (buffer,25,"%F %T-03",&timeinfo); // Example "2017-01-12 13:22:54-05"
+  Serial.println(buffer);
+  
+  Serial.println();
+}
+
+/*----------------------------------------------------------
+    Connect to WiFi in STA mode
+  ----------------------------------------------------------*/
+void connectWiFiModeSTA(){
+  int t = 0;
+  WiFi.mode(WIFI_STA);
+ 
+  //connection init
+  Serial.print("Connecting to...");
+  Serial.println(ssid);
+  Serial.print("with pass...");
+  Serial.println(password);
+
+  while (WiFi.status() != WL_CONNECTED){
     WiFi.begin(ssid.c_str(), password.c_str());
     Serial.print(".");
     updateRGB_LED (true);         // Blink while connecting
-    delay(3000);
+    delay(10000);
+    if (t++>30) return; // 60s*5=300s=5min
   }
 
-  // Display a notification that the connection is successful.
-  Serial.println("Connected");
+  Serial.println("");
+  Serial.println("WiFi connected");
+  
+}
+
+void connectWiFi_1(){
+    while (WiFi.status() != WL_CONNECTED){
+        WiFi.begin(ssid.c_str(), password.c_str());
+        Serial.print(".");
+        updateRGB_LED (true);         // Blink while connecting
+        delay(10000);
+    }
+
+    // Display a notification that the connection is successful. 
+    Serial.println("WiFi Connected"); 
 }
 
 
@@ -239,164 +309,308 @@ void writeEEPROM(String qsid, String qpass, String qchannel_id, String qwrite_ap
 }
 
 
-void launchWeb()
-{
-  //Serial.println("");
-  //if (WiFi.status() == WL_CONNECTED)
-  //  Serial.println("WiFi connected");
-  //Serial.print("Local IP: ");
-  //Serial.println(WiFi.localIP());
-  //Serial.print("SoftAP IP: ");
-  //Serial.println(WiFi.softAPIP());
-  createWebServer();
-  // Start the server
+/*----------------------------------------------------------
+    Connect to AP and WiFi in WIFI_AP_STA and launch web 
+  ----------------------------------------------------------*/
+void createAPserver(){
+
+  WiFi.mode(WIFI_AP_STA);
+ 
+  //access point 
+  Serial.println("");
+  Serial.println("Creating Accesspoint");
+  WiFi.softAP(AP_ssid, "");
+  Serial.print("Default IP address:\t");
+  Serial.println(WiFi.softAPIP());
+
+  //station part
+  Serial.print("Connecting to...");
+  Serial.println(ssid);
+  Serial.print("with pass...");
+  Serial.println(password);
+
+  WiFi.begin(ssid.c_str(), password.c_str());
+
+  delay(10000);
+
+ 
+  if(WiFi.status() != WL_CONNECTED){
+    Serial.println("");
+    Serial.println("WiFi Connection Failed!!");
+    Serial.println("Please verify your Network SSID name and password, and router connectivity");
+  }
+  else{
+    Serial.println("");
+    Serial.println("WiFi connected");
+  }
+
+  Serial.println("IP address: ");
+  Serial.println(WiFi.localIP());
+  Serial.println("WiFi Status: ");
+  Serial.println(WiFi.status());
+
+  generateBasicWebHtml();
+
+  server.on("/", handleConnectionRoot);
+  server.on("/instrucciones", handleConnectionInstructions);
+  server.on("/configuracion", handleConnectionConfiguration);
+  server.on("/enviar_configuracion", handleConnectionSendConfiguration);
+  server.on("/enviar_wifi", handleConnectionSendWiFiConfiguration);
+  server.on("/verificacion_wifi", handleConnectionVerificationWiFi);
   server.begin();
-  Serial.println("Server started");
-  Serial.print(" Access Point Activated, waiting for connections. Configure your Wifi Network connecting to ");
-  Serial.print(AP_ssid);
-  Serial.print(" and typing ");
-  Serial.print(WiFi.softAPIP());
-  Serial.print(" in your web browser \n");
-}
+
+};
 
 
-void createWebServer()
-{
-  {
-    server.on("/", []() {
-
-      IPAddress ip = WiFi.softAPIP();
-      String ipStr = String(ip[0]) + '.' + String(ip[1]) + '.' + String(ip[2]) + '.' + String(ip[3]);
-
+/*----------------------------------------------------------
+    Create Basic HTML Content Pattern
+  ----------------------------------------------------------*/
+void generateBasicWebHtml(){
+  
       //HTML CONTENT
-      content = "<!DOCTYPE html>";
-      content += "<html>";
+      content_fixed_up = "<!DOCTYPE html>";
+      content_fixed_up += "<html>";
 
       // HEAD
-      content += "<head>";
-      content +="<meta charset=\"UTF-8\">";
-      content +="<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">";
-      content +="<title>Aprovisionamiento Wi Fi UNCPBA - CO2 </title>";
+      content_fixed_up +="<head>";
+      content_fixed_up +="<meta charset=\"UTF-8\">";
+      content_fixed_up +="<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">";
+      content_fixed_up ="<title>Medidor C02  Configuraci&oacute;n</title>";
+      content_fixed_up += "</head>";
 
       // STYLES
-      content +="<style>";
-      content +="html{font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}";
-      content +=".button { background-color: #187c1d; border: none; border-radius: 10px;color: white; padding: 12px 30px; text-decoration: none; font-size: 20px; margin: 10px; cursor: pointer;}";
-      content +=".button-dark {background-color: #555555;}";
-      content +=".red {background-color: #e7e4e4; padding: 10px;}";
-      content +="label{font-weight: bold;}";
-      content +=".center{text-align: center;list-style-position: inside;}",
-      content +=".input_text {line-height: 20px; padding: 5px; border-radius: 4px; border: 2px #555555;}</style></head>";
+      content_fixed_up ="<style>"; 
+      content_fixed_up +="html, body { height: 100%; margin: 0; } ";
+      content_fixed_up +="body { background-color: black; color: white; font-family: 'Courier New', Courier, monospace; } ";
+      content_fixed_up +="button { border: 1px white solid; color: white; background-color: black; padding: 15px; margin: 5px; font-family: 'Arial'; text-decoration: none; font-size: 13px; width: 135px; cursor: pointer;} ";
+      content_fixed_up +="a button  { text-decoration: none; color: white; cursor: pointer; }";
+      content_fixed_up +="div#mensajes{ padding: 15px; width: 100%; margin: 20px auto; text-align: center; } ";
+      content_fixed_up +="div#mensajes ol { text-align: left; } ";
+      content_fixed_up +=".fail { color: red; }";
+      content_fixed_up +="a.link { color: orange; text-decoration: none;}";
+      content_fixed_up +=".success{ color: green; } ";
+      content_fixed_up +=" .yellow { color: rgba(255, 255, 0, 0.678); } ";
+      content_fixed_up +="h1.unicolor, footer p { color: #1F7E97; text-align: center; } ";
+      content_fixed_up +=".content { margin: 0 auto; width: 85%; min-height: 100%; text-align: center; } ";
+      content_fixed_up +="footer { border-top: 1px solid #1F7E97; height: 50px; margin-top: -50px; padding: 0 20px; } ";
+      content_fixed_up +="main { padding: 20px; padding-bottom: 50px; } ";
+      content_fixed_up +="@media (min-width:1024px){ .content { width: 60%; } div#mensajes { width: 50%; } } ";
+      content_fixed_up += "</style>";
 
       //BODY
-      content +="<body>";
-      content +="<h1>Bienvenido al acceso de credenciales WiFi del dispositivo</h1>";
-      content +="<hr>";
-      content +="<form action=\"/scan\" method=\"POST\"><input class=\"button button-dark\" type=\"submit\" value=\"Escanear\"></form>";
+      content_fixed_up +="<body>";
+      content_fixed_up +="<div class=\"content\">";
+      content_fixed_up +="<main>";
+      content_fixed_up +="<h1 class=\"unicolor\">Medidor de CO2 UNICEN</h1>";
+      content_fixed_up +="<a href=\"/instrucciones\"><button>Instrucciones</button></a>";
+      content_fixed_up +="<a href=\"/configuracion\"><button >Configuraci&oacute;n</button></a>";
+      content_fixed_up+="<div id=\"mensajes\">";
+      content_fixed_up +="<br>";
 
-      //Ordered List of scanned list
-      content += ipStr;
-      content +="<h2>Redes Disponibles</h2>";
-      content += "<p>Total Redes:";
-      content += nets;
-      content += "</p>";
-      content += "<p>";
-      content += st;
-      content += "</p>";
-
-      content +="<form class=\"red\" method='get' action='setting'>";
-      content +="<h3>Datos de red para el dispositivo</h3>";
-      content +="<hr>";
-      content +="<br>";
-      content +="<label>SSID - Número de Red: </label>";
-      content +="<input class=\"input_text\" name='ssid_number' type='number' min='1' max='"; 
-      content += nets; // Number of available networks
-      content += "'length=32>";
-      content +="<br>";
-      content +="<br>";
-      content +="<label>Pass: </label>";
-      content +="<input class=\"input_text\" name='pass' length=64  type=\"password\">";
-      content +="<br>";
-      content +="<br>";
-      content +="<label>Thingspeak Channel ID: </label>";
-      content +="<input class=\"input_text\" name='channel_id' length=8  type=\"text\">";
-      content +="<br>";
-      content +="<br>";
-      content +="<label>Thingspeak Write Api Key: </label>";
-      content +="<input class=\"input_text\" name='write_api_key' length=32  type=\"text\">";
-      content +="<br>";
-      content +="<br>";
-      content +="<label>Thingspeak Read Api Key: </label>";
-      content +="<input class=\"input_text\" name='read_api_key' length=32  type=\"text\">";
-      content +="<br>";
-      content +="<br>";
-      content +="<input class=\"button\" type='submit' value=\"Enviar\">";
-      content +="</form>";
-      content +="</body>";
-      content +="</html>";
-      
-      server.send(200, "text/html", content);
-    });
-    
-    server.on("/scan", []() {
-      //setupAP();
-      IPAddress ip = WiFi.softAPIP();
-      String ipStr = String(ip[0]) + '.' + String(ip[1]) + '.' + String(ip[2]) + '.' + String(ip[3]);
-
-      content = "<!DOCTYPE HTML>\r\n<html>go back / volver";
-      server.send(200, "text/html", content);
-    });
-
-    server.on("/setting", []() {
-
-      String sid_number = server.arg("ssid_number");
-      int qsid_number = sid_number.toInt();
-      String qsid = WiFi.SSID(qsid_number-1);
-      String qpass = server.arg("pass");
-      String qchannel_id = server.arg("channel_id");
-      String qwrite_api_key = server.arg("write_api_key");
-      String qread_api_key = server.arg("read_api_key");
-
-      Serial.println("Selected Network: " + qsid + ", " + qpass);
-      Serial.println("TS Channel ID: " + qchannel_id);
-      Serial.println("TS Write Api Key: " +  qwrite_api_key);
-      Serial.println("TS Read Api Key: " +  qread_api_key);
-      
-      if (qsid.length() > 0 && qpass.length() > 0) {
-        Serial.println("clearing eeprom");
-
-        writeEEPROM(qsid, qpass, qchannel_id, qwrite_api_key, qread_api_key);
- 
-        content = "{\"Success\":\"saved to eeprom... reset to boot into new wifi\"}";
-        statusCode = 200;
-        ESP.restart();
-      } else {
-        content = "{\"Error\":\"404 not found\"}";
-        statusCode = 404;
-        Serial.println("Sending 404");
-      }
-      server.sendHeader("Access-Control-Allow-Origin", "*");
-      server.send(statusCode, "application/json", content);
-
-    });
-  }
+      content_fixed_down ="</div> ";
+      content_fixed_down +="</main>";
+      content_fixed_down +="</div>";
+      content_fixed_down +="<footer>";
+      content_fixed_down +="<p>2021 - Proyecto Abierto Medici&oacute;n CO2 -  <b>UNICEN</b></p>";
+      content_fixed_down +="</footer>";
+      content_fixed_down +="</body>";
+      content_fixed_down +="</html>";
+  
 }
 
 
-void setupAP()
-{
-  WiFi.mode(WIFI_STA);
-  WiFi.disconnect();
-  delay(100);
-  nets = WiFi.scanNetworks();
+/*----------------------------------------------------------
+    192.168.4.1/ content & functionality
+  ----------------------------------------------------------*/
+void handleConnectionRoot(){
+  Serial.println("Root access in Html Web Page");
+  if(WiFi.status() != WL_CONNECTED){
+  
+      content_dynamic = "<p class=\"fail\">Su dispositivo no posee conexi&oacute;n a una red WiFi</p>";
+      content_dynamic += "<p>Por favor lea las Instrucciones y luego configure su conexi&oacute;n dentro de las secci&oacute;n Configuraci&oacute;n</p>";
+
+    Serial.println("No WiFi");
+  }
+  else{
+      content_dynamic = "<p class=\"success\">Su dispositivo est&aacute; conectado a la Red WiFi : ";
+      content_dynamic += ssid + "</p>";
+      content_dynamic += "<p>Si desea cambiar de red o ingresar nuevas credenciales de Thingspeak, por favor lea las Instrucciones y luego configure su conexi&oacute;n dentro de Configuraci&oacute;n</p>";
+    
+  };
+  content = content_fixed_up + content_dynamic + content_fixed_down;
+  server.send(200, "text/html", content);
+}
+
+
+/*----------------------------------------------------------
+    192.168.4.1/instrucciones content & functionality
+  ----------------------------------------------------------*/
+void handleConnectionInstructions(){
+  Serial.println("Button Event \"Instrucciones\" in HtmlWeb Page");
+    
+    content_dynamic = "<h2>Instrucciones</h2>";
+    content_dynamic += "<p>Siguiendo los siguientes pasos usted puede configurar su dispositivo para que se conecte a una nueva red WiFi o tambi&eacute;n puede cambiar de red WiFi.</p>";
+    content_dynamic += "<ol><li>Ingrese en Configuraci&oacute;n</li>";
+    content_dynamic += "<li>Introducza el usuario y contrase&ntilde;a del dispositivo (si no lo posee consulte al administrador o a qui&eacute;n lo suministr&oacute;).</li>";
+    content_dynamic += "<li>Si el acceso a su dispostivo fue exitoso, debe seleccionar la red de WiFi que desea conectar el dispositivo y su contrase&ntilde;a. En ese mismo paso puede agregar opcionalemente el canal y credenciales para la plataforma Thingspeak que registra en la nube las mediciones.</li>";
+    
+    content_dynamic += "<li>Si su red y contrase&ntilde;a de WiFi es correcta su dispositivo queda configurado y conectado a la red seleccionada, luego de 10 segundos se reiniciar&ntilde;. Caso contrario vuelva a intentarlo.</li></ol>";
+    content_dynamic += "<p>Para saber m&aacute;s de Thingspeak y su uso puede visitar la informaci&oacute;n de nuestro proyecto <a class=\"link\" href=\"https://github.com/medicionco2/proyecto_medidor_co2/blob/main/src/mhz19/ESP32/IoT/README.md\" target=\"_blank\">aqu&iacute;<a>";
+    content_dynamic += " o tambi&eacute;n accediendo a <a class=\"link\" href=\"https://thingspeak.com/\" target=\"_blank\">Thingspeak<a>. Recuerde que si usted est&aacute; viendo esta informaci&oacute;n es porque se ha conectado al dispositivo medidor, para visitar en la web dicha informaci&oacute;n deber&aacute; conectarse nuevamente a su red WiFi con su computadora o m&oacute;vil.</p>";
+    content = content_fixed_up + content_dynamic + content_fixed_down;
+
+    if(WiFi.status() != WL_CONNECTED){
+      Serial.println("No WiFi");
+    }
+    else{
+      Serial.println("WiFi Connected");
+    }
+
+    server.send(200, "text/html", content);
+}
+
+/*----------------------------------------------------------
+    192.168.4.1/configuracion content & functionality
+  ----------------------------------------------------------*/
+void handleConnectionConfiguration(){
+
+  Serial.println("Button Event \"Configuracion\" in HtmlWeb Page");  
+  
+ 
+    content_dynamic = "<h2>Acceso al Dispositivo</h2>";
+    content_dynamic += "<p>Ingrese credenciales del Dispositivo</p>";
+    content_dynamic +="<form method='post' action='enviar_configuracion'>";
+    content_dynamic += "<label for=\"local_board_user\">Usuario</label><br>";
+    content_dynamic += "<input type=\"text\" name=\"local_board_user\"><br><br>";
+    content_dynamic += "<label for=\"local_board_pass\">Contrase&ntilde;a</label><br>";
+    content_dynamic += "<input type=\"password\" name=\"local_board_pass\"><br><br>";
+    content_dynamic += "<button type=\"submit\">Acceder</button>";
+    content_dynamic +="</form>";
+    content = content_fixed_up + content_dynamic + content_fixed_down;
+      
+  server.send(200, "text/html", content);
+}
+
+
+/*----------------------------------------------------------
+    192.168.4.1/enviar_configruracion functionality
+  ----------------------------------------------------------*/
+void handleConnectionSendConfiguration(){
+
+   String local_board_user = server.arg("local_board_user");
+   String local_board_pass = server.arg("local_board_pass");
+
+   Serial.println("Usario Placa: " + local_board_user);
+   Serial.println("Pass Placa: " + local_board_pass);
+
+   if(local_board_pass == local_pass_esp32 && local_board_user == local_user_esp32){
+    scanListNetworks();
+    content_dynamic = "<h2>Configuraci&oacute;n WiFi Dispositivo</h2>";
+    content_dynamic += "<p class='success'>Acceso Exitoso al dispositivo</p>";    
+    content_dynamic += "<h3>Redes Disponibles</h3>";
+    content_dynamic += netListHtml;
+
+    content_dynamic +="<form method='post' action='enviar_wifi'>";
+    content_dynamic +="<label for=\"wifi_name\">N&utilde;mero de su Red</label><br>";
+    content_dynamic +="<input type=\"number\" min=\"1\" name=\"wifi_number\"><br><br>";
+    content_dynamic +="<label for=\"wifi_pass\">Contrase&ntilde;a</label><br>";
+    content_dynamic +="<input type=\"password\" name=\"wifi_pass\" length=64><br><br>";
+    content_dynamic +="<label for=\"ts_ch_id\">ThingSpeak Canal ID <span class=\"yellow\">*</span></label><br>";
+    content_dynamic +="<input type=\"text\" name=\"ts_ch_id\" length=8><br><br>";
+    content_dynamic +="<label for=\"read_api_key\">ThingSpeak Read API Key <span class=\"yellow\">*</span></label><br>";
+    content_dynamic +="<input type=\"text\" name=\"read_api_key\" length=32><br><br>";
+    content_dynamic +="<label for=\"write_api_key\">ThingSpeak Write API Key <span class=\"yellow\">*</span></label><br>";
+    content_dynamic +="<input type=\"text\" name=\"write_api_key\" length=32><br>";
+    content_dynamic +="<p class=\"yellow\">* Opcionales</p><br>";
+    content_dynamic +="<button type=\"submit\">Enviar</button>";
+    content_dynamic +="</form>";
+  
+  }
+  else {
+    content_dynamic = "<p class='fail'>Acceso Denegado</p>";
+    content_dynamic += "<p class='fail'>Verifique usuario y/o contrase&ntilde;a de su dispositivo</p>";
+    content_dynamic += "<p>Para volver a intentar vuelva a ingresar en Configuraci&oacute;n</p>";
+  }
+
+  Serial.println("Button Event \"enviar_configuracion\" in HtmlWeb Page");  
+  
+  content = content_fixed_up + content_dynamic + content_fixed_down;
+      
+  server.send(200, "text/html", content);
+}
+
+
+/*----------------------------------------------------------
+    192.168.4.1/enviar_configruracion content & functionality
+  ----------------------------------------------------------*/
+void handleConnectionSendWiFiConfiguration(){
+
+   String sid_number = server.arg("wifi_number");
+   int qsid_number = sid_number.toInt();
+   String qsid = WiFi.SSID(qsid_number-1);
+   String qpass = server.arg("wifi_pass");
+   String qchannel_id = server.arg("ts_ch_id");
+   String qwrite_api_key = server.arg("write_api_key");
+   String qread_api_key = server.arg("read_api_key");
+ 
+   
+   Serial.println("Nombre de Red: " + qsid);
+   Serial.println("Pass WiFi: " + qpass);
+   Serial.println("Channel ID: " + qchannel_id);
+   Serial.println("Read Api Key: " + qread_api_key);
+   Serial.println("Write Api Key: " + qwrite_api_key);
+
+   writeEEPROM(qsid, qpass, qchannel_id, qwrite_api_key, qread_api_key);
+
+   Serial.println("Button Event \"enviar_configuracion_wifi\" in HtmlWeb Page");  
+
+   WiFi.begin(qsid.c_str(), qpass.c_str());
+
+   delay(5000);
+
+   handleConnectionVerificationWiFi();
+
+}
+
+/*----------------------------------------------------------
+    192.168.4.1/verificacion_wifi content & functionality
+  ----------------------------------------------------------*/
+void handleConnectionVerificationWiFi(){
+
+  if(WiFi.status() != WL_CONNECTED){
+    content_dynamic = "<p class='fail'>Su dispositivo medidor NO se ha podido conectar a su Red WiFi</p>";   
+    content_dynamic += "<p class='fail'>Por favor verifque la contrase&ntilde;a y el estado de su router.</p>"; 
+    content_dynamic += "<p class='fail'>Vuelva a intentarlo nuevamente ingresando a Configuraci&oacute;n</p>"; 
+    content = content_fixed_up + content_dynamic + content_fixed_down;
+    server.send(200, "text/html", content); 
+  }
+  else{
+    content_dynamic = "<p class='success'>Su dispositivo medidor se ha conectado a su Red WiFi.</p>"; 
+    content_dynamic += "<p>En 10 segundos se reiniciar&aacute; el dispostivo y se conectar&aacute; autom&aacute;ticamente a la red configurada.</p>"; 
+    content = content_fixed_up + content_dynamic + content_fixed_down;
+    server.send(200, "text/html", content);  
+    delay(10000);
+    WiFi.mode(WIFI_STA);
+    Serial.println("Ingreso en modo STA");
+    Serial.println("Se reiniciará ESP32");
+    ESP.restart();
+  };
+
+}
+
+/*----------------------------------------------------------
+    Network Scan and network list generation
+  ----------------------------------------------------------*/
+void scanListNetworks(void){
+  int n = WiFi.scanNetworks();
   Serial.println("scan done");
-  if (nets == 0)
+  if (n == 0)
     Serial.println("no networks found");
   else
   {
-    Serial.print(nets);
+    Serial.print(n);
     Serial.println(" networks found");
-    for (int i = 0; i < nets; ++i)
+    for (int i = 0; i < n; ++i)
     {
       // Print SSID and RSSI for each network found
       Serial.print(i + 1);
@@ -405,35 +619,28 @@ void setupAP()
       Serial.print(" (");
       Serial.print(WiFi.RSSI(i));
       Serial.print(")");
-      
       delay(10);
     }
   }
-  Serial.println("");
-  st = "<ol class=\"center\">";
-  for (int i = 0; i < nets; ++i)
+   totalNets = n;
+   
+  netListHtml = "<ol class=\"center\">";
+  for (int i = 0; i < n; ++i)
   {
     // Print SSID and RSSI for each network found
-    st += "<li>";
-    st += WiFi.SSID(i);
-    st += " (";
-    st += WiFi.RSSI(i);
-
-    st += ")";
-    
-    st += "</li>";
+    netListHtml += "<li>";
+    netListHtml += WiFi.SSID(i);
+    netListHtml += " (";
+    netListHtml += WiFi.RSSI(i);
+    netListHtml += ")";
+    netListHtml += "</li>";
   }
-  st += "</ol>";
-  
-  delay(100);
-  
-  WiFi.softAP(AP_ssid, AP_pass);
-  //////////////////////////////launchWeb();
+  netListHtml += "</ol>";
 }
 
 
 /*----------------------------------------------------------
-    CO2 meter setup
+    MH-Z19-based CO2 meter setup
   ----------------------------------------------------------*/
 void setup() {
   Serial.begin(9600);
@@ -453,31 +660,34 @@ void setup() {
   setRGB_LEDColor (0, 0, 255);  // Blue means warming or Configuring:
                                 //   baseline setting or calibrating
 
-  WiFi.disconnect();
+  //WiFi.disconnect(); commented v3
 
   EEPROM.begin(512); //Initialasing EEPROM
   delay(10);
   updateRGB_LED (true);         // Blink while connecting
   if (readEEPROM()) // Read params from EEPROM, if present
-    connectWiFi();  
+    connectWiFi_1();
   else {
     Serial.println ("Changing to Access Point mode..."); 
-    launchWeb();          
-    setupAP();    
+    createAPserver();    
     AP_MODE = true;
   }
   updateRGB_LED (false);
 
+  // Init and get the time
+  configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
+  printLocalTime();
+
   ThingSpeak.begin(myClient);
 
+  Serial.println ("Warming will start during 3 minutes..."); // added in v3
   delay (180000); // Wait 3 minutes for warming purposes
+  //delay (20000); // Wait 20 secondos for debug purposes
 
   retrieveInfo_mhz19 ();
 
   pinMode(button1.PIN, INPUT_PULLUP);
   attachInterrupt(button1.PIN, isr_button, CHANGE);
-
-  Serial.println("co2[ppm],temp[°C]");
 }
 
 
@@ -493,8 +703,7 @@ void btnManager_prov (int co2) {
         calibrate_mhz19 ();
       else {
         Serial.println ("Changing to Access Point mode..."); 
-        launchWeb();          
-        setupAP();    
+        createAPserver();    
         AP_MODE = true;
       }
       // button state updated inside a critical section
@@ -518,6 +727,8 @@ void loop() {
 
   int co2ppm = mhz19.getCO2();          // Request CO2 (as ppm)
   int temp = mhz19.getTemperature();    // Request Temperature (as Celsius)
+  struct tm timeinfo;  
+  char buffer [25];
 
   btnManager_prov (co2ppm);
   
@@ -530,17 +741,44 @@ void loop() {
     Serial.print(",");
     Serial.println(temp);
 
-    if (d % S == 0) { // Telemetry is sent every S samplingPeriod seconds
-      // Measurements to WiFi thingspeak IoT Platform
-      //
-      if (WiFi.status() != WL_CONNECTED) connectWiFi();
+    if (d%S==0){     // Telemetry is sent every S samplingPeriod seconds
 
-      ThingSpeak.setField (1, co2ppm);
-      ThingSpeak.setField (2, temp);
+   if (WiFi.status() != WL_CONNECTED)  connectWiFiModeSTA();
+   
+   if (WiFi.status() == WL_CONNECTED) {
+      // Measurements to WiFi thingspeak IoT Platform 
+      // 
+      ThingSpeak.setField (1,co2ppm);
+      ThingSpeak.setField (2,temp);
 
       ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey.c_str());
-      Serial.println("Datos enviados a ThingSpeak.");
-    }
+      Serial.println("Data sent to Thingspeak.");
+   } else {
+      // Measurements must be sent later when WiFi is available
+      if (saved2send < MAX_MM) saved2send++;
+      mm2send[saved2send-1].s_co2ppm = co2ppm;
+      mm2send[saved2send-1].s_temp   = temp;
+      if(!getLocalTime(&timeinfo)){
+        Serial.println("Failed to obtain time");
+        return;
+      }
+      mm2send[saved2send-1].s_timeinfo = timeinfo;
+      Serial.println("Measurement saved for later registration in the IoT platform...");
+   }
+     
+  } else { // Saved telemetry, if any, is sent
+    if (WiFi.status() == WL_CONNECTED && saved2send > 0) {
+      ThingSpeak.setField (1,mm2send[saved2send-1].s_co2ppm);
+      ThingSpeak.setField (2,mm2send[saved2send-1].s_temp);
+      // Example: "2017-01-12 13:22:54-05"
+      strftime (buffer,25,"%F %T-03",&(mm2send[saved2send-1].s_timeinfo)); // Example "2017-01-12 13:22:54-05"
+      ThingSpeak.setCreatedAt(buffer);
+
+      ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey.c_str());
+      Serial.print("Datos guardados anteriormente enviados a ThingSpeak: "); Serial.println(buffer);
+      if (saved2send > 0) saved2send--;
+     }
+  }
     d++;
 
     CO2RGB_LED(co2ppm);
@@ -549,9 +787,6 @@ void loop() {
   } 
   
   else { // Meter in Access Point mode
-    while ((WiFi.status() != WL_CONNECTED)){
-      delay(4000);
-      server.handleClient();
-    }
+    server.handleClient();
   }
 }
