@@ -80,15 +80,15 @@ Para usar el medidor con esta funcionalidad hay que hacer los tres primeros paso
 
   - Durante el primer arranque del dispositivo, el medidor se configura como un punto de acceso (AP - Access Point) y crea una red abierta Wifi sin contraseña con el nombre "redmedidor". Entonces, para establecer la conexion con el punto de acceso, en el dispostivo desde el que se desee conectar al medidor (teléfono, PC, etc.) se debe seleccionar esa red con el nombre "redmedidor". 
 
-![Conexión al medidor como Access Point](https://user-images.githubusercontent.com/30849839/150221369-2d91e55a-00ce-498d-9b36-5711e918deab.png)
+<img src="https://user-images.githubusercontent.com/30849839/150221369-2d91e55a-00ce-498d-9b36-5711e918deab.png" alt="Conexión al medidor como Access Point" width="350"/>
 
   - Esta red abierta WiFI permite al usuario conectarse al medidor a través de un navegador. Para ello, debe ingresarse la dirección http://192.168.4.1 en el navegador para acceder a la página web de configuración.
 
-![Configurando el medidor](https://user-images.githubusercontent.com/30849839/150221727-3b1b6a90-3547-4977-999b-4beb0d1caa21.png)
+<img src="https://user-images.githubusercontent.com/30849839/150221727-3b1b6a90-3547-4977-999b-4beb0d1caa21.png" alt="Configurando el medidor" width="350"/>
 
   - Para dar una cierta seguridad, hay que ingresar usuario y contraseña para poder acceder al medidor. Si no los cambias en el programa, son: "esp32", "4321".
 
-![Ingreso a la configuración del medidor](https://user-images.githubusercontent.com/30849839/150222350-b5973b29-eb5f-402c-90b1-35601ac3e232.png)
+<img src="https://user-images.githubusercontent.com/30849839/150222350-b5973b29-eb5f-402c-90b1-35601ac3e232.png" alt="Ingreso a la configuración del medidor" width="350"/>
 
   - Una vez seleccionado el nombre de red, contraseña, y demás información, el medidor se reinicia e intenta conectarse a la red asignada.
 
