@@ -95,3 +95,9 @@ Para usar el medidor con esta funcionalidad hay que hacer los tres primeros paso
   - Si se establece la conexion el proceso de provisioning se ejecutó exitosamente.
 
   - En caso de falla o si se quiere modificar la red a la cual se conecta el medidor, se debe pulsar el botón por más de tres segundos para que el dispositivo pase nuevamente al modo de punto de acceso. 
+
+## Actualización OTA del firmware
+
+Tener un dispositivo como este medidor de CO2 progeamado y funcionando, no significa que esté libre de errores de programación o que nunca vaya a nececitar mejoras. Al contrario, mientras el proyecto esté activo, periódicamente se va a necesitar actualizar el código del ESP32, el firmware. Esto se puede hacer de diferentes maneras, la más sencilla es compilar el nuevo código y programar el ESP32 mediante el cable USB desde la PC. Es lo que se hace cuando se trabaja con prototipos, para hacer pruebas en casa, pero para un usuario esto puede ser demasiado tecnológico, no muy amigable. Más allá de eso, si tenemos una cantidad de medidores desplegados en un edificio, actualizar el firmware de esa manera también es impráctico. Aquí viene entonces la segunda manera: aprovechar la conectividad WiFi para actualizar el firmware remotamente, "over the air" (OTA). En este caso, quien administre los sensores y la plataforma IoT, va a subir la actualización a un servidor, posteriormente el ESP32 va a descargarla en su memoria y va a reiniciarse automáticamente. A partir de ese momento todos los medidores de ese edificio van a estar actualizados sin intervención de los usuarios. Es un mecanismo muy usado, de hecho es lo que hacen permanentemente los smartphones para mantenerse actualizados. 
+
+Esta funcionalidad se agrega a la de provisioning solamente, que es la versión pensada para usos institucionales. 
