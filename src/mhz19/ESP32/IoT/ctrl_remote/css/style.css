@@ -1,0 +1,99 @@
+html, body { 
+    height: 100%; 
+    margin: 0;
+ } 
+
+body { 
+    background-color: black;
+    color: white; 
+    font-family: 'Courier New', Courier, monospace; 
+}
+    
+button { 
+    border: 1px white solid; 
+    color: white; 
+    background-color: black; 
+    padding: 15px; margin: 5px; 
+    font-family: 'Arial'; 
+    text-decoration: none; 
+    font-size: 13px; 
+    width: 135px; 
+    cursor: pointer;
+} 
+
+a button { 
+    text-decoration: none; 
+    color: white; 
+    cursor: pointer; 
+}
+
+div#mensajes{ 
+    padding: 15px; 
+    width: 100%; 
+    margin: 20px auto; 
+    text-align: center;
+} 
+
+div#mensajes ol { 
+    text-align: left; 
+} 
+
+.fail { 
+    color: red; 
+}
+
+a.link { 
+    color: orange; 
+    text-decoration: none;
+}
+
+.success{ 
+    color: green; 
+} 
+
+.yellow { 
+    color: rgba(255, 255, 0, 0.678); 
+} 
+
+
+h1.unicolor, footer p { 
+    color: #1F7E97; 
+    text-align: center; 
+}
+
+h1, h2 {
+    text-align: center; 
+}
+
+.content { 
+    margin: 0 auto;
+    width: 85%; 
+    min-height: 100%; 
+    text-align: center; 
+} 
+
+footer { 
+    border-top: 1px solid #1F7E97;
+    height: 50px; 
+    margin-top: -50px; 
+    padding: 0 20px; 
+} 
+      
+main { 
+    padding: 20px; 
+    padding-bottom: 50px; 
+} 
+
+div {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+@media (min-width:1024px){ 
+    .content { 
+        width: 60%; 
+    } 
+    div#mensajes { 
+        width: 50%; 
+    } 
+} 
