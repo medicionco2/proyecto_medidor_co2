@@ -687,7 +687,7 @@ void setup() {
 
   ThingSpeak.begin(myClient);
 
-  Serial.println ("Warming will start during 3 minutes..."); // added in v3
+  Serial.println ("Warming will start during 3 minutes..."); 
   delay (180000); // Wait 3 minutes for warming purposes
   //delay (20000);  Wait 20 secondos for debug purposes
 
@@ -726,6 +726,50 @@ void btnManager_prov (int co2) {
     }  
 }
 
+/*----------------------------------------------------------
+    Remote Calibration
+  ----------------------------------------------------------*/
+void remoteCalibration(int calco2ppm,int caltemp) {
+  int statusRemoteCode = 0;
+
+  remote_calibrate_state = ThingSpeak.readFloatField( myChannelNumber, remote_calibrate_field); //Read remote State of Calibration
+
+  statusRemoteCode = ThingSpeak.getLastReadStatus();
+  
+  Serial.println("Calibrate State in Device Readed in Remote");
+  Serial.println(remote_calibrate_state);
+
+  Serial.println("State of Last COM");
+  Serial.println(statusRemoteCode);
+
+  //Remote Calibrate Request
+  if(remote_calibrate_state==1){
+    Serial.println("Remote Calibrate Request Detected!!");
+    Serial.println("Calibrating during 20 minutes aprox....");
+    remote_calibrate_state = 2;
+    delay(20000); // Refresh rate in thingspeak for free registration is 15 seconds
+    Serial.println("Calibrating State is");
+    Serial.println(remote_calibrate_state);
+    ThingSpeak.setField (1,calco2ppm);
+    ThingSpeak.setField (2,caltemp);
+    ThingSpeak.setField (remote_calibrate_field,remote_calibrate_state); // remote calibrate field
+    ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey.c_str());
+    Serial.println("Data sent to Thingspeak Before Calibration");
+   
+    Serial.println("Calibration will start...");
+    calibrate_mhz19();
+    //delay(180000); // discomment for debugging puposes and comment calibrate_mhsz19()
+    remote_calibrate_state=0;
+    ThingSpeak.setField (1,calco2ppm);
+    ThingSpeak.setField (2,caltemp);
+    ThingSpeak.setField (remote_calibrate_field,remote_calibrate_state); // calibrate field
+    Serial.println("Calibrating State Turned to 0 after calibration");
+    ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey.c_str());
+    Serial.println("Data sent to Thingspeak After Calibration");
+  }
+
+}
+
 
 /*----------------------------------------------------------
     MH-Z19 CO2 sensor loop
@@ -739,46 +783,8 @@ void loop() {
 
   btnManager_prov (co2ppm);
 
-  int statusRemoteCode = 0;
+  remoteCalibration(co2ppm,temp);
 
-  remote_calibrate_state = ThingSpeak.readFloatField( myChannelNumber, remote_calibrate_field); //Read remote State of Calibration
-
-  statusRemoteCode = ThingSpeak.getLastReadStatus();
-  
-  Serial.println("Calibrate State in Device Readed in Remote");
-  Serial.println(remote_calibrate_state);
-
-  Serial.println("State of Last COM");
-  Serial.println(statusRemoteCode);
-
-
-  //Remote Calibrate Request
-  if(remote_calibrate_state==1){
-    Serial.println("Remote Calibrate Request Detected!!");
-    Serial.println("Calibrating during 20 minutes aprox....");
-    remote_calibrate_state = 2;
-    delay(20000); // Refresh rate in thingspeak for free registration is 15 seconds
-    Serial.println("Calibrating State is");
-    Serial.println(remote_calibrate_state);
-    ThingSpeak.setField (1,co2ppm);
-    ThingSpeak.setField (2,temp);
-    ThingSpeak.setField (remote_calibrate_field,remote_calibrate_state); // remote calibrate field
-    ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey.c_str());
-    Serial.println("Data sent to Thingspeak Before Calibration");
-   
-    Serial.println("Calibration will start...");
-    calibrate_mhz19();
-    //delay(180000); for debugging puposes do not comment and comment calibrate_mhsz19()
-    remote_calibrate_state=0;
-    ThingSpeak.setField (1,co2ppm);
-    ThingSpeak.setField (2,temp);
-    ThingSpeak.setField (remote_calibrate_field,remote_calibrate_state); // calibrate field
-    Serial.println("Calibrating State Turned to 0 after calibration");
-    ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey.c_str());
-    Serial.println("Data sent to Thingspeak After Calibration");
-  }
-
-  
   if (!AP_MODE){
     // Measurements to computer for debugging purposes
     //
