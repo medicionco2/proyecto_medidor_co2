@@ -100,12 +100,20 @@ bool AP_MODE = false; //Access Point State
 unsigned long myChannelNumber;
 String myWriteAPIKey, myReadAPIKey;
 
+/*----------------------------------------------------------
+  Remote control settings
+  ----------------------------------------------------------*/
+
 //Calibration DATA
 //Calibration Field, adjust your Thingspeak field for this purpose, remote_calibrate_state 1 (remote request), 2 (calibrate accepted by device), 0 (no calibrate, repose)
 unsigned int remote_calibrate_field = 3; //Calibration Field, adjust your Thingspeak field for this purpose
 int remote_calibrate_state = 0; //calibrate_state in device:  0 no calibrate, 1 calibrate request, 2 calibrate process 
 
 //Example url to update a thingspeak field and request calibration (field3=1) https://api.thingspeak.com/update?api_key=THINGSPEAK-WRITE-API-KEY&field3=1 
+
+//Restart DATA
+unsigned int remote_restart_field = 4; //Calibration Field, adjust your Thingspeak field for this purpose
+int remote_restart_state = 0; //remote_restart_state in device:  0 no restart, 1 restart request, 2 restart process 
 
 
 /*----------------------------------------------------------
@@ -689,7 +697,7 @@ void setup() {
 
   Serial.println ("Warming will start during 3 minutes..."); 
   delay (180000); // Wait 3 minutes for warming purposes
-  //delay (20000);  Wait 20 secondos for debug purposes
+  //delay (20000); // Wait 20 secondos for debug purposes
 
   retrieveInfo_mhz19 ();
 
@@ -753,22 +761,69 @@ void remoteCalibration(int calco2ppm,int caltemp) {
     ThingSpeak.setField (1,calco2ppm);
     ThingSpeak.setField (2,caltemp);
     ThingSpeak.setField (remote_calibrate_field,remote_calibrate_state); // remote calibrate field
+    ThingSpeak.setField (remote_restart_field,remote_restart_state);
     ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey.c_str());
     Serial.println("Data sent to Thingspeak Before Calibration");
    
     Serial.println("Calibration will start...");
     calibrate_mhz19();
-    //delay(180000); // discomment for debugging puposes and comment calibrate_mhsz19()
+    //delay(120000); // discomment for debugging puposes and comment calibrate_mhsz19()
     remote_calibrate_state=0;
+    
+    Serial.println("Calibrating State Turned to 0 after calibration");
     ThingSpeak.setField (1,calco2ppm);
     ThingSpeak.setField (2,caltemp);
-    ThingSpeak.setField (remote_calibrate_field,remote_calibrate_state); // calibrate field
-    Serial.println("Calibrating State Turned to 0 after calibration");
+    ThingSpeak.setField (remote_calibrate_field,remote_calibrate_state); // remote calibrate field
+    ThingSpeak.setField (remote_restart_field,remote_restart_state);
     ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey.c_str());
     Serial.println("Data sent to Thingspeak After Calibration");
   }
 
 }
+
+/*----------------------------------------------------------
+    Remote Restart
+  ----------------------------------------------------------*/
+void remoteRestart(int resco2ppm,int restemp) {
+
+  remote_restart_state = ThingSpeak.readFloatField( myChannelNumber, remote_restart_field); //Read remote State of restart
+
+  Serial.println("Restart State in Device Readed in Remote");
+  Serial.println(remote_restart_state);
+
+  //Remote Restart Request
+  if(remote_restart_state==1){
+    Serial.println("Remote Restart Request Detected!!");
+    Serial.println("Restarting in 120 seconds....");
+    remote_restart_state = 2;
+    delay(20000); // Refresh rate in thingspeak for free registration is 15 seconds
+    Serial.println("Restart State is");
+    Serial.println(remote_restart_state);
+    ThingSpeak.setField (1,resco2ppm);
+    ThingSpeak.setField (2,restemp);
+    ThingSpeak.setField (remote_calibrate_field,remote_calibrate_state); // remote calibrate field
+    ThingSpeak.setField (remote_restart_field,remote_restart_state);
+    ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey.c_str());
+    Serial.println("Data sent to Thingspeak Restarting State 2");
+    delay(60000); // Refresh rate in thingspeak for free registration is 15 seconds
+    
+    remote_restart_state = 0;
+    Serial.println("Restart State is");
+    Serial.println(remote_restart_state);
+    ThingSpeak.setField (1,resco2ppm);
+    ThingSpeak.setField (2,restemp);
+    ThingSpeak.setField (remote_calibrate_field,remote_calibrate_state); // remote calibrate field
+    ThingSpeak.setField (remote_restart_field,remote_restart_state);
+    ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey.c_str());
+    Serial.println("Data sent to Thingspeak Restarting State 0");
+    delay(60000); // Refresh rate in thingspeak for free registration is 15 seconds
+    Serial.println("Restart begins...");
+    ESP.restart();
+   
+  }
+
+}
+
 
 
 /*----------------------------------------------------------
@@ -784,6 +839,8 @@ void loop() {
   btnManager_prov (co2ppm);
 
   remoteCalibration(co2ppm,temp);
+
+  remoteRestart(co2ppm,temp);
 
   if (!AP_MODE){
     // Measurements to computer for debugging purposes
@@ -805,6 +862,7 @@ void loop() {
       ThingSpeak.setField (1,co2ppm);
       ThingSpeak.setField (2,temp);
       ThingSpeak.setField (remote_calibrate_field,remote_calibrate_state); // remote calibrate field
+      ThingSpeak.setField (remote_restart_field,remote_restart_state); // remote calibrate field
 
       ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey.c_str());
       Serial.println("Data sent to Thingspeak.");
@@ -844,4 +902,6 @@ void loop() {
   else { // Meter in Access Point mode
     server.handleClient();
   }
+
+
 }
