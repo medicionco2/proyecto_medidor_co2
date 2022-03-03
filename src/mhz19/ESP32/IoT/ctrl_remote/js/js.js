@@ -10,12 +10,16 @@ const calibrateField = "3";
 
 const resetField = "4";
 
+const timesetField = "5";
+
 //Configuration Parameters
 const timeVeryfing = 60; //time in seconds
 
 let calibrateWriteStatus = "0";
 
 let restartWriteStatus = "0";
+
+let timesetWriteStatus = "0";
 
 let remoteOperation = "";
 
@@ -31,12 +35,18 @@ let buttonRestart = document.querySelector("#buttonRestart");
 
 buttonRestart.addEventListener('click', validateRestart);
 
+let buttonTimeset = document.querySelector("#buttonTimeset");
+
+buttonTimeset.addEventListener('click', validateTimeSet);
+
 let mensajes = document.querySelector("#mensajes");
 
 buttonCalibrate.addEventListener('click', validateCal);
 
 
 //Operations Functions
+
+//Calibration
 
 function validateCal() { 
     if (document.querySelector("#inputWriteApiKey").value !== "" && document.querySelector("#inputChannel").value !== "") {
@@ -122,28 +132,8 @@ function verifyCalibrationStateDelayed(){
     countDown(timeVeryfing, remoteOperation);
 }
 
-function countDown(i, operation) {
-    let interval = setInterval(function() {
-        mensajes.innerHTML = "<p>Aguardando respuesta del medidor. Procesando la petición ... " + i + "</p>";
-       
-        if (i === 0) {
-            clearInterval(interval);
 
-            if(operation === "calibrate"){
-                verifyCalibrationState(); 
-            }
-            else if (operation === "restart"){
-                verifyRestartState();
-            }
-            
-            
-        }
-        else {
-            i--;
-        }
-    }, 1000);
-}
-
+//Restart
 
 function validateRestart() { 
     if (document.querySelector("#inputWriteApiKey").value !== "" && document.querySelector("#inputChannel").value !== "") {
@@ -227,4 +217,117 @@ async function sendRestartRequest(){
 function verifyRestartStateDelayed(){
     remoteOperation = "restart";
     countDown(timeVeryfing, remoteOperation);
+}
+
+//Time Set
+
+function validateTimeSet() { 
+    if (document.querySelector("#inputWriteApiKey").value !== "" && document.querySelector("#inputChannel").value !== "") {
+        sendTimeSetRequest();
+    } else {
+        mensajes.innerHTML = "<p class='fail'>Para el ajuste de hora, los campos de Write API Key y ID Canal Thingspeak son obligatorios</p>";
+        console.log("No completados los inputs inputWriteApiKey, inputChannel");
+    }
+}
+
+async function sendTimeSetRequest(){
+    
+    let inputWriteApiKeyValue = inputWriteApiKey.value;
+    timesetWriteStatus = "1";
+    let writeUrl = baseWriteUrl +  inputWriteApiKeyValue + "&field" + timesetField + "=" + timesetWriteStatus;
+    console.log(writeUrl);
+    verifyTimeSetStateDelayed();
+
+    try {
+        let res = await fetch(writeUrl);
+        let json = await res.json();
+        console.log(json);
+        console.log("Enviando solicitud de ajuste de hora...");
+        console.log("Estado enviado: " + timesetWriteStatus);
+        } 
+    catch (error) {
+    console.log(error);
+    }
+}
+
+async function sendTimeSetReset(){
+    console.log("Reseteando solicitud de ajuste de hora");
+    let inputWriteApiKeyValue = inputWriteApiKey.value;
+    timesetWriteStatus = "0";
+    let writeUrl = baseWriteUrl +  inputWriteApiKeyValue + "&field" + timesetField + "=" + timesetWriteStatus;
+
+    try {
+        let res = await fetch(writeUrl);
+        let json = await res.json();
+        console.log(json);
+        console.log(json.field5);
+    
+        } 
+    catch (error) {
+    console.log(error);
+    }
+    
+}
+
+
+async function verifyTimeSetState(){
+
+    let inputChannelValue = document.querySelector("#inputChannel").value;
+    let ReadUrl = baseReadUrl + inputChannelValue + "/fields/5/" + readlLastStateUrl;
+    
+    try {
+
+        let res = await fetch(ReadUrl);
+        let json = await res.json();
+        console.log(json);
+        console.log(json.field5);
+        let device_state = json.field5;
+        if(json.field5==2){
+
+            mensajes.innerHTML = "<p class='success'>La petición de ajuste de hora fue recibida con exito, el medidor ha iniciado el ajuste de hora remoto</p>";
+            console.log("La petición de ajuste de hora fue recibida, estado: " + device_state);
+        }
+        else {
+            mensajes.innerHTML = "<p class='fail'>Error en la recepción de ajuste de hora, el medidor NO ha podido iniciar el ajuste de hora remoto. Asegurese que el medidor esta encendido y con conexión a una red. Luego vuelva a intertarlo más tarde</p>";
+            console.log("La petición de ajuste de hora no fue recibida, estado: " + device_state);
+            sendTimeSetReset();
+        }
+
+    } 
+    catch (error) {
+    console.log(error);
+    }
+}
+
+
+function verifyTimeSetStateDelayed(){
+    remoteOperation = "timeset";
+    countDown(timeVeryfing, remoteOperation);
+}
+
+
+function countDown(i, operation) {
+    let interval = setInterval(function() {
+        mensajes.innerHTML = "<p>Aguardando respuesta del medidor. Procesando la petición ... " + i + "</p>";
+       
+        if (i === 0) {
+            clearInterval(interval);
+
+            if(operation === "calibrate"){
+                verifyCalibrationState(); 
+            }
+            else if (operation === "restart"){
+                verifyRestartState();
+            }
+
+            else if (operation === "timeset"){
+                verifyTimeSetState();
+            }
+            
+            
+        }
+        else {
+            i--;
+        }
+    }, 1000);
 }
