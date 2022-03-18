@@ -107,7 +107,7 @@ String myWriteAPIKey, myReadAPIKey;
 //Calibration DATA
 //Calibration Field, adjust your Thingspeak field for this purpose, remote_calibrate_state 1 (remote request), 2 (calibrate accepted by device), 0 (no calibrate, repose)
 unsigned int remote_calibrate_field = 3; //Calibration Field, adjust your Thingspeak field for this purpose
-int remote_calibrate_state = 0; //calibrate_state in device:  0 no calibrate, 1 calibrate request, 2 calibrate process 
+int remote_calibrate_state = 0; //calibrate_state in device:  0 no calibrate, 1 calibrate request, 2 calibrate process, -1 local calibration
 
 //Example url to update a thingspeak field and request calibration (field3=1) https://api.thingspeak.com/update?api_key=THINGSPEAK-WRITE-API-KEY&field3=1 
 
@@ -718,8 +718,10 @@ void btnManager_prov (int co2) {
       Serial.printf("Button has been pressed for %u millis\n", button1.timePressed);
       if (button1.timePressed < 1000)
         CO2_base = co2;
-      else if (button1.timePressed < 3000) 
-        calibrate_mhz19 ();
+      else if (button1.timePressed < 3000) {
+        localCalibration();
+      }
+        
       else {
         Serial.println ("Changing to Access Point mode..."); 
         createAPserver();    
@@ -736,6 +738,47 @@ void btnManager_prov (int co2) {
       button1.down = false;
       portEXIT_CRITICAL(&mux);
     }  
+}
+
+/*----------------------------------------------------------
+    Local Calibration
+  ----------------------------------------------------------*/
+
+void localCalibration() {
+    Serial.println ("Starting Manual Calibration..."); 
+    
+    remote_calibrate_state = -1; // state for local calibration, a negative value differs from remote calibration states (1 and 2).
+
+    delay(20000); // Refresh rate in thingspeak for free registration is 15 seconds
+
+    int writeApiResponse = ThingSpeak.writeField(myChannelNumber,remote_calibrate_field, remote_calibrate_state, myWriteAPIKey.c_str());
+
+    if(writeApiResponse == 200){
+        Serial.println("Channel update successfully with remote_calibrate_state = " + String(remote_calibrate_state));
+        Serial.println("Starting local calibration during 20 minutes aprox....");
+    }
+    else {
+      Serial.println("Problem updating channel with local calibration confirmation. HTTP error code " + String(writeApiResponse));
+    }
+
+    
+    calibrate_mhz19();
+    //delay(120000);
+
+    remote_calibrate_state=0;
+
+    delay(20000); // Refresh rate in thingspeak for free registration is 15 seconds
+
+    writeApiResponse = ThingSpeak.writeField(myChannelNumber,remote_calibrate_field, remote_calibrate_state, myWriteAPIKey.c_str());
+    
+    if(writeApiResponse == 200){
+      Serial.println("Channel update successfully with remote_calibrate_state = " + String(remote_calibrate_state));
+    }
+    else{
+      Serial.println("Problem updating channel with local calibration ending confirmation. HTTP error code " + String(writeApiResponse));
+    }
+
+
 }
 
 /*----------------------------------------------------------
