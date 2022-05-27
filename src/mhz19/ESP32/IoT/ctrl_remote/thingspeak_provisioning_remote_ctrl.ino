@@ -53,6 +53,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 int d = 0;
 const int S = 3; // Samples per telemetry recording
+const int initialConnectAttempts = 5; //Number of WiFi connection attempts at Start UP
+
 
 /*----------------------------------------------------------
   WiFi connection in an ESP32s
@@ -183,15 +185,29 @@ void connectWiFiModeSTA(){
 }
 
 void connectWiFi_1(){
-    while (WiFi.status() != WL_CONNECTED){
+     // WiFi connection attempts (initialConnectAttempts)
+     for (int i = 0; i < initialConnectAttempts; ++i) {
         WiFi.begin(ssid.c_str(), password.c_str());
-        Serial.print(".");
+        Serial.println("Connecting to Wifi...");
         updateRGB_LED (true);         // Blink while connecting
         delay(10000);
-    }
 
-    // Display a notification that the connection is successful. 
-    Serial.println("WiFi Connected"); 
+        if(WiFi.status() != WL_CONNECTED){
+           Serial.println("Fail connection in attempt: " + String(i+1));
+        }
+        else {
+           Serial.println("Connected to Wifi!");
+           i = initialConnectAttempts;
+        }
+     }   
+     
+     if(WiFi.status() != WL_CONNECTED){
+      Serial.println("No connection after attempts:" + String(initialConnectAttempts));
+      Serial.println ("Changing to Access Point mode..."); 
+      createAPserver();    
+      AP_MODE = true;
+     }
+    
 }
 
 
@@ -333,8 +349,22 @@ void writeEEPROM(String qsid, String qpass, String qchannel_id, String qwrite_ap
   ----------------------------------------------------------*/
 void createAPserver(){
 
-  WiFi.mode(WIFI_AP_STA);
- 
+  WiFi.mode(WIFI_STA);
+  
+  if(WiFi.status() != WL_CONNECTED){
+    //AP Mode with no WiFi detected
+    WiFi.disconnect();
+    delay(100);
+
+    Serial.println("");
+    Serial.println("No WiFi Connection in AP MODE");
+    Serial.println("Please verify your Network SSID name and password, and router connectivity");
+  }
+  else{
+    Serial.println("");
+    Serial.println("WiFi connected in AP MODE");
+  }
+
   //access point 
   Serial.println("");
   Serial.println("Creating Accesspoint");
@@ -348,20 +378,7 @@ void createAPserver(){
   Serial.print("with pass...");
   Serial.println(password);
 
-  WiFi.begin(ssid.c_str(), password.c_str());
-
   delay(10000);
-
- 
-  if(WiFi.status() != WL_CONNECTED){
-    Serial.println("");
-    Serial.println("WiFi Connection Failed!!");
-    Serial.println("Please verify your Network SSID name and password, and router connectivity");
-  }
-  else{
-    Serial.println("");
-    Serial.println("WiFi connected");
-  }
 
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
@@ -679,7 +696,7 @@ void setup() {
   setRGB_LEDColor (0, 0, 255);  // Blue means warming or Configuring:
                                 //   baseline setting or calibrating
 
-  //WiFi.disconnect(); commented v3
+  WiFi.disconnect(); //commented v3
 
   EEPROM.begin(512); //Initialasing EEPROM
   delay(10);
@@ -929,7 +946,6 @@ void remoteTimeSet() {
 
 }
 
-
 /*----------------------------------------------------------
     MH-Z19 CO2 sensor loop
   ----------------------------------------------------------*/
@@ -941,15 +957,13 @@ void loop() {
   char buffer [25];
 
   btnManager_prov (co2ppm);
-
-  remoteCalibration();
-
-  remoteRestart();
-
-  remoteTimeSet();
-
-
+  
   if (!AP_MODE){
+    //Remote Controls
+    remoteCalibration();
+    remoteRestart();
+    remoteTimeSet();
+
     // Measurements to computer for debugging purposes
     //
     //Serial.print("co2: ");
@@ -965,15 +979,24 @@ void loop() {
    if (WiFi.status() == WL_CONNECTED) {
       // Measurements to WiFi thingspeak IoT Platform 
       // 
-
       ThingSpeak.setField (1,co2ppm);
       ThingSpeak.setField (2,temp);
       ThingSpeak.setField (remote_calibrate_field,remote_calibrate_state); // remote calibrate field
       ThingSpeak.setField (remote_restart_field,remote_restart_state); // remote restart field
       ThingSpeak.setField (remote_timeset_field,remote_timeset_state); // remote timeset field
 
-      ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey.c_str());
-      Serial.println("Data sent to Thingspeak.");
+      int writeApiTS = ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey.c_str());
+
+      if(writeApiTS == 200){
+        Serial.println("Data sent to Thingspeak.");
+      }
+      else{
+        Serial.println("Thingspeak Communication Failure Number: " + String(writeApiTS));
+        Serial.println("Thingspeak CH Num: " + String(myChannelNumber));
+        Serial.println("Thingspeak Write API: " + String(myWriteAPIKey.c_str()));
+        Serial.println("Thingspeak Read API: " + String(myReadAPIKey.c_str()));
+      }
+ 
    } else {
       // Measurements must be sent later when WiFi is available
       if (saved2send < MAX_MM) saved2send++;
@@ -1008,6 +1031,7 @@ void loop() {
   } 
   
   else { // Meter in Access Point mode
+    Serial.println("AP mode"); // for debug
     server.handleClient();
   }
 
