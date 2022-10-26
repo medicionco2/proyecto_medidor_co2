@@ -1,4 +1,4 @@
-# Medidor CO2 para prevención de la transmisión del Covid19 en ambientes interiores
+# Medidor CO2 para prevención de contagios por aerosoles en ambientes interiores
 
 > Este proyecto está en plena evolución. Este texto, los programas, y demás materiales se están actualizando frecuentemente.
 
@@ -29,9 +29,12 @@ Cualquier persona o grupo con entusiasmo, con un poco de conocimiento de electr�
 
 Se necesitan cuatro componentes más los cables de conexión y el gabinete.
 1. ESP32: Hay diversos modelos y versiones del SoC ESP32.
-2. Sensor MH-Z19b: asegurarse que es original (Winsen)
+2. Sensor MH-Z19b (o c, que es más actual): asegurarse que es original (Winsen)
 
 ![Sensor MH-Z19b](https://user-images.githubusercontent.com/30849839/124179068-a5fa8c00-da88-11eb-9282-0e8343943e51.png)
+
+![Sensor MH-Z19c](https://user-images.githubusercontent.com/30849839/198109048-dde51bb5-0b0e-4944-9786-46a3cea748b5.png)
+
 
 3. Pulsador
 4. LED RGB más 3 resistencias 220 ohm. Por simplicidad, se recomienda que sea en un solo módulo, como en la siguiente figura:
@@ -84,8 +87,8 @@ Las instrucciones para estos dos primeros pasos se pueden ver en [este enlace](h
 3. Instalar librería para el sensor MH-Z19b.
 	https://downloads.arduino.cc/libraries/github.com/WifWaf/MH_Z19-1.5.3.zip
 	
-   En los ejemplos de hasta 27 Junio 2020 usábamos:
-	https://github.com/piot-jp-Team/mhz19_uart 
+   También se puede usar el gestor de librerías. Para ello, se puede ir, en el Arduino IDE, al menu “Herramientas”, allí “Administrar Librerías…”. Aparece una ventana donde se puede buscar “MH-Z19”, que es nuestro sensor, y vamos a instalar la librería seleccionada en la figura, es decir, la de “Jonathan Dempsey”.
+   
 4. Copiar y compilar el código fuente seleccionado usando Arduino IDE.
 
 5. Descargar el código ejecutable en el ESP32 de manera que quede programado con la aplicación seleccionada.
@@ -102,7 +105,7 @@ Si se seleccionó la versión Bluetooth, se pueden ver las medidas en un teléfo
 
 En un espacio interior con cierta ventilación fija, por ejemplo con las ventanas parcialmente abiertas, se debería llegar a una situación en la cual el CO2 que exhalan las personas sea igual a la cantidad de CO2 que sale por las ventanas, de modo que el nivel de CO2 en la habitación se mantenga aproximadamente constante. El objetivo debe ser que ese valor estable de CO2 no supere los 700 a 800 ppm.
 
-Si se observan valores estables de CO2 demasiado altos, superiores a 800 ppm, se deben abrir las ventanas un poco más. Si eso no es posible porque la temperatura del exterior es demasiado baja, se debe reducir el número de personas que realiza la actividad. Si la temperatura exterior fuera confortable, se recomienda abrir las ventanas completamente.
+Si se observan valores estables de CO2 demasiado altos, superiores a 800 ppm, se deben abrir las ventanas un poco más. Si eso no es posible porque la temperatura del exterior es demasiado baja, se debe reducir el número de personas que realiza la actividad o reducir la duración de la actividad. Si la temperatura exterior fuera confortable, se recomienda abrir las ventanas completamente.
 
 El viento hace que mejore la ventilación. En días ventosos, es probable que se logren los valores deseados de CO2 con menor apertura de las ventanas.
 
@@ -122,6 +125,8 @@ Se puede experimentar moviendo el medidor de CO2 a diferentes lugares de la habi
 Al aire libre, la concentración de CO2 es cercana a las 400 ppm. Si ves que en un ambiente muy bien ventilado, el medidor está dando una medida alejada de esas 400 ppm, seguramente haga falta calibrarlo.
 
 Si bien existen diferentes [técnicas de calibración](https://www.co2meter.com/blogs/news/7512282-co2-sensor-calibration-what-you-need-to-know), en este caso vamos a poner el dispositivo al aire libre. Hay que notar que el proceso se ve afectado por el viento y las temperaturas extremas. Alternativamente, el medidor se puede calibrar en un espacio MUY bien ventilado. Para comenzar el proceso de calibración, oprimir el pulsador por al menos un segundo y esperar al menos 20 minutos. En ese estado, el LED está encendido en color azul con intensidades variables que se repiten cíclicamente. 
+
+Alternativamente, existe un modo de calibración que se llama [Automatic Background Calibration](https://www.co2meter.com/blogs/news/9290675-automatic-background-calibration-abc-in-senseair-co2-sensors-explained) (ABC). En este modo el sensor mide durante 24 horas, se queda con el mínimo y usa ese mínimo para ajustar de manera que ese valor mínimo pase a ser 400 ppm. Si el ambiente interior se usa de manera que durante una parte del día se ventile lo suficiente, esta estrategia funcionaría de manera automática, sin intervención de usuarios.
 
 ## Propuesta
 
