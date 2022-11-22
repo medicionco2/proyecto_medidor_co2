@@ -144,6 +144,8 @@ En este proyecto, de ninguna manera competimos con los medidores comerciales. De
 
 ## Más Información
 
+- La concentración de CO2, además de poder medirse, se puede calcular en base al tamaño de la habitación, la cantidad de personas presentes y la ventilación. Esta última se mide en "cambios de aire por hora". https://forhealth.org/tools/co2-calculator/
+
 - Este artículo del diario "El País", de octubre de 2020, es insuperable desde el punto de vista comunicacional. https://elpais.com/ciencia/2020-10-24/un-salon-un-bar-y-una-clase-asi-contagia-el-coronavirus-en-el-aire.html
 
 - [Importancia de la ventilación para la prevención de la COVID-19](https://youtu.be/fpMb1TzraGw).  Canal del Ministerio de Ciencia, Tecnología e Innovación, 26 marzo de 2021.   
