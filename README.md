@@ -49,9 +49,11 @@ En esta aplicación, el significado de los colores es el siguiente:
 
 El LED en azul significa que el sensor se está calentando o que el aparato está en modo de calibración.
 
-En este momento estamos desarrollando una caja a medida imprimible 3D. Gracias por su colaboración a [Tomas Aranda](https://github.com/jarandat)! 
+Desarrollamos una caja a medida imprimible en 3D. Se agradece a [Franco Perez](https://github.com/FrancoGabrielPerez) por su colaboración en el desarrollo del diseño 3D de la caja. También se agrade por su colaboración inicial a [Tomas Aranda](https://github.com/jarandat).
 
-<img src="https://user-images.githubusercontent.com/30849839/156411221-d3dcaaec-e206-4a31-9bd7-23d9b3e94b43.png" alt="Caja" width="300"/>
+
+https://user-images.githubusercontent.com/53094209/226057489-6c33f7e1-ac5b-46c4-9dbb-f1a19d471beb.mp4
+
 
 Mientras tanto, o alternativamente, a caja puede ser una caja de paso de las que se usan en electricidad, de las más pequeñas. Es importante que hagas dos ranuras por donde el sensor vea el exterior de la caja. Las ranuras son para las dos "ventanitas" blancas que se ven en la figura del sensor.
 
